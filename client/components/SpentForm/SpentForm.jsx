@@ -44,13 +44,14 @@ export default class SpentForm extends React.Component {
 	}
 
 	setType (e) {
-		const value = e.target.value.trim();
+		const isEmpty = /^\s+$/;
+		const value = e.target.value;
 
 		this.setState(prevState => {
 			let newState = cloneDeep(prevState);
 
 			newState.showErrDecoration = true;
-			newState.validity.type = Boolean(value.length);
+			newState.validity.type = !isEmpty.test(value);
 			newState.type = value;
 
 			return newState;
@@ -63,7 +64,7 @@ export default class SpentForm extends React.Component {
 		if (validity) {
 			this.props.onItemAdd({
 				amount: this.state.amount,
-				type: this.state.type
+				type: this.state.type.trim()
 			});
 
 			this.setState(getInitialState());
