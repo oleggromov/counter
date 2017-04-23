@@ -3,6 +3,7 @@ import Layout from './Layout/Layout.jsx';
 import DateDisplay from './DateDisplay/DateDisplay.jsx';
 import SpentForm from './SpentForm/SpentForm.jsx';
 import SpentList from './SpentList/SpentList.jsx';
+import { cloneDeep, reverse } from 'lodash';
 
 const spentItems = [
 	{
@@ -26,10 +27,22 @@ export default class App extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = { spentItems };
+
+		this.addItem = this.addItem.bind(this);
 	}
 
 	addItem (item) {
-		console.warn('adding ', item);
+		this.setState(prevState => {
+			let newState = cloneDeep(prevState);
+
+			newState.spentItems.push({
+				id: this.state.spentItems.length,
+				amount: item.amount,
+				type: item.type
+			});
+
+			return newState;
+		});
 	}
 
 	deleteItem () {
@@ -42,7 +55,7 @@ export default class App extends React.Component {
 				<div>
 					<DateDisplay />
 					<SpentForm onItemAdd={this.addItem} />
-					<SpentList onItemDelete={this.deleteItem} items={this.state.spentItems} />
+					<SpentList onItemDelete={this.deleteItem} items={reverse(this.state.spentItems)} />
 				</div>
 			</Layout>
 		);
