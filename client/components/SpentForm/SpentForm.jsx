@@ -86,28 +86,24 @@ export default class SpentForm extends React.Component {
 	}
 
 	render () {
-		const amountClassname = `${styles.amount} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`;
-		const typeClassname = `${styles.type} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`;
-		const formStyles = `${styles.spentForm} ${this.state.shake ? styles.shake : '' }`;
-
 		// This is an ugly way to remove animation class afterwards.
 		if (this.state.shake) {
 			this.finishShaking();
 		}
 
 		return (
-			<form className={formStyles}>
+			<form className={`${styles.spentForm} ${this.state.shake ? styles.shake : '' }`}>
 				<span className={styles.currency}>$</span>
 
 				<input
-					className={amountClassname}
+					className={`${styles.amount} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`}
 					autoFocus
 					ref={(input) => { this.amountInput = input; }}
 					onChange={this.setAmount}
 					value={this.state.amount} />
 				for
 				<input
-					className={typeClassname}
+					className={`${styles.type} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`}
 					onChange={this.setType}
 					value={this.state.type} />
 
