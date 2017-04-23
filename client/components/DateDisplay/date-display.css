@@ -1,0 +1,24 @@
+.dateDisplay {
+	margin: 1em 0;
+	font: 'Roboto', sans-serif;
+	font-size: 30px;
+
+	display: flex;
+}
+
+.date {
+	margin-right: 1em;
+}
+
+.time {
+}
+
+.timeDivider {
+	animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+	30% { opacity: 1; }
+	50% { opacity: 0; }
+	70% { opacity: 1; }
+}

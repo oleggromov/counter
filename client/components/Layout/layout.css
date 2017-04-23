@@ -1,0 +1,34 @@
+.layout {
+	margin: 2em;
+}
+
+.header {
+}
+
+.logo {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size: 30px;
+
+	& sup {
+		font-weight: 300;
+		font-size: 20px;
+	}
+}
+
+.content {
+	width: 80%;
+	margin: 0 auto;
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 15px;
+}
+
+.footer {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 15px;
+
+	margin-top: 2em;
+}
