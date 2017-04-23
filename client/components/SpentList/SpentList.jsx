@@ -4,16 +4,16 @@ import styles from './spent-list.css';
 export default class SpentList extends React.Component {
 	render () {
 		return (
-			<table>
+			<table><tbody>
 				{this.renderItems()}
-			</table>
+			</tbody></table>
 		);
 	}
 
 	renderItems () {
-		return this.props.data.map(item => {
+		return this.props.items.map(item => {
 			return (
-				<tr>
+				<tr key={item.id}>
 					<td>$ {item.amount}</td>
 					<td>{item.type}</td>
 				</tr>

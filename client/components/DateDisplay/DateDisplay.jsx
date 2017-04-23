@@ -30,7 +30,7 @@ export default class DateDisplay extends React.Component {
 		return (
 			<div className={styles.dateDisplay}>
 				<div className={styles.date}>
-					{this.state.date.format('MMMM, D')}
+					{this.state.date.format('MMMM D')}
 				</div>
 				<div className={styles.time}>
 					{this.state.date.format('h')}
