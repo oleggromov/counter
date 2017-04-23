@@ -10,7 +10,8 @@ function getInitialState () {
 			amount: false,
 			type: false
 		},
-		shake: false
+		shake: false,
+		showErrDecoration: false
 	};
 }
 
@@ -34,6 +35,7 @@ export default class SpentForm extends React.Component {
 		this.setState(prevState => {
 			let newState = cloneDeep(prevState);
 
+			newState.showErrDecoration = true;
 			newState.validity.amount = isNumber.test(value);
 			newState.amount = value;
 
@@ -47,6 +49,7 @@ export default class SpentForm extends React.Component {
 		this.setState(prevState => {
 			let newState = cloneDeep(prevState);
 
+			newState.showErrDecoration = true;
 			newState.validity.type = Boolean(value.length);
 			newState.type = value;
 
@@ -60,13 +63,16 @@ export default class SpentForm extends React.Component {
 		if (validity) {
 			this.props.onItemAdd({
 				amount: this.state.amount,
-				value: this.state.value
+				type: this.state.type
 			});
 
 			this.setState(getInitialState());
 			this.amountInput.focus();
 		} else {
-			this.setState({ shake: true });
+			this.setState({
+				shake: true,
+				showErrDecoration: true
+			});
 		}
 
 		e.preventDefault();
@@ -79,8 +85,8 @@ export default class SpentForm extends React.Component {
 	}
 
 	render () {
-		const amountClassname = `${styles.amount} ${this.state.validity.amount ? '' : styles.error}`;
-		const typeClassname = `${styles.type} ${this.state.validity.type ? '' : styles.error}`;
+		const amountClassname = `${styles.amount} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`;
+		const typeClassname = `${styles.type} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`;
 		const formStyles = `${styles.spentForm} ${this.state.shake ? styles.shake : '' }`;
 
 		// This is an ugly way to remove animation class afterwards.
