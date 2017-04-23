@@ -35,7 +35,7 @@ export default class DateDisplay extends React.Component {
 				<div className={styles.time}>
 					{this.state.date.format('h')}
 					<span className={styles.timeDivider}>:</span>
-					{this.state.date.format('mm A')}
+					{this.state.date.format('mm a')}
 				</div>
 			</div>
 		);
