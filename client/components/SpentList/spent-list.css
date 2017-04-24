@@ -33,10 +33,15 @@
 		cursor: pointer;
 		color: rgba(0,0,0,.5);
 		border-bottom: 1px solid rgba(0,0,0,.3);
-		transition: 0.3s ease;
+		opacity: 0.5;
+		transition: 0.1s ease;
 	}
 
 	& span:hover {
 		color: black;
 	}
+}
+
+tr:hover .delete span {
+	opacity: 1;
 }
