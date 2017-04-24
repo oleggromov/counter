@@ -18,3 +18,18 @@
 .type {
 	width: 80%;
 }
+
+.delete {
+	width: 10%;
+
+	& span {
+		cursor: pointer;
+		color: rgba(0,0,0,.5);
+		border-bottom: 1px solid rgba(0,0,0,.3);
+		transition: 0.3s ease;
+	}
+
+	& span:hover {
+		color: black;
+	}
+}

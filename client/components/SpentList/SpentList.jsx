@@ -31,13 +31,16 @@ export default class SpentList extends Component {
   }
 
   render () {
-    const days = this.groupByDays(this.props.items)
+    const items = this.props.items
+    const days = this.groupByDays(items)
 
-    return (
-      <table className={styles.table}>
-        {this.renderDays(days)}
-      </table>
-    )
+    return items.length
+      ? (
+        <table className={styles.table}>
+          {this.renderDays(days)}
+        </table>
+      )
+      : (<p>There're no items yet</p>)
   }
 
   renderDays (days) {
@@ -59,6 +62,8 @@ export default class SpentList extends Component {
 
   renderItems (items) {
     return items.map(item => {
+      const deleteItem = this.props.onItemDelete.bind(undefined, item.id)
+
       return (
         <tr key={item.id}>
           <td className={styles.amount}>
@@ -66,6 +71,9 @@ export default class SpentList extends Component {
           </td>
           <td className={styles.type}>
             {item.type}
+          </td>
+          <td className={styles.delete}>
+            <span onClick={deleteItem}>Delete {item.id}</span>
           </td>
         </tr>
       )
