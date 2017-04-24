@@ -73,7 +73,7 @@ export default class SpentList extends Component {
             {item.type}
           </td>
           <td className={styles.delete}>
-            <span onClick={deleteItem}>Delete {item.id}</span>
+            <span onClick={deleteItem}>Delete</span>
           </td>
         </tr>
       )
