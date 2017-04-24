@@ -1,19 +1,34 @@
 {
 	"spentItems": [
 		{
-			"id": 0,
+			"id": 4,
 			"amount": 24.3,
-			"type": "books"
+			"type": "books at The Grove",
+			"date": "2017-04-13 18:53"
 		},
 		{
-			"id": 1,
+			"id": 3,
 			"amount": 6.5,
-			"type": "coffee"
+			"type": "Coffee",
+			"date": "2017-04-13 12:00"
 		},
 		{
 			"id": 2,
 			"amount": 101.19,
-			"type": "car rental"
+			"type": "car rental",
+			"date": "2017-03-31 13:25"
+		},
+		{
+			"id": 1,
+			"amount": 4.95,
+			"type": "coffee",
+			"date": "2017-03-28 10:00"
+		},
+		{
+			"id": 0,
+			"amount": 351.50,
+			"type": "ticket to Thailand",
+			"date": "2016-12-29 10:00"
 		}
 	]
 }
