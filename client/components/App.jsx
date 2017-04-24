@@ -10,8 +10,18 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = { spentItems }
+    this.nextId = this.getNextId(spentItems)
 
     this.addItem = this.addItem.bind(this)
+    this.deleteItem = this.deleteItem.bind(this)
+  }
+
+  getNextId (items) {
+    return items[0].id + 1
+  }
+
+  generateId () {
+    return this.nextId++
   }
 
   addItem (item) {
@@ -19,7 +29,7 @@ export default class App extends Component {
       let newState = cloneDeep(prevState)
 
       newState.spentItems.unshift({
-        id: this.state.spentItems.length,
+        id: this.generateId(),
         amount: Number(item.amount),
         type: item.type
       })
@@ -28,8 +38,16 @@ export default class App extends Component {
     })
   }
 
-  deleteItem () {
-    console.log('delete item')
+  deleteItem (id) {
+    this.setState(prevState => {
+      let newState = cloneDeep(prevState)
+
+      newState.spentItems = newState.spentItems.filter(item => {
+        return item.id !== id
+      })
+
+      return newState
+    })
   }
 
   render () {
