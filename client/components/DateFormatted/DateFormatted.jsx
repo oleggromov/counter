@@ -6,7 +6,7 @@ const tiny = 'MMMM D';
 
 /**
  * Date component
- * @param {Date} props.date
+ * @param {Date|String|Moment} props.date
  */
 export default function Date (props) {
 	const date = moment(props.date);

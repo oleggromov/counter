@@ -45,11 +45,12 @@ export default class SpentList extends React.Component {
 		return days.map(day => {
 			const currentDay = day[0].date;
 			const items = this.renderItems(day);
+			const key = moment(currentDay).valueOf();
 
 			return (
-				<tbody key={moment(currentDay).toDate()}>
-					<tr key={moment(currentDay).toDate()}><th colSpan="2" className={styles.caption}>
-						<DateFormatted date={moment(currentDay).toDate()} />
+				<tbody key={key}>
+					<tr key={key}><th colSpan="2" className={styles.caption}>
+						<DateFormatted date={currentDay} />
 					</th></tr>
 					{items}
 				</tbody>
