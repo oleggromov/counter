@@ -1,0 +1,20 @@
+.table {
+	width: 100%;
+}
+
+.caption {
+	padding: 1em 0 0.2em;
+	text-align: left;
+	font-weight: 300;
+}
+
+.amount {
+	width: 10%;
+	padding-right: 1em;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.type {
+	width: 80%;
+}
