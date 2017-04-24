@@ -30,7 +30,7 @@ export default class SpentForm extends React.Component {
 
 	setAmount (e) {
 		const isNumber = /^\d+(\.\d{1,2})?$/;
-		const value = e.target.value;
+		const value = e.target.value.trim();
 
 		this.setState(prevState => {
 			let newState = cloneDeep(prevState);
@@ -63,7 +63,7 @@ export default class SpentForm extends React.Component {
 
 		if (validity) {
 			this.props.onItemAdd({
-				amount: this.state.amount,
+				amount: Number(this.state.amount),
 				type: this.state.type.trim()
 			});
 
