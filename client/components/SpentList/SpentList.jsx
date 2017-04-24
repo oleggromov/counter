@@ -32,15 +32,15 @@ export default class SpentList extends Component {
 
   render () {
     const items = this.props.items
-    const days = this.groupByDays(items)
 
-    return items.length
-      ? (
-        <table className={styles.table}>
-          {this.renderDays(days)}
-        </table>
-      )
-      : (<p>There're no items yet</p>)
+    if (items.length) {
+      const days = this.groupByDays(items)
+      return (<table className={styles.table}>
+        {this.renderDays(days)}
+      </table>)
+    } else {
+      return (<p>There're no items yet</p>)
+    }
   }
 
   renderDays (days) {

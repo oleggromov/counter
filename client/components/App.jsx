@@ -4,11 +4,15 @@ import DateDisplay from './DateDisplay/DateDisplay.jsx'
 import SpentForm from './SpentForm/SpentForm.jsx'
 import SpentList from './SpentList/SpentList.jsx'
 import { cloneDeep } from 'lodash'
-import { spentItems } from '../mocks/spent-items.json'
+import localStorage from '../local-storage.js'
+import moment from 'moment'
 
 export default class App extends Component {
   constructor (props) {
     super(props)
+
+    const spentItems = localStorage.get()
+
     this.state = { spentItems }
     this.nextId = this.getNextId(spentItems)
 
@@ -17,7 +21,9 @@ export default class App extends Component {
   }
 
   getNextId (items) {
-    return items[0].id + 1
+    return items.length
+      ? items[0].id + 1
+      : 0
   }
 
   generateId () {
@@ -31,8 +37,11 @@ export default class App extends Component {
       newState.spentItems.unshift({
         id: this.generateId(),
         amount: Number(item.amount),
-        type: item.type
+        type: item.type,
+        date: moment().format('YYYY-MM-DD HH:mm:ss')
       })
+
+      localStorage.set(newState.spentItems)
 
       return newState
     })
@@ -45,6 +54,8 @@ export default class App extends Component {
       newState.spentItems = newState.spentItems.filter(item => {
         return item.id !== id
       })
+
+      localStorage.set(newState.spentItems)
 
       return newState
     })
