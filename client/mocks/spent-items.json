@@ -1,0 +1,19 @@
+{
+	"spentItems": [
+		{
+			"id": 0,
+			"amount": 24.3,
+			"type": "books"
+		},
+		{
+			"id": 1,
+			"amount": 6.5,
+			"type": "coffee"
+		},
+		{
+			"id": 2,
+			"amount": 101.19,
+			"type": "car rental"
+		}
+	]
+}

@@ -4,24 +4,7 @@ import DateDisplay from './DateDisplay/DateDisplay.jsx';
 import SpentForm from './SpentForm/SpentForm.jsx';
 import SpentList from './SpentList/SpentList.jsx';
 import { cloneDeep, reverse } from 'lodash';
-
-const spentItems = [
-	{
-		id: 0,
-		amount: 24.3,
-		type: 'books'
-	},
-	{
-		id: 1,
-		amount: 6.5,
-		type: 'coffee'
-	},
-	{
-		id: 2,
-		amount: 101.19,
-		type: 'car rental'
-	}
-];
+import { spentItems } from '../mocks/spent-items.json';
 
 export default class App extends React.Component {
 	constructor (props) {
