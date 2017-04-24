@@ -1,13 +1,17 @@
 import React from 'react';
+import DateFormatted from '../DateFormatted/DateFormatted.jsx';
+import Time from '../Time/Time.jsx';
 import styles from './date-display.css';
 import moment from 'moment';
+
+function getNow () {
+	return new Date;
+}
 
 export default class DateDisplay extends React.Component {
 	constructor () {
 		super();
-		this.state = {
-			date: moment()
-		};
+		this.state = getNow();
 	}
 
 	componentDidMount () {
@@ -21,21 +25,17 @@ export default class DateDisplay extends React.Component {
 	}
 
 	tick () {
-		this.setState({
-			date: moment()
-		});
+		this.setState(getNow());
 	}
 
 	render () {
 		return (
 			<div className={styles.dateDisplay}>
 				<div className={styles.date}>
-					{this.state.date.format('MMMM D')}
+					<DateFormatted date={this.state} />
 				</div>
 				<div className={styles.time}>
-					{this.state.date.format('h')}
-					<span className={styles.timeDivider}>:</span>
-					{this.state.date.format('mm a')}
+					<Time date={this.state} />
 				</div>
 			</div>
 		);
