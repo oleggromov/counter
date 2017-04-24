@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styles from './layout.css'
 
-export default class Layout extends React.Component {
+export default class Layout extends Component {
   render () {
     return (
       <div className={styles.layout}>

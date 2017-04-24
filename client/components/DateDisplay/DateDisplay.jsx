@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import DateFormatted from '../DateFormatted/DateFormatted.jsx'
 import Time from '../Time/Time.jsx'
 import styles from './date-display.css'
@@ -7,7 +7,7 @@ function getNow () {
   return new Date()
 }
 
-export default class DateDisplay extends React.Component {
+export default class DateDisplay extends Component {
   constructor () {
     super()
     this.state = getNow()

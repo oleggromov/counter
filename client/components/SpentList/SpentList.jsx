@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styles from './spent-list.css'
 import moment from 'moment'
 import DateFormatted from '../DateFormatted/DateFormatted.jsx'
@@ -7,7 +7,7 @@ function getDay (dateStr) {
   return moment(dateStr).date()
 }
 
-export default class SpentList extends React.Component {
+export default class SpentList extends Component {
   /**
    * Splits items into arrays by day.
    * @param {Array} items

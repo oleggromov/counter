@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styles from './spent-form.css'
 import { cloneDeep } from 'lodash'
 
@@ -17,7 +17,7 @@ function getInitialState () {
 
 const shakeAnimDelay = 1000
 
-export default class SpentForm extends React.Component {
+export default class SpentForm extends Component {
   constructor (props) {
     super(props)
 

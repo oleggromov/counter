@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Layout from './Layout/Layout.jsx'
 import DateDisplay from './DateDisplay/DateDisplay.jsx'
 import SpentForm from './SpentForm/SpentForm.jsx'
@@ -6,7 +6,7 @@ import SpentList from './SpentList/SpentList.jsx'
 import { cloneDeep } from 'lodash'
 import { spentItems } from '../mocks/spent-items.json'
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = { spentItems }
