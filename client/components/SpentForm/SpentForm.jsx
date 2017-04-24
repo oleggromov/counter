@@ -36,7 +36,7 @@ export default class SpentForm extends React.Component {
 			let newState = cloneDeep(prevState);
 
 			newState.showErrDecoration = true;
-			newState.validity.amount = isNumber.test(value);
+			newState.validity.amount = isNumber.test(value) && parseFloat(value) !== 0;
 			newState.amount = value;
 
 			return newState;
