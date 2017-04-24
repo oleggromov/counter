@@ -66,8 +66,11 @@ export default class SpentList extends Component {
 
       return (
         <tr key={item.id}>
+          <td className={styles.currency}>
+            $
+          </td>
           <td className={styles.amount}>
-            $ {item.amount.toFixed(2)}
+            {item.amount.toFixed(2)}
           </td>
           <td className={styles.type}>
             {item.type}
