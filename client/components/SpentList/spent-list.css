@@ -21,6 +21,7 @@
 
 .delete {
 	width: 10%;
+	font-size: 80%;
 
 	& span {
 		cursor: pointer;
