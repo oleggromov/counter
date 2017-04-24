@@ -3,7 +3,7 @@ import Layout from './Layout/Layout.jsx';
 import DateDisplay from './DateDisplay/DateDisplay.jsx';
 import SpentForm from './SpentForm/SpentForm.jsx';
 import SpentList from './SpentList/SpentList.jsx';
-import { cloneDeep, reverse } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { spentItems } from '../mocks/spent-items.json';
 
 export default class App extends React.Component {
@@ -18,9 +18,9 @@ export default class App extends React.Component {
 		this.setState(prevState => {
 			let newState = cloneDeep(prevState);
 
-			newState.spentItems.push({
+			newState.spentItems.unshift({
 				id: this.state.spentItems.length,
-				amount: item.amount,
+				amount: Number(item.amount),
 				type: item.type
 			});
 
@@ -38,7 +38,7 @@ export default class App extends React.Component {
 				<div>
 					<DateDisplay />
 					<SpentForm onItemAdd={this.addItem} />
-					<SpentList onItemDelete={this.deleteItem} items={reverse(this.state.spentItems)} />
+					<SpentList onItemDelete={this.deleteItem} items={this.state.spentItems} />
 				</div>
 			</Layout>
 		);
