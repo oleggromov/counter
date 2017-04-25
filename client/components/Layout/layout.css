@@ -2,6 +2,10 @@
 	margin: 2em;
 }
 
+.layout.layout_default { background-color: #fff; }
+.layout.layout_portrait { background: yellow; }
+.layout.layout_landscape { background: green; }
+
 .header {
 }
 
