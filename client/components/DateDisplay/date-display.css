@@ -1,5 +1,12 @@
+/* font classes */
+@import '../../styles/fonts.css';
+/* sizes */
+@value sizes: '../../styles/sizes.css';
+@value fontDefaultCaption from sizes;
+
 .dateDisplay {
-	composes: fontCaption from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultCaption;
 	display: flex;
 	margin: 1em 0;
 }

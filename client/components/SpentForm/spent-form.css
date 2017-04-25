@@ -1,5 +1,12 @@
+/* font classes */
+@import '../../styles/fonts.css';
+/* sizes */
+@value sizes: '../../styles/sizes.css';
+@value fontDefaultMedium from sizes;
+
 .spentForm {
-	composes: fontMedium from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultMedium;
 	margin: 1em 0;
 }
 
@@ -18,7 +25,8 @@
 }
 
 .input {
-	composes: fontMedium from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultMedium;
 	margin: 0 1em;
 	border: none;
 	border-bottom: 1px solid rgba(0,0,0,.2);
@@ -41,7 +49,8 @@
 }
 
 .saveButton {
-	composes: fontMedium from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultMedium;
 	padding: 0.5em;
 }
 

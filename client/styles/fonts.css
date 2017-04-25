@@ -1,33 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,900&subset=cyrillic);
 
-.fontNormal {
-	font-weight: 300;
-}
-
 .fontFamily {
-	composes: fontNormal;
 	font-family: 'Roboto', sans-serif;
 }
 
+.fontNormal {
+	composes: fontFamily;
+	font-weight: 300;
+}
+
 .fontBold {
+	composes: fontFamily;
 	font-weight: 900;
 }
 
-.fontCaption {
-	composes: fontFamily;
-	font-size: 30px;
-}
-
-.fontLogo {
-	composes: fontCaption fontLogo;
-}
-
-.fontMedium {
-	composes: fontFamily;
-	font-size: 20px;
-}
-
-.fontMain {
-	composes: fontFamily;
-	font-size: 15px;
-}

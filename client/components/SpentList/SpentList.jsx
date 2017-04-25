@@ -51,7 +51,7 @@ export default class SpentList extends Component {
 
       return (
         <tbody key={key}>
-          <tr className={styles.row} key={key}><th colSpan='2' className={styles.caption}>
+          <tr className={styles.row} key={key}><th colSpan='4' className={styles.caption}>
             <DateFormatted date={currentDay} />
           </th></tr>
           {items}

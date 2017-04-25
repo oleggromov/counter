@@ -1,31 +1,53 @@
 @import '../../styles/global.css';
+/* font classes */
+@import '../../styles/fonts.css';
+/* sizes */
+@value sizes: '../../styles/sizes.css';
+@value fontDefaultCaption, fontDefaultMedium, fontDefaultMain from sizes;
+/* colors */
+@value colors: '../../styles/colors.css';
+@value colorYellow, colorGreyish from colors;
 
 .layout {
-	margin: 2em;
+	background: colorGreyish;
 }
 
-.layout.layout_default { background-color: #fff; }
-.layout.layout_portrait { background: yellow; }
-.layout.layout_landscape { background: green; }
+/*
+.layout.layout_default {}
+.layout.layout_portrait {}
+.layout.layout_landscape {}
+*/
 
 .header {
+	padding: 2em 2em;
+	margin-bottom: 0;
+	background: colorYellow;
 }
 
 .logo {
-	composes: fontCaption fontBold from '../../styles/fonts.css';
+	composes: fontBold;
+	font-size: fontDefaultCaption;
 }
 
 .logoVersion {
-	composes: fontMedium from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultMedium;
 }
 
 .content {
-	composes: fontMain from '../../styles/fonts.css';
+	composes: fontNormal;
+	font-size: fontDefaultMain;
 	width: 80%;
 	margin: 0 auto;
 }
 
+.layout_portrait .content {
+	padding: 0 2em;
+	margin: 0;
+}
+
 .footer {
-	composes: fontMain from '../../styles/fonts.css';
-	margin-top: 2em;
+	composes: fontNormal;
+	font-size: fontDefaultMain;
+	padding: 2em 2em 2em 2em;
 }

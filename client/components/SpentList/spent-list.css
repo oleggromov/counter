@@ -1,9 +1,12 @@
+/* font classes */
+@import '../../styles/fonts.css';
+
 .table {
 	width: 100%;
 }
 
 .caption {
-	composes: fontNormal from '../../styles/fonts.css';
+	composes: fontNormal;
 	padding: 1em 0 0.2em;
 	text-align: left;
 }
