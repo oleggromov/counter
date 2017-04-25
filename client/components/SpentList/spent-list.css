@@ -3,9 +3,9 @@
 }
 
 .caption {
+	composes: fontNormal from '../../styles/fonts.css';
 	padding: 1em 0 0.2em;
 	text-align: left;
-	font-weight: 300;
 }
 
 .currency {
