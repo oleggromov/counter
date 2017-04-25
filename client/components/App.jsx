@@ -4,7 +4,7 @@ import DateDisplay from './DateDisplay/DateDisplay.jsx'
 import SpentForm from './SpentForm/SpentForm.jsx'
 import SpentList from './SpentList/SpentList.jsx'
 import { cloneDeep } from 'lodash'
-import localStorage from '../local-storage.js'
+import localStorage from '../modules/local-storage.js'
 import moment from 'moment'
 
 export default class App extends Component {

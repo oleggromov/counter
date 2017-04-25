@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MediaDetector from '../../media-detector.js'
+import MediaDetector from '../../modules/media-detector.js'
 import styles from './layout.css'
 
 const layouts = {
@@ -38,7 +38,7 @@ export default class Layout extends Component {
     return (
       <div className={`${styles.layout} ${layoutClass}`}>
         <div className={styles.header}>
-          <div className={styles.logo}>Counter <sup>0.1</sup></div>
+          <div className={styles.logo}>Counter <sup className={styles.logoVersion}>0.1</sup></div>
         </div>
         <div className={styles.content}>
           {this.props.children}
