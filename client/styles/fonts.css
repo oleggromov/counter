@@ -1,16 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,900&subset=cyrillic);
-
-.fontFamily {
-	font-family: 'Roboto', sans-serif;
-}
+@value fontFamily: 'Roboto', sans-serif;
 
 .fontNormal {
-	composes: fontFamily;
+	font-family: fontFamily;
 	font-weight: 300;
 }
 
 .fontBold {
-	composes: fontFamily;
+	font-family: fontFamily;
 	font-weight: 900;
 }
 

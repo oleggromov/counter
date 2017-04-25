@@ -2,16 +2,16 @@
 @import '../../styles/fonts.css';
 /* sizes */
 @value sizes: '../../styles/sizes.css';
-@value fontDefaultMedium from sizes;
+@value sizeFontDefaultMedium from sizes;
 
 .spentForm {
 	composes: fontNormal;
-	font-size: fontDefaultMedium;
+	font-size: sizeFontDefaultMedium;
 	margin: 1em 0;
 }
 
 .shake {
-	animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+	animation: shake 0.75s cubic-bezier(.36,.07,.19,.97) both;
 	transform: translate3d(0, 0, 0);
 }
 
@@ -26,7 +26,7 @@
 
 .input {
 	composes: fontNormal;
-	font-size: fontDefaultMedium;
+	font-size: sizeFontDefaultMedium;
 	margin: 0 1em;
 	border: none;
 	border-bottom: 1px solid rgba(0,0,0,.2);
@@ -50,7 +50,7 @@
 
 .saveButton {
 	composes: fontNormal;
-	font-size: fontDefaultMedium;
+	font-size: sizeFontDefaultMedium;
 	padding: 0.5em;
 }
 

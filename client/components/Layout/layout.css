@@ -3,7 +3,7 @@
 @import '../../styles/fonts.css';
 /* sizes */
 @value sizes: '../../styles/sizes.css';
-@value fontDefaultCaption, fontDefaultMedium, fontDefaultMain from sizes;
+@value sizeFontDefaultCaption, sizeFontDefaultMedium, sizeFontDefaultMain from sizes;
 /* colors */
 @value colors: '../../styles/colors.css';
 @value colorYellow, colorGreyish from colors;
@@ -26,17 +26,17 @@
 
 .logo {
 	composes: fontBold;
-	font-size: fontDefaultCaption;
+	font-size: sizeFontDefaultCaption;
 }
 
 .logoVersion {
 	composes: fontNormal;
-	font-size: fontDefaultMedium;
+	font-size: sizeFontDefaultMedium;
 }
 
 .content {
 	composes: fontNormal;
-	font-size: fontDefaultMain;
+	font-size: sizeFontDefaultMain;
 	width: 80%;
 	margin: 0 auto;
 }
@@ -48,6 +48,6 @@
 
 .footer {
 	composes: fontNormal;
-	font-size: fontDefaultMain;
+	font-size: sizeFontDefaultMain;
 	padding: 2em 2em 2em 2em;
 }

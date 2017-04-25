@@ -2,11 +2,11 @@
 @import '../../styles/fonts.css';
 /* sizes */
 @value sizes: '../../styles/sizes.css';
-@value fontDefaultCaption from sizes;
+@value sizeFontDefaultCaption from sizes;
 
 .dateDisplay {
 	composes: fontNormal;
-	font-size: fontDefaultCaption;
+	font-size: sizeFontDefaultCaption;
 	display: flex;
 	margin: 1em 0;
 }
