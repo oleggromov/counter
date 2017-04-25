@@ -51,7 +51,7 @@ export default class SpentList extends Component {
 
       return (
         <tbody key={key}>
-          <tr key={key}><th colSpan='2' className={styles.caption}>
+          <tr className={styles.row} key={key}><th colSpan='2' className={styles.caption}>
             <DateFormatted date={currentDay} />
           </th></tr>
           {items}
@@ -65,7 +65,7 @@ export default class SpentList extends Component {
       const deleteItem = this.props.onItemDelete.bind(undefined, item.id)
 
       return (
-        <tr key={item.id}>
+        <tr className={styles.row} key={item.id}>
           <td className={styles.currency}>
             $
           </td>

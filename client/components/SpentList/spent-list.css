@@ -42,6 +42,6 @@
 	}
 }
 
-tr:hover .delete span {
+.row:hover .delete span {
 	opacity: 1;
 }

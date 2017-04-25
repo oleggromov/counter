@@ -10,29 +10,20 @@
 }
 
 .logo {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 900;
-	font-size: 30px;
+	composes: fontCaption fontBold from '../../styles/fonts.css';
+}
 
-	& sup {
-		font-weight: 300;
-		font-size: 20px;
-	}
+.logoVersion {
+	composes: fontMedium from '../../styles/fonts.css';
 }
 
 .content {
+	composes: fontMain from '../../styles/fonts.css';
 	width: 80%;
 	margin: 0 auto;
-
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	font-size: 15px;
 }
 
 .footer {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	font-size: 15px;
-
+	composes: fontMain from '../../styles/fonts.css';
 	margin-top: 2em;
 }

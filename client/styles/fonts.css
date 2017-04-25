@@ -1,0 +1,27 @@
+.fontFamily {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+.fontBold {
+	font-weight: 900;
+}
+
+.fontCaption {
+	composes: fontFamily;
+	font-size: 30px;
+}
+
+.fontLogo {
+	composes: fontCaption fontLogo;
+}
+
+.fontMedium {
+	composes: fontFamily;
+	font-size: 20px;
+}
+
+.fontMain {
+	composes: fontFamily;
+	font-size: 15px;
+}

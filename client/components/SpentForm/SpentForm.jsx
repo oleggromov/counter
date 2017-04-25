@@ -107,7 +107,9 @@ export default class SpentForm extends Component {
           onChange={this.setType}
           value={this.state.type} />
 
-        <button onClick={this.saveItem}>Save</button>
+        <button
+          className={styles.saveButton}
+          onClick={this.saveItem}>Save</button>
       </form>
     )
   }

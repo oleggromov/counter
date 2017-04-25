@@ -1,9 +1,7 @@
 .dateDisplay {
-	margin: 1em 0;
-	font: 'Roboto', sans-serif;
-	font-size: 30px;
-
+	composes: fontCaption from '../../styles/fonts.css';
 	display: flex;
+	margin: 1em 0;
 }
 
 .date {
