@@ -1,8 +1,5 @@
-/* font classes */
 @import '../../styles/fonts.css';
-/* sizes */
-@value sizes: '../../styles/sizes.css';
-@value sizeFontDefaultMedium from sizes;
+@value sizeFontDefaultMedium from '../../styles/sizes.css';
 
 .spentForm {
 	composes: fontNormal;

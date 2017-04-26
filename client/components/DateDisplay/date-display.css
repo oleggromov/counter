@@ -1,14 +1,15 @@
-/* font classes */
 @import '../../styles/fonts.css';
-/* sizes */
-@value sizes: '../../styles/sizes.css';
-@value sizeFontDefaultCaption from sizes;
+@value sizeFontDefaultCaption, sizeFontMobileCaption from '../../styles/sizes.css';
 
 .dateDisplay {
 	composes: fontNormal;
 	font-size: sizeFontDefaultCaption;
 	display: flex;
 	margin: 1em 0;
+}
+
+.dateDisplay.portrait {
+	font-size: sizeFontMobileCaption;
 }
 
 .date {
