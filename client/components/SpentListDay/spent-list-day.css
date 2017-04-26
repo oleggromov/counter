@@ -1,0 +1,15 @@
+/* font classes */
+@import '../../styles/fonts.css';
+
+.day {}
+
+.day.default {}
+
+.day.portrait,
+.day.landscape {}
+
+.caption {
+	composes: fontNormal;
+	padding: 1em 0 0.2em;
+	text-align: left;
+}

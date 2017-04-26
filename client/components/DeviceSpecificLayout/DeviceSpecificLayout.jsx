@@ -35,7 +35,10 @@ export default class DeviceSpecificLayout extends Component {
       <Layout mediaType={this.state.type}>
         <div>
           <SpentForm onItemAdd={this.props.onItemAdd} />
-          <SpentList onItemDelete={this.props.onItemDelete} items={this.props.items} />
+          <SpentList
+            mediaType={this.state.type}
+            items={this.props.items}
+            onItemDelete={this.props.onItemDelete} />
         </div>
       </Layout>
     )

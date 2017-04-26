@@ -1,50 +1,5 @@
-/* font classes */
-@import '../../styles/fonts.css';
-
-.table {
+.spentList {
 	width: 100%;
+	border-collapse: collapse;
 }
 
-.caption {
-	composes: fontNormal;
-	padding: 1em 0 0.2em;
-	text-align: left;
-}
-
-.currency {
-	width: 5%;
-	text-align: right;
-	color: rgba(0,0,0,.5);
-}
-
-.amount {
-	width: 10%;
-	padding-right: 1em;
-	text-align: right;
-	white-space: nowrap;
-}
-
-.type {
-	width: 75%;
-}
-
-.delete {
-	width: 10%;
-	font-size: 80%;
-
-	& span {
-		cursor: pointer;
-		color: rgba(0,0,0,.5);
-		border-bottom: 1px solid rgba(0,0,0,.3);
-		opacity: 0.5;
-		transition: 0.1s ease;
-	}
-
-	& span:hover {
-		color: black;
-	}
-}
-
-.row:hover .delete span {
-	opacity: 1;
-}

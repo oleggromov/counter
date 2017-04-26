@@ -1,0 +1,45 @@
+.item.default {}
+.item.portrait {}
+.item.landscape {}
+
+.currency {
+	width: 5%;
+	padding-left: 1em;
+	text-align: right;
+	color: rgba(0,0,0,.5);
+}
+
+.amount {
+	width: 10%;
+	padding-right: 1em;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.type {
+	width: 75%;
+}
+
+/* delete button styles */
+.delete {}
+
+.item.default .delete {
+	width: 10%;
+	font-size: 80%;
+
+	& span {
+		cursor: pointer;
+		color: rgba(0,0,0,.5);
+		border-bottom: 1px solid rgba(0,0,0,.3);
+		opacity: 0.5;
+		transition: 0.1s ease;
+	}
+
+	& span:hover {
+		color: black;
+	}
+}
+
+.item.default:hover .delete span {
+	opacity: 1;
+}
