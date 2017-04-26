@@ -39,3 +39,9 @@
 	font-size: sizeFontMobileMain;
 	padding: paddingMobile;
 }
+
+.footer a {
+	color: grey;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}

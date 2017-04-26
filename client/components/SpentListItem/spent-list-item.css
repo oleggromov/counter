@@ -4,6 +4,10 @@
 .item.portrait {}
 .item.landscape {}
 
+.item td {
+	vertical-align: top;
+}
+
 .item.portrait td,
 .item.landscape td {
 	padding-top: 0.2em;
