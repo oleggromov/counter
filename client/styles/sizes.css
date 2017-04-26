@@ -5,3 +5,6 @@
 @value sizeFontMobileCaption: 20px;
 @value sizeFontMobileMedium: 15px;
 @value sizeFontMobileMain: 15px;
+
+@value paddingDesktop: 2em;
+@value paddingMobile: 1em;

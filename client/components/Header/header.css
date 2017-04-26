@@ -1,5 +1,5 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultCaption, sizeFontMobileCaption from '../../styles/sizes.css';
+@value sizeFontDefaultCaption, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
 @value colorYellow from '../../styles/colors.css';
 
 /* container classes */
@@ -11,12 +11,12 @@
 }
 
 .header.default {
-	padding: 2em;
+	padding: paddingDesktop;
 }
 
 .header.portrait,
 .header.landscape {
-	padding: 1em;
+	padding: paddingMobile;
 }
 
 .leftCol {}

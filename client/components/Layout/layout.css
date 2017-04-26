@@ -1,6 +1,6 @@
 @import '../../styles/global.css';
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMain, sizeFontMobileMain from '../../styles/sizes.css';
+@value sizeFontDefaultMain, sizeFontMobileMain, paddingDesktop, paddingMobile from '../../styles/sizes.css';
 @value colorGreyish from '../../styles/colors.css';
 
 .layout {
@@ -20,7 +20,7 @@
 
 .layout.portrait .content,
 .layout.landscape .content {
-	padding: 1em 0;
+	padding: paddingMobile 0;
 	font-size: sizeFontMobileMain;
 }
 
@@ -31,11 +31,11 @@
 
 .layout.default .footer {
 	font-size: sizeFontDefaultMain;
-	padding: 2em;
+	padding: paddingDesktop;
 }
 
 .layout.portrait .footer,
 .layout.landscape .footer {
 	font-size: sizeFontMobileMain;
-	padding: 1em;
+	padding: paddingMobile;
 }
