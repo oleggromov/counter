@@ -1,33 +1,41 @@
 @import '../../styles/global.css';
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMain from '../../styles/sizes.css';
+@value sizeFontDefaultMain, sizeFontMobileMain from '../../styles/sizes.css';
 @value colorGreyish from '../../styles/colors.css';
-
-@import './header.css'
 
 .layout {
 	background: colorGreyish;
 }
 
-.layout.default {}
-.layout.portrait {}
-.layout.landscape {}
-
-
+/* content */
 .content {
 	composes: fontNormal;
-	font-size: sizeFontDefaultMain;
+}
+
+.layout.default .content {
 	width: 80%;
 	margin: 0 auto;
+	font-size: sizeFontDefaultMain;
 }
 
-.layout.portrait .content {
-	padding: 0 2em;
-	margin: 0;
+.layout.portrait .content,
+.layout.landscape .content {
+	padding: 1em 0;
+	font-size: sizeFontMobileMain;
 }
 
+/* footer */
 .footer {
 	composes: fontNormal;
+}
+
+.layout.default .footer {
 	font-size: sizeFontDefaultMain;
-	padding: 2em 2em 2em 2em;
+	padding: 2em;
+}
+
+.layout.portrait .footer,
+.layout.landscape .footer {
+	font-size: sizeFontMobileMain;
+	padding: 1em;
 }
