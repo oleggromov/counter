@@ -3,15 +3,12 @@
 @value paddingDesktop, paddingMobile from '../../styles/sizes.css';
 
 .day {}
-
 .day.default {}
-
 .day.portrait,
 .day.landscape {}
 
 .caption {
 	composes: fontNormal;
-	text-align: left;
 }
 
 .day.default .caption {

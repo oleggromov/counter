@@ -1,64 +1,57 @@
 @value paddingDesktop, paddingMobile from '../../styles/sizes.css';
 
-.item.default {}
-.item.portrait {}
-.item.landscape {}
+.row.default {}
+.row.portrait {}
+.row.landscape {}
 
-.item td {
-	vertical-align: top;
+.row {
+	display: flex;
+	align-items: baseline;
 }
 
-.item.portrait td,
-.item.landscape td {
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
+.column {
+	flex-basis: 0;
+	padding: 0.25em 0.5em;
 }
 
-/* currency column */
 .currency {
+	composes: column;
+	width: 11px;
+	padding-left: 0;
 	text-align: right;
 	color: rgba(0,0,0,.3);
 }
 
-.item.default .currency {
-	width: 5%;
-}
-
-.item.portrait .currency,
-.item.landscape .currency {
-	width: 1px;
-	padding-left: paddingMobile;
-}
-
-/* amount column */
 .amount {
+	composes: column;
+	flex-grow: 3;
+	padding-left: 0.1em;
 	text-align: right;
 	white-space: nowrap;
 }
 
-.item.default .amount {
-	width: 10%;
-	padding-right: 1em;
-}
-
-.item.portrait .amount,
-.item.landscape .amount {
-	width: 1px;
-	padding-left: 0.5em;
-	padding-right: 1em;
-}
-
-/* name column */
 .name {
-
+	composes: column;
+	flex-grow: 12;
 }
 
-.item.default .name {
-	width: 75%;
+.row.portrait .name,
+.row.landscape .name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-/* delete button styles */
-.delete {}
+.delete {
+	composes: column;
+	flex-grow: 1;
+	padding-right: 0;
+}
+
+.row.portrait .delete,
+.row.landscape .delete {
+	display: none;
+}
 
 .item.default .delete {
 	width: 10%;
@@ -79,9 +72,4 @@
 
 .item.default:hover .delete span {
 	opacity: 1;
-}
-
-.item.portrait .delete,
-.item.landscape .delete {
-	display: none;
 }

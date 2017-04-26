@@ -43,9 +43,9 @@ export default class SpentList extends Component {
     const days = groupByDays(items)
 
     return (
-      <table className={`${styles.spentList} ${styles[this.props.mediaType]}`}>
+      <div>
         {this.renderDays(days)}
-      </table>
+      </div>
     )
   }
 
