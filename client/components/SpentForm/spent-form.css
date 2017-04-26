@@ -8,11 +8,14 @@
 
 .spentForm {
 	composes: fontNormal;
+	display: flex;
+	align-items: baseline;
 }
 
 .spentForm.default {
-	font-size: sizeFontDefaultMedium;
+	width: 50%;
 	margin: 1em 0;
+	font-size: sizeFontDefaultMedium;
 }
 
 .spentForm.portrait,
@@ -21,94 +24,98 @@
 	padding: 0 paddingMobile;
 }
 
+/* layout */
+.column {
+	flex-basis: 0;
+}
+
+.spentForm.default .column {
+	padding: 0 0.5em;
+}
+
+.spentForm.portrait .column,
+.spentForm.landscape .column {
+	padding: 0 0.2em;
+}
+
+.currencyColumn {
+	composes: column;
+	flex-grow: 1;
+	padding-left: 0;
+	text-align: right;
+}
+
+.amountColumn {
+	composes: column;
+	flex-grow: 4;
+}
+
+.forColumn {
+	composes: column;
+	flex-grow: 1;
+}
+
+.typeColumn {
+	composes: column;
+	flex-grow: 12;
+}
+
+.buttonColumn {
+	composes: column;
+	flex-grow: 4;
+	padding-right: 0;
+}
+
 /* labels */
 .label {
 	opacity: 0.3;
 }
 
-/* currency symbol */
-.currency {
-	composes: label;
-}
-
-.spentForm.default .currency {
-	display: inline-block;
-	box-sizing: border-box;
-	width: 2em;
-	padding-right: 0.3em;
-	margin-left: -2em;
-	text-align: right;
-}
-
 /* inputs */
 .input {
 	composes: fontNormal;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
 	border: none;
 	border-bottom: 1px solid rgba(0,0,0,.2);
 }
 
 .spentForm.default .input {
 	font-size: sizeFontDefaultMedium;
-	margin: 0 1em;
 }
 
 .spentForm.portrait .input,
 .spentForm.landscape .input {
-	margin: 0 0.3em;
 	font-size: sizeFontMobileMedium;
 	outline: none;
 }
 
-.error {
+.input.error {
 	border-bottom-color: rgba(255,0,0,.3);
 }
 
-.amount {
-	composes: input;
-}
-
-.spentForm.default .amount {
-	width: 10%;
-	margin-left: 0;
-}
-
-.spentForm.portrait .amount,
-.spentForm.landscape .amount {
-	width: 15%;
-}
-
-.type {
-	composes: input;
-}
-
-.spentForm.default .type {
-	width: 50%;
-}
-
-.spentForm.portrait .type,
-.spentForm.landscape .type {
-	width: 50%;
-}
-
 /* button */
-.saveButton {
+.button {
 	composes: fontNormal;
-}
-
-.spentForm.default .saveButton {
-	font-size: sizeFontDefaultMedium;
-	padding: 0.5em;
-}
-
-.spentForm.portrait .saveButton,
-.spentForm.landscape .saveButton {
-	font-size: sizeFontMobileMedium;
+	display: block;
+	width: 100%;
 	margin: 0;
 	padding: 0.2em 1em;
 	border: none;
 	background: colorButton;
-	box-shadow: 1px 1px 0 colorButtonShadow;
+}
+
+.spentForm.default .button {
+	font-size: sizeFontDefaultMedium;
+	box-shadow: 2px 2px 0 colorButtonShadow;
+}
+
+.spentForm.portrait .button,
+.spentForm.landscape .button {
+	font-size: sizeFontMobileMedium;
 	outline: none;
+	box-shadow: 1px 1px 0 colorButtonShadow;
 }
 
 /* animation */

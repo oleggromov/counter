@@ -93,25 +93,35 @@ export default class SpentForm extends Component {
 
     return (
       <form className={`${styles.spentForm} ${styles[this.props.mediaType]} ${this.state.shake ? styles.shake : ''}`}>
-        <span className={styles.currency}>$</span>
+        <div className={styles.currencyColumn}>
+          <span className={styles.label}>$</span>
+        </div>
 
-        <input
-          className={`${styles.amount} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`}
-          autoFocus
-          ref={(input) => { this.amountInput = input }}
-          onChange={this.setAmount}
-          value={this.state.amount} />
+        <div className={styles.amountColumn}>
+          <input
+            className={`${styles.input} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`}
+            autoFocus
+            ref={(input) => { this.amountInput = input }}
+            onChange={this.setAmount}
+            value={this.state.amount} />
+        </div>
 
-        <span className={styles.label}>for</span>
+        <div className={styles.forColumn}>
+          <span className={styles.label}>for</span>
+        </div>
 
-        <input
-          className={`${styles.type} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`}
-          onChange={this.setType}
-          value={this.state.type} />
+        <div className={styles.typeColumn}>
+          <input
+            className={`${styles.input} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`}
+            onChange={this.setType}
+            value={this.state.type} />
+        </div>
 
-        <button
-          className={styles.saveButton}
-          onClick={this.saveItem}>Save</button>
+        <div className={styles.buttonColumn}>
+          <button
+            className={styles.button}
+            onClick={this.saveItem}>Save</button>
+        </div>
       </form>
     )
   }
