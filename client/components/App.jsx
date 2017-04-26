@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import Layout from './Layout/Layout.jsx'
-import DateDisplay from './DateDisplay/DateDisplay.jsx'
-import SpentForm from './SpentForm/SpentForm.jsx'
-import SpentList from './SpentList/SpentList.jsx'
+import DeviceSpecificLayout from './DeviceSpecificLayout/DeviceSpecificLayout.jsx'
 import { cloneDeep } from 'lodash'
 import localStorage from '../modules/local-storage.js'
 import moment from 'moment'
@@ -63,13 +60,10 @@ export default class App extends Component {
 
   render () {
     return (
-      <Layout>
-        <div>
-          <DateDisplay />
-          <SpentForm onItemAdd={this.addItem} />
-          <SpentList onItemDelete={this.deleteItem} items={this.state.spentItems} />
-        </div>
-      </Layout>
+      <DeviceSpecificLayout
+        items={this.state.spentItems}
+        onItemAdd={this.addItem}
+        onItemDelete={this.deleteItem} />
     )
   }
 }
