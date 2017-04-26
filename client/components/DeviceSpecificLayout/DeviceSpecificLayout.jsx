@@ -20,7 +20,7 @@ export default class DeviceSpecificLayout extends Component {
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.mediaDetector = new MediaDetector(layouts, type => {
       this.setState({ type })
     })
