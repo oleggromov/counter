@@ -1,0 +1,36 @@
+@import '../../styles/fonts.css';
+@value sizeFontDefaultCaption, sizeFontMobileCaption from '../../styles/sizes.css';
+@value colorYellow from '../../styles/colors.css';
+
+/* container classes */
+.header {
+	background: colorYellow;
+}
+
+.header.default {
+	padding: 2em;
+}
+
+.header.portrait,
+.header.landscape {
+	padding: 1em;
+}
+
+/* logo classes */
+.logo {
+	composes: fontBold;
+}
+
+.header.default .logo {
+	font-size: sizeFontDefaultCaption;
+}
+
+.header.portrait .logo,
+.header.landscape .logo {
+	font-size: sizeFontMobileCaption;
+}
+
+.logoVersion {
+	composes: fontNormal;
+	font-size: 66.67%;
+}

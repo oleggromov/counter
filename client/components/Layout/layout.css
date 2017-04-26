@@ -1,38 +1,18 @@
 @import '../../styles/global.css';
-/* font classes */
 @import '../../styles/fonts.css';
-/* sizes */
-@value sizes: '../../styles/sizes.css';
-@value sizeFontDefaultCaption, sizeFontDefaultMedium, sizeFontDefaultMain from sizes;
-/* colors */
-@value colors: '../../styles/colors.css';
-@value colorYellow, colorGreyish from colors;
+@value sizeFontDefaultMain from '../../styles/sizes.css';
+@value colorGreyish from '../../styles/colors.css';
+
+@import './header.css'
 
 .layout {
 	background: colorGreyish;
 }
 
-/*
-.layout.layout_default {}
-.layout.layout_portrait {}
-.layout.layout_landscape {}
-*/
+.layout.default {}
+.layout.portrait {}
+.layout.landscape {}
 
-.header {
-	padding: 2em 2em;
-	margin-bottom: 0;
-	background: colorYellow;
-}
-
-.logo {
-	composes: fontBold;
-	font-size: sizeFontDefaultCaption;
-}
-
-.logoVersion {
-	composes: fontNormal;
-	font-size: sizeFontDefaultMedium;
-}
 
 .content {
 	composes: fontNormal;
@@ -41,7 +21,7 @@
 	margin: 0 auto;
 }
 
-.layout_portrait .content {
+.layout.portrait .content {
 	padding: 0 2em;
 	margin: 0;
 }
