@@ -1,6 +1,6 @@
 @import '../../styles/fonts.css';
 @value sizeFontDefaultMedium, sizeFontMobileMedium, paddingMobile from '../../styles/sizes.css';
-@value colorButton from '../../styles/colors.css';
+@value colorButton, colorButtonShadow from '../../styles/colors.css';
 
 .spentForm.default {}
 .spentForm.portrait {}
@@ -107,7 +107,7 @@
 	padding: 0.2em 1em;
 	border: none;
 	background: colorButton;
-	box-shadow: 1px 1px 0 rgba(0,0,0,.3);
+	box-shadow: 1px 1px 0 colorButtonShadow;
 	outline: none;
 }
 

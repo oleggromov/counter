@@ -1,12 +1,12 @@
 @import '../../styles/fonts.css';
 @value sizeFontDefaultCaption, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
-@value colorYellow from '../../styles/colors.css';
+@value colorHeader from '../../styles/colors.css';
 
 /* container classes */
 .header {
 	display: flex;
 	justify-content: space-between;
-	background: colorYellow;
+	background: colorHeader;
 	box-shadow: 0 1px 0 rgba(0,0,0,.2);
 }
 
