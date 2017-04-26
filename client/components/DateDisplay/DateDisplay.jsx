@@ -40,7 +40,7 @@ export default class DateDisplay extends Component {
         <div className={styles.date}>
           <DateFormatted date={this.state} />
         </div>
-        <div className={styles.time}>
+        <div>
           <Time date={this.state} />
         </div>
       </div>

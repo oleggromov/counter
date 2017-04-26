@@ -4,6 +4,8 @@
 
 /* container classes */
 .header {
+	display: flex;
+	justify-content: space-between;
 	background: colorYellow;
 }
 
@@ -15,6 +17,9 @@
 .header.landscape {
 	padding: 1em;
 }
+
+.leftCol {}
+.rightCol { align-self: center; }
 
 /* logo classes */
 .logo {

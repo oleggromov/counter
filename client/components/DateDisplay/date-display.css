@@ -1,17 +1,21 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultCaption, sizeFontMobileCaption from '../../styles/sizes.css';
+@value sizeFontDefaultCaption, sizeFontMobileMain from '../../styles/sizes.css';
 
 .dateDisplay {
 	composes: fontNormal;
-	font-size: sizeFontDefaultCaption;
+
 	display: flex;
-	margin: 1em 0;
 }
 
-.dateDisplay.portrait {
-	font-size: sizeFontMobileCaption;
+.dateDisplay.default {
+	font-size: sizeFontDefaultCaption;
+}
+
+.dateDisplay.portrait,
+.dateDisplay.landscape {
+	font-size: sizeFontMobileMain;
 }
 
 .date {
-	margin-right: 1em;
+	margin-right: 0.5em;
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import MediaDetector from '../../modules/media-detector.js'
 import Layout from '../Layout/Layout.jsx'
-import DateDisplay from '../DateDisplay/DateDisplay.jsx'
 import SpentForm from '../SpentForm/SpentForm.jsx'
 import SpentList from '../SpentList/SpentList.jsx'
 
@@ -35,7 +34,6 @@ export default class DeviceSpecificLayout extends Component {
     return (
       <Layout mediaType={this.state.type}>
         <div>
-          <DateDisplay mediaType={this.state.type} />
           <SpentForm onItemAdd={this.props.onItemAdd} />
           <SpentList onItemDelete={this.props.onItemDelete} items={this.props.items} />
         </div>
