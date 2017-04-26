@@ -42,13 +42,17 @@ export default class SpentList extends Component {
   renderContent (items) {
     const days = groupByDays(items)
 
-    return <table className={`${styles.spentList} ${styles[this.props.mediaType]}`}>
-      {this.renderDays(days)}
-    </table>
+    return (
+      <table className={`${styles.spentList} ${styles[this.props.mediaType]}`}>
+        {this.renderDays(days)}
+      </table>
+    )
   }
 
   renderPlaceholder () {
-    return <p>There're no items yet</p>
+    return (
+      <p>There're no items yet</p>
+    )
   }
 
   renderDays (days) {
@@ -56,14 +60,16 @@ export default class SpentList extends Component {
       const currentDay = day[0].date
       const key = moment(currentDay).valueOf()
 
-      return <SpentListDay
-        mediaType={this.props.mediaType}
-        currentDay={currentDay}
-        key={key}>
+      return (
+        <SpentListDay
+          mediaType={this.props.mediaType}
+          currentDay={currentDay}
+          key={key}>
 
-        {this.renderItems(day)}
+          {this.renderItems(day)}
 
-      </SpentListDay>
+        </SpentListDay>
+      )
     })
   }
 
@@ -71,11 +77,13 @@ export default class SpentList extends Component {
     return items.map(item => {
       const deleteItem = this.props.onItemDelete.bind(undefined, item.id)
 
-      return <SpentListItem
-        mediaType={this.props.mediaType}
-        item={item}
-        onDelete={deleteItem}
-        key={item.id} />
+      return (
+        <SpentListItem
+          mediaType={this.props.mediaType}
+          item={item}
+          onDelete={deleteItem}
+          key={item.id} />
+      )
     })
   }
 }
