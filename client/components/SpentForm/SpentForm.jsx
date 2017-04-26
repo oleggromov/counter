@@ -92,7 +92,7 @@ export default class SpentForm extends Component {
     }
 
     return (
-      <form className={`${styles.spentForm} ${this.state.shake ? styles.shake : ''}`}>
+      <form className={`${styles.spentForm} ${styles[this.props.mediaType]} ${this.state.shake ? styles.shake : ''}`}>
         <span className={styles.currency}>$</span>
 
         <input
@@ -101,7 +101,9 @@ export default class SpentForm extends Component {
           ref={(input) => { this.amountInput = input }}
           onChange={this.setAmount}
           value={this.state.amount} />
-        for
+
+        <span className={styles.label}>for</span>
+
         <input
           className={`${styles.type} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`}
           onChange={this.setType}
