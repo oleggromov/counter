@@ -1,5 +1,6 @@
 /* font classes */
 @import '../../styles/fonts.css';
+@value paddingDesktop, paddingMobile from '../../styles/sizes.css';
 
 .day {}
 
@@ -10,6 +11,14 @@
 
 .caption {
 	composes: fontNormal;
-	padding: 1em 0 0.2em;
 	text-align: left;
+}
+
+.day.default .caption {
+	padding: 1em 0 0.2em;
+}
+
+.day.portrait .caption,
+.day.landscape .caption {
+	padding: 1em paddingMobile 0.5em;
 }

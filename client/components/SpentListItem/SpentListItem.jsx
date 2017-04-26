@@ -12,7 +12,7 @@ export default function SpentListItem (props) {
       <td className={styles.amount}>
         {item.amount.toFixed(2)}
       </td>
-      <td className={styles.type}>
+      <td className={styles.name}>
         {item.type}
       </td>
       <td className={styles.delete}>
