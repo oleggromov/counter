@@ -35,7 +35,7 @@ export default class DeviceSpecificLayout extends Component {
     return (
       <Layout mediaType={this.state.type}>
         <div>
-          <DateDisplay />
+          <DateDisplay mediaType={this.state.type} />
           <SpentForm onItemAdd={this.props.onItemAdd} />
           <SpentList onItemDelete={this.props.onItemDelete} items={this.props.items} />
         </div>
