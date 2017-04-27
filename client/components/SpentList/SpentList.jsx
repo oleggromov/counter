@@ -2,32 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import SpentListItem from '../SpentListItem/SpentListItem.jsx'
-
-function getDay (dateStr) {
-  return moment(dateStr).date()
-}
-
-/**
- * Splits items into arrays by day.
- * @param {Array} items
- * @return {Array}
- */
-function groupByDays (items) {
-  let prevDay = null
-
-  return items.reduce((acc, cur) => {
-    const curDay = getDay(cur.date)
-
-    if (curDay !== prevDay) {
-      acc.push([])
-    }
-
-    acc[acc.length - 1].push(cur)
-    prevDay = curDay
-
-    return acc
-  }, [])
-}
+import groupItemsByDays from '../../modules/group-items-by-days.js'
 
 export default class SpentList extends Component {
   render () {
@@ -39,7 +14,7 @@ export default class SpentList extends Component {
   }
 
   renderContent (items) {
-    const days = groupByDays(items)
+    const days = groupItemsByDays(items)
 
     return (
       <div>
