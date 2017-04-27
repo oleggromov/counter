@@ -2,23 +2,9 @@ import React, { Component } from 'react'
 import styles from './spent-list-item.css'
 
 const currency = '$'
-const precisePrice = /\.00$/
 
 function renderPrice (price) {
   const fixedPoint = price.toFixed(2)
-  const matchResult = fixedPoint.match(precisePrice)
-
-  if (matchResult) {
-    return (
-      <span>
-        {fixedPoint.slice(0, matchResult.index)}
-        <span className={styles.amountInvisible}>
-          {matchResult[0]}
-        </span>
-      </span>
-    )
-  }
-
   return fixedPoint
 }
 

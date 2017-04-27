@@ -94,7 +94,3 @@
 .item.default:hover .delete span {
 	opacity: 1;
 }
-
-.amountInvisible {
-	opacity: 0.05;
-}
