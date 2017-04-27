@@ -12,7 +12,9 @@ export default class SpentListItem extends Component {
   constructor (props) {
     super(props)
 
-    this.setPreDelete = this.setPreDelete.bind(this)
+    this.setPreDelete = this.props.isDeletable
+      ? this.setPreDelete.bind(this)
+      : function () {}
   }
 
   setPreDelete (e) {

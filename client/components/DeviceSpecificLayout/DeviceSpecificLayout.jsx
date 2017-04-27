@@ -36,6 +36,10 @@ export default class DeviceSpecificLayout extends Component {
 
   setReadyToDelete (id) {
     if (this.state.type !== 'default') {
+      if (this.state.readyToDeleteId === id) {
+        id = null
+      }
+
       this.setState({ readyToDeleteId: id })
     }
   }

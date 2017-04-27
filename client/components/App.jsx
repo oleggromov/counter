@@ -4,11 +4,31 @@ import { cloneDeep } from 'lodash'
 import localStorage from '../modules/local-storage.js'
 import moment from 'moment'
 
+const canBeDeleted = {
+  maxAge: 15,
+  unit: 'minutes'
+}
+
+function markDeletable (items) {
+  const now = moment()
+
+  return items.map(item => {
+    let newItem = cloneDeep(item)
+    const age = now.diff(moment(item.date), canBeDeleted.unit, true)
+
+    newItem.isDeletable = age < canBeDeleted.maxAge
+    newItem.age = age
+
+    return newItem
+  })
+}
+
 export default class App extends Component {
   constructor (props) {
     super(props)
 
-    const spentItems = localStorage.get()
+    let spentItems = localStorage.get()
+    spentItems = markDeletable(spentItems)
 
     this.state = { spentItems }
     this.nextId = this.getNextId(spentItems)
@@ -38,6 +58,8 @@ export default class App extends Component {
         date: moment().format('YYYY-MM-DD HH:mm:ss')
       })
 
+      newState.spentItems = markDeletable(newState.spentItems)
+
       localStorage.set(newState.spentItems)
 
       return newState
@@ -51,6 +73,8 @@ export default class App extends Component {
       newState.spentItems = newState.spentItems.filter(item => {
         return item.id !== id
       })
+
+      newState.spentItems = markDeletable(newState.spentItems)
 
       localStorage.set(newState.spentItems)
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { cloneDeep } from 'lodash'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import SpentListItem from '../SpentListItem/SpentListItem.jsx'
 
@@ -82,6 +81,7 @@ export default class SpentList extends Component {
         <SpentListItem
           mediaType={this.props.mediaType}
           item={item}
+          isDeletable={item.isDeletable}
           readyToDelete={readyToDelete}
           onPreDelete={this.props.onReadyToDelete}
           onDelete={deleteItem}
