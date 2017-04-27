@@ -31,31 +31,6 @@ function groupByDays (items) {
 }
 
 export default class SpentList extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      items: this.props.items,
-      readyToDelete: null
-    }
-
-    if (this.props.mediaType === 'desktop') {
-      this.setReadyToDelete = function () {}
-    } else {
-      this.setReadyToDelete = this.setReadyToDelete.bind(this)
-    }
-  }
-
-  setReadyToDelete (id) {
-    this.setState((prevState) => {
-      let newState = cloneDeep(prevState)
-
-      newState.readyToDelete = id
-
-      return newState
-    })
-  }
-
   render () {
     const items = this.props.items
 
@@ -101,14 +76,14 @@ export default class SpentList extends Component {
   renderItems (items) {
     return items.map(item => {
       const deleteItem = this.props.onItemDelete.bind(undefined, item.id)
-      const readyToDelete = item.id === this.state.readyToDelete
+      const readyToDelete = item.id === this.props.readyToDeleteId
 
       return (
         <SpentListItem
           mediaType={this.props.mediaType}
           item={item}
           readyToDelete={readyToDelete}
-          onPreDelete={this.setReadyToDelete}
+          onPreDelete={this.props.onReadyToDelete}
           onDelete={deleteItem}
           key={item.id} />
       )

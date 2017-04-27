@@ -16,8 +16,12 @@ export default class DeviceSpecificLayout extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      type: 'default'
+      type: 'default',
+      readyToDeleteId: null
     }
+
+    this.setReadyToDelete = this.setReadyToDelete.bind(this)
+    this.unsetReadyToDelete = this.setReadyToDelete.bind(this, null)
   }
 
   componentWillMount () {
@@ -30,16 +34,24 @@ export default class DeviceSpecificLayout extends Component {
     this.mediaDetector.destroy()
   }
 
+  setReadyToDelete (id) {
+    if (this.state.type !== 'default') {
+      this.setState({ readyToDeleteId: id })
+    }
+  }
+
   render () {
     return (
       <Layout mediaType={this.state.type}>
-        <div>
+        <div onClick={this.unsetReadyToDelete}>
           <SpentForm
             mediaType={this.state.type}
             onItemAdd={this.props.onItemAdd} />
           <SpentList
             mediaType={this.state.type}
             items={this.props.items}
+            readyToDeleteId={this.state.readyToDeleteId}
+            onReadyToDelete={this.setReadyToDelete}
             onItemDelete={this.props.onItemDelete} />
         </div>
       </Layout>

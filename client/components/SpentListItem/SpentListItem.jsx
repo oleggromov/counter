@@ -15,8 +15,9 @@ export default class SpentListItem extends Component {
     this.setPreDelete = this.setPreDelete.bind(this)
   }
 
-  setPreDelete () {
+  setPreDelete (e) {
     this.props.onPreDelete(this.props.item.id)
+    e.stopPropagation()
   }
 
   render () {
