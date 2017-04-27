@@ -17,7 +17,6 @@ function markDeletable (items) {
     const age = now.diff(moment(item.date), canBeDeleted.unit, true)
 
     newItem.isDeletable = age < canBeDeleted.maxAge
-    newItem.age = age
 
     return newItem
   })
