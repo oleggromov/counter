@@ -4,8 +4,11 @@
 
 .day {}
 .day.default {}
+
 .day.portrait,
-.day.landscape {}
+.day.landscape {
+	overflow: hidden;
+}
 
 .caption {
 	composes: fontNormal;

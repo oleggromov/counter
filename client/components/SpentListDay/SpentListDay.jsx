@@ -9,8 +9,8 @@ export default function SpentListDay (props) {
     <div className={`${styles.day} ${styles[props.mediaType]}`} key={key}>
       <div className={styles.caption}>
         <DateFormatted date={props.currentDay} />
-        {props.children}
       </div>
+      {props.children}
     </div>
   )
 }
