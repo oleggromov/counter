@@ -18,3 +18,4 @@
 - figure out how to correctly remove animation enabling from within the `SpentForm` lifecycle
 	- onAnimationEnd
 - inline the font import
+- figure out how to expand the long text element
