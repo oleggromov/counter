@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
-import SpentListItem from '../SpentListItem/SpentListItem.jsx'
+import ContainerSpentListItem from '../ContainerSpentListItem/ContainerSpentListItem.jsx'
 import groupItemsByDays from '../../modules/group-items-by-days.js'
 
 export default class SpentList extends Component {
@@ -53,7 +53,7 @@ export default class SpentList extends Component {
       const readyToDelete = item.id === this.props.readyToDeleteId
 
       return (
-        <SpentListItem
+        <ContainerSpentListItem
           mediaType={this.props.mediaType}
           item={item}
           isDeletable={item.isDeletable}

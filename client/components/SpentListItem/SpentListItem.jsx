@@ -1,50 +1,39 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styles from './spent-list-item.css'
 
-const currency = '$'
+const SpentListItem = (props) => {
+  const {
+    currency,
+    amount,
+    type,
+    isReadyToDelete,
+    onReadyToDelete,
+    onDelete,
+    mediaType
+  } = props
 
-function renderPrice (price) {
-  const fixedPoint = price.toFixed(2)
-  return fixedPoint
-}
-
-export default class SpentListItem extends Component {
-  constructor (props) {
-    super(props)
-
-    this.setPreDelete = this.props.isDeletable
-      ? this.setPreDelete.bind(this)
-      : function () {}
-  }
-
-  setPreDelete (e) {
-    this.props.onPreDelete(this.props.item.id)
-    e.stopPropagation()
-  }
-
-  render () {
-    const extendedClass = this.props.readyToDelete
+  const extendedClass = isReadyToDelete
       ? styles.readyToDelete
       : ''
 
-    const classes = `${styles.row} ${styles[this.props.mediaType]} ${extendedClass}`
-    const item = this.props.item
+  const classes = `${styles.row} ${styles[mediaType]} ${extendedClass}`
 
-    return (
-      <div className={classes} onClick={this.setPreDelete}>
-        <div className={styles.currency}>
-          {currency}
-        </div>
-        <div className={styles.amount}>
-          {renderPrice(item.amount)}
-        </div>
-        <div className={styles.name}>
-          {item.type}
-        </div>
-        <div className={styles.delete}>
-          <span onClick={this.props.onDelete}>Delete</span>
-        </div>
+  return (
+    <div className={classes} onClick={onReadyToDelete}>
+      <div className={styles.currency}>
+        {currency}
       </div>
-    )
-  }
+      <div className={styles.amount}>
+        {amount.toFixed(2)}
+      </div>
+      <div className={styles.name}>
+        {type}
+      </div>
+      <div className={styles.delete}>
+        <span onClick={onDelete}>Delete</span>
+      </div>
+    </div>
+  )
 }
+
+export default SpentListItem
