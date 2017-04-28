@@ -1,7 +1,7 @@
 ## App logic
 
 - start counting the age of items in the background
--
+- figure out whether we need cloneDeep for objects and if yes, switch to Immutable.js
 
 ### Check for bugs
 

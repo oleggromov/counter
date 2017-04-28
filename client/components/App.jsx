@@ -1,90 +1,42 @@
 import React, { Component } from 'react'
 import DeviceSpecificLayout from './DeviceSpecificLayout/DeviceSpecificLayout.jsx'
-import { cloneDeep } from 'lodash'
-import localStorage from '../modules/local-storage.js'
-import moment from 'moment'
+import listsStore from '../modules/lists-store.js'
 
-const canBeDeleted = {
-  maxAge: 15,
-  unit: 'minutes'
-}
-
-function markDeletable (items) {
-  const now = moment()
-
-  return items.map(item => {
-    let newItem = cloneDeep(item)
-    const age = now.diff(moment(item.date), canBeDeleted.unit, true)
-
-    newItem.isDeletable = age < canBeDeleted.maxAge
-
-    return newItem
-  })
-}
+const listId = 0
 
 export default class App extends Component {
   constructor (props) {
     super(props)
 
-    let spentItems = localStorage.get()
-    spentItems = markDeletable(spentItems)
-
-    this.state = { spentItems }
-    this.nextId = this.getNextId(spentItems)
-
     this.addItem = this.addItem.bind(this)
     this.deleteItem = this.deleteItem.bind(this)
   }
 
-  getNextId (items) {
-    return items.length
-      ? items[0].id + 1
-      : 0
+  componentWillMount () {
+    this.updateState()
   }
 
-  generateId () {
-    return this.nextId++
+  updateState () {
+    this.setState(prevState => {
+      // TODO remake this!
+      return listsStore.listGet(listId) || { items: [] }
+    })
   }
 
   addItem (item) {
-    this.setState(prevState => {
-      let newState = cloneDeep(prevState)
-
-      newState.spentItems.unshift({
-        id: this.generateId(),
-        amount: Number(item.amount),
-        type: item.type,
-        date: moment().format('YYYY-MM-DD HH:mm:ss')
-      })
-
-      newState.spentItems = markDeletable(newState.spentItems)
-
-      localStorage.set(newState.spentItems)
-
-      return newState
-    })
+    listsStore.itemAdd(listId, item)
+    this.updateState()
   }
 
   deleteItem (id) {
-    this.setState(prevState => {
-      let newState = cloneDeep(prevState)
-
-      newState.spentItems = newState.spentItems.filter(item => {
-        return item.id !== id
-      })
-
-      newState.spentItems = markDeletable(newState.spentItems)
-
-      localStorage.set(newState.spentItems)
-
-      return newState
-    })
+    listsStore.itemDelete(listId, id)
+    this.updateState()
   }
 
   render () {
     return (
       <DeviceSpecificLayout
-        items={this.state.spentItems}
+        items={this.state.items}
         onItemAdd={this.addItem}
         onItemDelete={this.deleteItem} />
     )
