@@ -12,6 +12,7 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve('dist'),
+    publicPath: '/',
     filename: 'app.js'
   },
   module: {
@@ -30,5 +31,8 @@ module.exports = {
   plugins: [
     htmlTemplate,
     new ExtractTextPlugin('styles.css')
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 }
