@@ -13,7 +13,9 @@ export default function Date (props) {
   const yearDiffers = moment().year() !== date.year()
   const formatted = date.format(yearDiffers ? full : tiny)
 
-  return (<span>
-    { formatted }
-  </span>)
+  return (
+    <span>
+      { formatted }
+    </span>
+  )
 }

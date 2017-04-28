@@ -3,14 +3,18 @@ import styles from './spent-list-day.css'
 import DateFormatted from '../DateFormatted/DateFormatted.jsx'
 
 export default function SpentListDay (props) {
-  const key = props.currentDay.valueOf
+  const {
+    mediaType,
+    currentDay,
+    children
+  } = props
 
   return (
-    <div className={`${styles.day} ${styles[props.mediaType]}`} key={key}>
+    <div className={`${styles.day} ${styles[mediaType]}`}>
       <div className={styles.caption}>
-        <DateFormatted date={props.currentDay} />
+        <DateFormatted date={currentDay} />
       </div>
-      {props.children}
+      {children}
     </div>
   )
 }
