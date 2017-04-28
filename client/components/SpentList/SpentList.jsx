@@ -4,6 +4,7 @@ import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import ContainerSpentListItem from '../ContainerSpentListItem/ContainerSpentListItem.jsx'
 import groupItemsByDays from '../../modules/group-items-by-days.js'
 
+// TODO: transform it into a pure function
 export default class SpentList extends Component {
   render () {
     const items = this.props.items

@@ -1,29 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styles from './layout.css'
 import Header from '../Header/Header.jsx'
 import DateDisplay from '../DateDisplay/DateDisplay.jsx'
 
 const link = 'http://oleggromov.com'
 
-export default class Layout extends Component {
-  render () {
-    const mediaType = this.props.mediaType
-    const dateDisplay = <DateDisplay mediaType={mediaType} />
+const Layout = (props) => {
+  const {
+    mediaType,
+    children
+  } = props
 
-    return (
-      <div className={`${styles.layout} ${styles[mediaType]}`}>
-        <Header
-          mediaType={mediaType}
-          rightComponent={dateDisplay} />
+  return (
+    <div className={`${styles.layout} ${styles[mediaType]}`}>
+      <Header
+        mediaType={mediaType}
+        rightComponent={<DateDisplay mediaType={mediaType} />} />
 
-        <div className={styles.content}>
-          {this.props.children}
-        </div>
-
-        <div className={styles.footer}>
-          Copyright 2017, <a href={link} target='blank'>Oleg Gromov</a>
-        </div>
+      <div className={styles.content}>
+        {children}
       </div>
-    )
-  }
+
+      <div className={styles.footer}>
+        Copyright 2017, <a href={link} target='blank'>Oleg Gromov</a>
+      </div>
+    </div>
+  )
 }
+
+export default Layout
