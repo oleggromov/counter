@@ -28,6 +28,10 @@ export default class SpentForm extends Component {
     this.saveItem = this.saveItem.bind(this)
   }
 
+  componentWillUnmount () {
+    window.clearTimeout(this.shakeTimeout)
+  }
+
   setAmount (e) {
     const isNumber = /^\d+(\.\d{1,2})?$/
     const value = e.target.value.trim()
@@ -80,7 +84,7 @@ export default class SpentForm extends Component {
   }
 
   finishShaking () {
-    setTimeout(() => {
+    this.shakeTimeout = window.setTimeout(() => {
       this.setState({ shake: false })
     }, shakeAnimDelay)
   }
