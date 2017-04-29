@@ -45,18 +45,23 @@ export default class DeviceSpecificLayout extends Component {
   }
 
   render () {
+    const listContent = this.props.items.length
+      ? (<SpentList
+        mediaType={this.state.type}
+        items={this.props.items}
+        readyToDeleteId={this.state.readyToDeleteId}
+        onReadyToDelete={this.setReadyToDelete}
+        onItemDelete={this.props.onItemDelete} />)
+      : (<p>There're no items yet</p>)
+
     return (
       <Layout mediaType={this.state.type}>
         <div onClick={this.unsetReadyToDelete}>
           <SpentForm
             mediaType={this.state.type}
             onItemAdd={this.props.onItemAdd} />
-          <SpentList
-            mediaType={this.state.type}
-            items={this.props.items}
-            readyToDeleteId={this.state.readyToDeleteId}
-            onReadyToDelete={this.setReadyToDelete}
-            onItemDelete={this.props.onItemDelete} />
+
+          {listContent}
         </div>
       </Layout>
     )

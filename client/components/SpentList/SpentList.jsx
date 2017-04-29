@@ -1,68 +1,56 @@
-import React, { Component } from 'react'
+import React from 'react'
 import moment from 'moment'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import ContainerSpentListItem from '../ContainerSpentListItem/ContainerSpentListItem.jsx'
 import groupItemsByDays from '../../modules/group-items-by-days.js'
 
-// TODO: transform it into a pure function
-export default class SpentList extends Component {
-  render () {
-    const items = this.props.items
+// TODO: refactor this to make it simplier
+const SpentList = (props) => {
+  const {
+    mediaType,
+    onItemDelete,
+    readyToDeleteId,
+    onReadyToDelete
+  } = props
+  const days = groupItemsByDays(props.items)
 
-    return items.length
-      ? this.renderContent(items)
-      : this.renderPlaceholder()
-  }
-
-  renderContent (items) {
-    const days = groupItemsByDays(items)
+  const renderItem = item => {
+    const deleteItem = onItemDelete.bind(undefined, item.id)
+    const readyToDelete = item.id === readyToDeleteId
 
     return (
-      <div>
-        {this.renderDays(days)}
-      </div>
+      <ContainerSpentListItem
+        mediaType={mediaType}
+        item={item}
+        isDeletable={item.isDeletable}
+        readyToDelete={readyToDelete}
+        onPreDelete={onReadyToDelete}
+        onDelete={deleteItem}
+        key={item.id} />
     )
   }
 
-  renderPlaceholder () {
+  const renderDay = dayItems => {
+    const currentDay = dayItems[0].date
+    const key = moment(currentDay).valueOf()
+
     return (
-      <p>There're no items yet</p>
+      <SpentListDay
+        mediaType={mediaType}
+        currentDay={currentDay}
+        key={key}>
+
+        {dayItems.map(renderItem)}
+
+      </SpentListDay>
     )
   }
 
-  renderDays (days) {
-    return days.map(day => {
-      const currentDay = day[0].date
-      const key = moment(currentDay).valueOf()
-
-      return (
-        <SpentListDay
-          mediaType={this.props.mediaType}
-          currentDay={currentDay}
-          key={key}>
-
-          {this.renderItems(day)}
-
-        </SpentListDay>
-      )
-    })
-  }
-
-  renderItems (items) {
-    return items.map(item => {
-      const deleteItem = this.props.onItemDelete.bind(undefined, item.id)
-      const readyToDelete = item.id === this.props.readyToDeleteId
-
-      return (
-        <ContainerSpentListItem
-          mediaType={this.props.mediaType}
-          item={item}
-          isDeletable={item.isDeletable}
-          readyToDelete={readyToDelete}
-          onPreDelete={this.props.onReadyToDelete}
-          onDelete={deleteItem}
-          key={item.id} />
-      )
-    })
-  }
+  return (
+    <div>
+      {days.map(renderDay)}
+    </div>
+  )
 }
+
+export default SpentList
