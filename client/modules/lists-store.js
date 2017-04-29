@@ -1,5 +1,6 @@
 import moment from 'moment'
-import { cloneDeep, pick } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
+import pick from 'lodash/pick'
 import localStorage from './local-storage.js'
 
 const profilingEnabled = false

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './spent-form.css'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 function getInitialState () {
   return {
