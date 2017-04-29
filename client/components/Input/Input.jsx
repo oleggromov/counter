@@ -6,11 +6,11 @@ const validationTypes = {
   'PRICE': 2
 }
 
-const validations = {
-  [validationTypes.DEFAULT]: () => true,
+const invalidations = {
+  [validationTypes.DEFAULT]: () => false,
   [validationTypes.PRICE]: (value) => {
     const isNumber = /^\d+(\.\d{1,2})?$/
-    return isNumber.test(value) && parseFloat(value) !== 0
+    return !(isNumber.test(value) && parseFloat(value) !== 0)
   }
 }
 
@@ -18,22 +18,24 @@ export default class Input extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      value: props.value || '',
-      isInvalid: false
-    }
+    const value = props.value || ''
 
     this.setValue = this.setValue.bind(this)
 
     const validation = props.validation || validationTypes['DEFAULT']
-    this.testValid = validations[validation]
+    this.isInvalid = invalidations[validation]
+
+    this.state = {
+      value,
+      isInvalid: this.isInvalid(value)
+    }
   }
 
   setValue (e) {
     const value = e.target.value.trim()
 
     this.setState(prevState => {
-      const isInvalid = !this.testValid(value)
+      const isInvalid = this.isInvalid(value)
 
       if (isInvalid) {
         this.props.onInvalid()
