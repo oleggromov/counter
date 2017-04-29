@@ -1,6 +1,7 @@
 import moment from 'moment'
 import cloneDeep from 'lodash/cloneDeep'
 import pick from 'lodash/pick'
+import findIndex from 'lodash/findIndex'
 import localStorage from './local-storage.js'
 
 const profilingEnabled = false
@@ -33,30 +34,22 @@ function markDeletable (list) {
   return list
 }
 
-function createList (id) {
-  return {
-    id,
-    url: '',
-    nextId: 0,
-    items: []
-  }
-}
-
 function listGet (id) {
   profile('listGet')
 
   const lists = listsGet()
+  let index = findIndex(lists, ['id', id])
 
-  let requestedList = lists.reduce((acc, cur) => {
-    if (cur.id === id) {
-      return cur
-    }
-    return acc
-  }, null)
+  if (index < 0) {
+    throw new Error(`cannot get list ${id}`)
+  }
 
   profileEnd('listGet')
 
-  return requestedList
+  return {
+    index,
+    list: lists[index]
+  }
 }
 
 function listsGet () {
@@ -64,29 +57,11 @@ function listsGet () {
   return data.lists
 }
 
-// function listAdd (name) {}
-
-// function listDelete (id) {}
-
-// function listEdit (id, name) {}
-
-function replaceList (id, newList) {
+function replaceList ({ index, list }) {
   profile('replaceList')
 
-  let replaced = false
-
-  let lists = listsGet().map(oldList => {
-    if (oldList.id === id) {
-      replaced = true
-      return newList
-    } else {
-      return oldList
-    }
-  })
-
-  if (!replaced) {
-    lists.push(newList)
-  }
+  let lists = listsGet()
+  lists[index] = list
 
   localStorage.set({ lists })
 
@@ -97,21 +72,17 @@ function replaceList (id, newList) {
 function itemAdd (listId, item) {
   profile('itemAdd')
 
-  let list = listGet(listId)
+  let listObj = listGet(listId)
+  let list = listObj.list
 
-  // TODO delete this
-  if (!list) {
-    list = createList(listId)
-  }
-
-  let newItem = pick(item, ['amount', 'type'])
-
-  newItem.id = list.nextId++
-  newItem.date = moment().format('YYYY-MM-DD HH:mm:ss')
+  let newItem = Object.assign(pick(item, ['amount', 'type']), {
+    id: list.nextId++,
+    date: moment().format('YYYY-MM-DD HH:mm:ss')
+  })
 
   list.items.unshift(newItem)
 
-  replaceList(listId, list)
+  replaceList(listObj)
 
   profileEnd('itemAdd')
 }
@@ -119,27 +90,29 @@ function itemAdd (listId, item) {
 function itemDelete (listId, itemId) {
   profile('itemDelete')
 
-  let list = listGet(listId)
+  let listObj = listGet(listId)
+  let list = listObj.list
+
   list.items = list.items.filter(item => {
     return item.id !== itemId
   })
 
-  replaceList(listId, list)
+  replaceList(listObj)
 
   profileEnd('itemDelete')
 }
 
 export default {
   listGet: function listGetDecoratedDeletable (...args) {
-    const result = listGet(...args)
+    const result = listGet(...args).list
     return result
       ? markDeletable(result)
       : null
   },
   // listsGet,
-  // listAdd,
-  // listDelete,
-  // listEdit,
+  // listAdd: function listAdd (name) {},
+  // listDelete: function listDelete (id) {},
+  // listEdit: function listEdit (id, name) {},
   itemAdd,
   itemDelete
 }

@@ -36,8 +36,7 @@ export default class App extends Component {
 
   updateState () {
     this.setState(() => {
-      // TODO remake this!
-      return listsStore.listGet(listId) || { items: [] }
+      return listsStore.listGet(listId)
     })
   }
 
