@@ -1,7 +1,6 @@
 @import '../../styles/global.css';
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMain, sizeFontMobileMain, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
-@value colorGreyish from '../../styles/colors.css';
+@value sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
 
 .title {
 	composes: fontNormal;
@@ -27,4 +26,10 @@
 
 .back {
 	flex-grow: 1;
+}
+
+.back a {
+	text-decoration: none;
+	color: black;
+	border-bottom: 1px solid rgba(0,0,0,.2);
 }

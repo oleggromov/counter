@@ -1,0 +1,45 @@
+@import '../../styles/fonts.css';
+@value paddingDesktop, paddingMobile, sizeFontMobileMain from '../../styles/sizes.css';
+@value colorDelete from '../../styles/colors.css';
+
+.listsItem {
+	display: flex;
+	text-decoration: none;
+	cursor: pointer;
+	color: black;
+}
+
+.listsItem.default {
+	padding: paddingDesktop;
+}
+
+.listsItem.portrait,
+.listsItem.landscape {
+	padding: paddingMobile;
+	font-size: sizeFontMobileMain;
+}
+
+
+.link {
+	composes: fontNormal;
+	flex-grow: 5;
+}
+
+.linkText {
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+.rightColumn {
+	text-align: right;
+	color: #aaa;
+}
+
+.count {
+	composes: rightColumn;
+	flex-grow: 1;
+}
+
+.date {
+	composes: rightColumn;
+	flex-grow: 2;
+}

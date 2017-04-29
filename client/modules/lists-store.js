@@ -109,7 +109,7 @@ export default {
       ? markDeletable(result)
       : null
   },
-  // listsGet,
+  listsGet,
   // listAdd: function listAdd (name) {},
   // listDelete: function listDelete (id) {},
   // listEdit: function listEdit (id, name) {},

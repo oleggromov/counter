@@ -61,10 +61,6 @@ export default class ScreenList extends Component {
           onReadyToDelete={this.setReadyToDelete}
           onItemDelete={this.deleteItem} />
       )
-    } else {
-      return (
-        <p>There're no items yet</p>
-      )
     }
   }
 
