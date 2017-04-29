@@ -18,7 +18,7 @@ const MediaScreenMain = ({ match }) => (<ScreenMain mediaType={mediaType} match=
 export default () => {
   return (
     <Router>
-      <div>
+      <div className='app'>
         <Route path='/' exact component={MediaScreenMain} />
         <Route path='/lists/:id' component={MediaScreenList} />
       </div>

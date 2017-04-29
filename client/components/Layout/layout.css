@@ -7,6 +7,23 @@
 	background: colorGreyish;
 }
 
+.layout.portrait,
+.layout.landscape {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+/* header */
+.header {
+
+}
+
+.layout.portrait .header,
+.layout.landscape .header {
+	flex-basis: 0;
+}
+
 /* content */
 .content {
 	composes: fontNormal;
@@ -20,6 +37,7 @@
 
 .layout.portrait .content,
 .layout.landscape .content {
+	flex-grow: 10;
 	padding: paddingMobile 0;
 	font-size: sizeFontMobileMain;
 }
@@ -36,6 +54,7 @@
 
 .layout.portrait .footer,
 .layout.landscape .footer {
+	flex-basis: 0;
 	font-size: sizeFontMobileMain;
 	padding: paddingMobile;
 }

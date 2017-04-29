@@ -14,9 +14,11 @@ const Layout = (props) => {
 
   return (
     <div className={`${styles.layout} ${styles[mediaType]}`}>
-      <Header
-        mediaType={mediaType}
-        rightComponent={<DateDisplay mediaType={mediaType} />} />
+      <div className={styles.header}>
+        <Header
+          mediaType={mediaType}
+          rightComponent={<DateDisplay mediaType={mediaType} />} />
+      </div>
 
       <div className={styles.title}>
         {title}
