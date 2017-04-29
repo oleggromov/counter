@@ -1,9 +1,6 @@
 import moment from 'moment'
 import { cloneDeep, pick } from 'lodash'
-
-const storage = window.localStorage
-const localStorageKey = 'data'
-const noData = { lists: [] }
+import localStorage from './local-storage.js'
 
 const profilingEnabled = false
 
@@ -18,16 +15,6 @@ function profileEnd (name) {
 const canBeDeleted = {
   maxAge: 15,
   unit: 'minutes'
-}
-
-function localStorageGet () {
-  const serialized = storage.getItem(localStorageKey)
-  return JSON.parse(serialized) || noData
-}
-
-function localStorageSet (data) {
-  const serialized = JSON.stringify(data)
-  storage.setItem(localStorageKey, serialized)
 }
 
 function markDeletable (list) {
@@ -72,7 +59,7 @@ function listGet (id) {
 }
 
 function listsGet () {
-  const data = localStorageGet()
+  const data = localStorage.get()
   return data.lists
 }
 
@@ -100,7 +87,7 @@ function replaceList (id, newList) {
     lists.push(newList)
   }
 
-  localStorageSet({ lists })
+  localStorage.set({ lists })
 
   profileEnd('replaceList')
 }
