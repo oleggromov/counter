@@ -1,0 +1,26 @@
+@import '../../styles/fonts.css';
+@value sizeFontDefaultMedium, sizeFontMobileMedium, paddingMobile from '../../styles/sizes.css';
+
+
+.input {
+	composes: fontNormal;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+	outline: none;
+}
+
+.input.default {
+	font-size: sizeFontDefaultMedium;
+}
+
+.input.portrait,
+.input.landscape {
+	font-size: sizeFontMobileMedium;
+}
+
+.error {
+	border-bottom-color: rgba(255,0,0,.3);
+}
