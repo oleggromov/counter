@@ -24,7 +24,7 @@
 
 /* logo classes */
 .logo {
-	composes: fontBold;
+	composes: fontNormal;
 }
 
 .header.default .logo {

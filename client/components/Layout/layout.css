@@ -1,6 +1,6 @@
 @import '../../styles/global.css';
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMain, sizeFontMobileMain, paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value sizeFontDefaultMain, sizeFontMobileMain, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
 @value colorGreyish from '../../styles/colors.css';
 
 .layout {

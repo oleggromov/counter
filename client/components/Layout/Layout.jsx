@@ -7,8 +7,9 @@ const link = 'http://oleggromov.com'
 
 const Layout = (props) => {
   const {
-    mediaType,
-    children
+    title,
+    children,
+    mediaType
   } = props
 
   return (
@@ -16,6 +17,10 @@ const Layout = (props) => {
       <Header
         mediaType={mediaType}
         rightComponent={<DateDisplay mediaType={mediaType} />} />
+
+      <div className={styles.title}>
+        {title}
+      </div>
 
       <div className={styles.content}>
         {children}

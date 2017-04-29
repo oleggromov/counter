@@ -1,95 +1,27 @@
-import React, { Component } from 'react'
-import Layout from './Layout/Layout.jsx'
-import SpentForm from './SpentForm/SpentForm.jsx'
-import SpentList from './SpentList/SpentList.jsx'
-import listsStore from '../modules/lists-store'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import detectMedia from '../modules/detect-media'
+import ScreenMain from './ScreenMain/ScreenMain.jsx'
+import ScreenList from './ScreenList/ScreenList.jsx'
 
-const listId = 0
-
-const mediaConfig = {
+const mediaType = detectMedia({
   // iphone 7+ screen width is 414px
   '(max-device-width: 414px) and (orientation: portrait)': 'portrait',
   // iphone 7+ screen width in landscape orientation is 736px
   '(max-device-width: 736px) and (orientation: landscape)': 'landscape',
   '(min-device-width: 737px)': 'default'
-}
+})
 
-export default class App extends Component {
-  constructor (props) {
-    super(props)
+const MediaScreenList = ({ match }) => (<ScreenList mediaType={mediaType} match={match} />)
+const MediaScreenMain = ({ match }) => (<ScreenMain mediaType={mediaType} match={match} />)
 
-    this.state = {
-      readyToDeleteId: null
-    }
-
-    this.addItem = this.addItem.bind(this)
-    this.deleteItem = this.deleteItem.bind(this)
-    this.setReadyToDelete = this.setReadyToDelete.bind(this)
-    this.unsetReadyToDelete = this.setReadyToDelete.bind(this, null)
-  }
-
-  componentWillMount () {
-    this.setState({ mediaType: detectMedia(mediaConfig) })
-    this.updateState()
-  }
-
-  updateState () {
-    this.setState(() => {
-      return listsStore.listGet(listId)
-    })
-  }
-
-  addItem (item) {
-    listsStore.itemAdd(listId, item)
-    this.updateState()
-  }
-
-  deleteItem (id) {
-    listsStore.itemDelete(listId, id)
-    this.updateState()
-  }
-
-  setReadyToDelete (id) {
-    if (this.state.readyToDeleteId === id) {
-      id = null
-    }
-
-    this.setState({ readyToDeleteId: id })
-  }
-
-  getContent () {
-    const items = this.state.items
-
-    if (items.length) {
-      return (
-        <SpentList
-          mediaType={this.state.mediaType}
-          items={items}
-          readyToDeleteId={this.state.readyToDeleteId}
-          onReadyToDelete={this.setReadyToDelete}
-          onItemDelete={this.deleteItem} />
-      )
-    } else {
-      return (
-        <p>There're no items yet</p>
-      )
-    }
-  }
-
-  render () {
-    const mediaType = this.state.mediaType
-
-    return (
-      <Layout mediaType={mediaType}>
-        <div onClick={this.unsetReadyToDelete}>
-          <SpentForm
-            mediaType={mediaType}
-            onItemAdd={this.addItem} />
-
-          {this.getContent()}
-        </div>
-      </Layout>
-    )
-  }
+export default () => {
+  return (
+    <Router>
+      <div>
+        <Route path='/' exact component={MediaScreenMain} />
+        <Route path='/lists/:id' component={MediaScreenList} />
+      </div>
+    </Router>
+  )
 }

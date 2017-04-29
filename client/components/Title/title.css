@@ -1,0 +1,30 @@
+@import '../../styles/global.css';
+@import '../../styles/fonts.css';
+@value sizeFontDefaultMain, sizeFontMobileMain, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value colorGreyish from '../../styles/colors.css';
+
+.title {
+	composes: fontNormal;
+	display: flex;
+	align-items: baseline;
+}
+
+.title.desktop {
+
+}
+
+.text {
+	composes: fontBold;
+	margin: 0;
+	flex-grow: 5;
+}
+
+.title.portrait .text,
+.title.landscape .text {
+	padding: paddingMobile;
+	font-size: sizeFontMobileCaption;
+}
+
+.back {
+	flex-grow: 1;
+}
