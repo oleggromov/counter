@@ -60,8 +60,8 @@ export default class SpentForm extends Component {
     e.preventDefault()
   }
 
-  getIsInvalid (key) {
-    return !this.state.hideErrors && this.state[key].isInvalid
+  getIsInvalid (field) {
+    return !this.state.hideErrors && this.state[field].isInvalid
   }
 
   resetShaking () {
@@ -69,15 +69,22 @@ export default class SpentForm extends Component {
   }
 
   render () {
+    const { mediaType } = this.props
+    const state = this.state
+
+    let formClasses = `${styles.spentForm} ${styles[mediaType]}`
+    if (state.shake) {
+      formClasses = `${formClasses} ${styles.shake}`
+    }
+
     const setAmount = this.setValue.bind(this, 'amount', validators.PRICE)
     const setType = this.setValue.bind(this, 'type', validators.NOT_EMPTY)
     const saveItem = this.saveItem.bind(this)
 
     return (
       <form
-        className={`${styles.spentForm} ${styles[this.props.mediaType]} ${this.state.shake ? styles.shake : ''}`}
-        onAnimationEnd={this.resetShaking.bind(this)}
-        >
+        className={formClasses}
+        onAnimationEnd={this.resetShaking.bind(this)}>
         <div className={styles.currencyColumn}>
           <span className={styles.label}>
             {strings.currency}
@@ -86,10 +93,10 @@ export default class SpentForm extends Component {
 
         <div className={styles.amountColumn}>
           <Input
-            mediaType={this.props.mediaType}
+            mediaType={mediaType}
             onChange={setAmount}
             isInvalid={this.getIsInvalid('amount')}
-            value={this.state.amount.value}
+            value={state.amount.value}
             />
         </div>
 
@@ -101,15 +108,15 @@ export default class SpentForm extends Component {
 
         <div className={styles.typeColumn}>
           <Input
-            mediaType={this.props.mediaType}
+            mediaType={mediaType}
             onChange={setType}
             isInvalid={this.getIsInvalid('type')}
-            value={this.state.type.value} />
+            value={state.type.value} />
         </div>
 
         <div className={styles.buttonColumn}>
           <Button
-            mediaType={this.props.mediaType}
+            mediaType={mediaType}
             onClick={saveItem}>
             {strings.save}
           </Button>
