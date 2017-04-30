@@ -4,7 +4,7 @@ import Label from './Label.jsx'
 import Button from './Button.jsx'
 import styles from './form.css'
 import { getInitialState, getValueFields, getStatefulConfig } from './form-helpers'
-import getValidator from '../../modules/get-validator'
+import getValidator from './get-validator'
 import pick from 'lodash/pick'
 import transform from 'lodash/transform'
 

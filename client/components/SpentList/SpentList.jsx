@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import ContainerSpentListItem from '../ContainerSpentListItem/ContainerSpentListItem.jsx'
-import groupItemsByDays from '../../modules/group-items-by-days.js'
+import groupItemsByDays from './group-items-by-days.js'
 
 // TODO: refactor this to make it simplier
 const SpentList = (props) => {
