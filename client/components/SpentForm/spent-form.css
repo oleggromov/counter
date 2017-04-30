@@ -33,29 +33,34 @@
 	padding: 0 0.2em;
 }
 
-.currencyColumn {
+.spentForm.default .column:first-child,
+.spentForm.portrait .column:first-child,
+.spentForm.landscape .column:first-child {
+	padding-left: 0;
+}
+
+.currency {
 	composes: column;
 	flex-grow: 1;
-	padding-left: 0;
 	text-align: right;
 }
 
-.amountColumn {
+.amount {
 	composes: column;
 	flex-grow: 4;
 }
 
-.forColumn {
+.for {
 	composes: column;
 	flex-grow: 1;
 }
 
-.typeColumn {
+.type {
 	composes: column;
 	flex-grow: 12;
 }
 
-.buttonColumn {
+.button {
 	composes: column;
 	flex-grow: 4;
 	padding-right: 0;

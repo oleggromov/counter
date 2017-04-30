@@ -2,7 +2,7 @@ export default (styles, strings) => ([
   {
     type: 'Label',
     text: strings.currency,
-    containerClass: styles.currencyColumn
+    containerClass: styles.currency
   },
   {
     type: 'Input',
@@ -10,12 +10,12 @@ export default (styles, strings) => ([
     value: '',
     isInvalid: true,
     validator: 'PRICE',
-    containerClass: styles.amountColumn
+    containerClass: styles.amount
   },
   {
     type: 'Label',
     text: strings.for,
-    containerClass: styles.forColumn
+    containerClass: styles.for
   },
   {
     type: 'Input',
@@ -23,11 +23,11 @@ export default (styles, strings) => ([
     value: '',
     isInvalid: true,
     validator: 'NOT_EMPTY',
-    containerClass: styles.typeColumn
+    containerClass: styles.type
   },
   {
     type: 'Button',
     text: strings.save,
-    containerClass: styles.buttonColumn
+    containerClass: styles.button
   }
 ])
