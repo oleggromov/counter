@@ -1,38 +1,33 @@
 import React, { Component } from 'react'
-import Input from '../Input/Input.jsx'
-import Button from '../Button/Button.jsx'
 import styles from './spent-form.css'
-import validators from '../../modules/validators'
+import getConfig from './getConfig'
+import Form from '../Form/Form.jsx'
+import getInitialState from '../Form/get-initial-state'
+import getStatefulConfig from '../Form/get-stateful-config'
 
-const strings = {
+const defaultConfig = getConfig(styles, {
   currency: '$',
   for: 'for',
   save: 'Save'
-}
-
-const getInitialState = () => ({
-  amount: {
-    value: '',
-    isInvalid: true
-  },
-  type: {
-    value: '',
-    isInvalid: true
-  },
-  shake: false,
-  hideErrors: true
 })
 
-export default class SpentForm extends Component {
+const getDefaultState = () => {
+  return Object.assign({
+    hideErrors: true,
+    formIsInvalid: false
+  }, getInitialState(defaultConfig))
+}
+
+export default class SpentFrom extends Component {
   constructor (props) {
     super(props)
 
-    this.state = getInitialState()
+    this.state = getDefaultState()
   }
 
-  setValue (type, validator, value) {
+  setValue (name, validator, value) {
     this.setState({
-      [type]: {
+      [name]: {
         isInvalid: !validator(value),
         value: value
       },
@@ -40,13 +35,13 @@ export default class SpentForm extends Component {
     })
   }
 
-  saveItem (e) {
+  saveItem () {
     const { amount, type } = this.state
 
     if (amount.isInvalid || type.isInvalid) {
       this.setState({
-        shake: true,
-        hideErrors: false
+        hideErrors: false,
+        formIsInvalid: true
       })
     } else {
       this.props.onItemAdd({
@@ -54,74 +49,32 @@ export default class SpentForm extends Component {
         type: type.value.trim()
       })
 
-      this.setState(getInitialState())
+      this.setState(getDefaultState())
     }
-
-    e.preventDefault()
   }
 
-  getIsInvalid (field) {
-    return !this.state.hideErrors && this.state[field].isInvalid
-  }
-
-  resetShaking () {
-    this.setState({ shake: false })
+  resetFormInvalid () {
+    this.setState({
+      formIsInvalid: false
+    })
   }
 
   render () {
     const { mediaType } = this.props
-    const state = this.state
-
-    let formClasses = `${styles.spentForm} ${styles[mediaType]}`
-    if (state.shake) {
-      formClasses = `${formClasses} ${styles.shake}`
-    }
-
-    const setAmount = this.setValue.bind(this, 'amount', validators.PRICE)
-    const setType = this.setValue.bind(this, 'type', validators.NOT_EMPTY)
+    const setValue = this.setValue.bind(this)
     const saveItem = this.saveItem.bind(this)
+    const spentFormClasses = `${styles.spentForm} ${styles[mediaType]}`
+    const resetFormInvalid = this.resetFormInvalid.bind(this)
 
     return (
-      <form
-        className={formClasses}
-        onAnimationEnd={this.resetShaking.bind(this)}>
-        <div className={styles.currencyColumn}>
-          <span className={styles.label}>
-            {strings.currency}
-          </span>
-        </div>
-
-        <div className={styles.amountColumn}>
-          <Input
-            mediaType={mediaType}
-            onChange={setAmount}
-            isInvalid={this.getIsInvalid('amount')}
-            value={state.amount.value}
-            />
-        </div>
-
-        <div className={styles.forColumn}>
-          <span className={styles.label}>
-            {strings.for}
-          </span>
-        </div>
-
-        <div className={styles.typeColumn}>
-          <Input
-            mediaType={mediaType}
-            onChange={setType}
-            isInvalid={this.getIsInvalid('type')}
-            value={state.type.value} />
-        </div>
-
-        <div className={styles.buttonColumn}>
-          <Button
-            mediaType={mediaType}
-            onClick={saveItem}>
-            {strings.save}
-          </Button>
-        </div>
-      </form>
+      <Form
+        className={spentFormClasses}
+        mediaType={mediaType}
+        config={getStatefulConfig(this.state, defaultConfig)}
+        isInvalid={this.state.formIsInvalid}
+        onAnimationEnd={resetFormInvalid}
+        onChange={setValue}
+        onSubmit={saveItem} />
     )
   }
 }

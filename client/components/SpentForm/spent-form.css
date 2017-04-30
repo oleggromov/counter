@@ -1,10 +1,6 @@
 @import '../../styles/fonts.css';
 @value sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
 
-.spentForm.default {}
-.spentForm.portrait {}
-.spentForm.landscape {}
-
 .spentForm {
 	composes: fontNormal;
 	display: flex;
@@ -63,33 +59,4 @@
 	composes: column;
 	flex-grow: 4;
 	padding-right: 0;
-}
-
-/* labels */
-.label {
-	opacity: 0.3;
-}
-
-/* animation */
-.shake {
-	animation: shake 0.75s cubic-bezier(.36,.07,.19,.97) both;
-	transform: translate3d(0, 0, 0);
-}
-
-@keyframes shake {
-  10%, 90% {
-    transform: translateX(-1px);
-  }
-
-  20%, 80% {
-    transform: translateX(2px);
-  }
-
-  30%, 50%, 70% {
-    transform: translateX(-4px);
-  }
-
-  40%, 60% {
-    transform: translateX(4px);
-  }
 }
