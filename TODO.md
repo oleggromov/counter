@@ -3,19 +3,16 @@
 - start counting the age of items in the background
 - figure out whether we need cloneDeep for objects and if yes, switch to Immutable.js
 
+## Component's state
+
+- how to split Form animation/appearance state from SpentForm business logic?!
+
 ### Check for bugs
 
 - ready to delete logic
-- form:
-  - enter something into 'name' field
-  - remove it
-  - add price
-  - press sumbit and see that an item with empty name has been added
 
 ## Styling
 
 - add `postcss-autoreset`
-- figure out how to correctly remove animation enabling from within the `SpentForm` lifecycle
-	- onAnimationEnd
 - inline the font import
 - figure out how to expand the long text element
