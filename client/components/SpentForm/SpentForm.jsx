@@ -5,7 +5,7 @@ import Form from '../Form/Form.jsx'
 const strings = {
   currency: '$',
   for: 'for',
-  save: 'Save'
+  save: 'Add'
 }
 
 const config = [

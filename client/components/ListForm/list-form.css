@@ -1,5 +1,5 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
+@value sizeFontDefaultMedium from '../../styles/sizes.css';
 
 .listForm {
 	composes: fontNormal;
@@ -10,7 +10,6 @@
 .listForm.portrait,
 .listForm.landscape {
 	margin: 0.5em 0 2em;
-	padding: 0 paddingMobile;
 }
 
 /* layout */
