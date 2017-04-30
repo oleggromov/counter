@@ -34,6 +34,13 @@ function markDeletable (list) {
   return list
 }
 
+function markDeletableLists (lists) {
+  return lists.map(list => {
+    list.isDeletable = list.items.length === 0
+    return list
+  })
+}
+
 function listGet (id) {
   profile('listGet')
 
@@ -113,7 +120,12 @@ export default {
       ? markDeletable(result)
       : null
   },
-  listsGet,
+  listsGet: function listsGetDeletable (...args) {
+    const result = listsGet(...args)
+    return result
+      ? markDeletableLists(result)
+      : null
+  },
   listAdd,
   // listDelete: function listDelete (id) {},
   // listEdit: function listEdit (id, name) {},
