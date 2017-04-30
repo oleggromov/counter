@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Input from '../Input/Input.jsx'
+import Button from '../Button/Button.jsx'
 import styles from './spent-form.css'
 import validators from '../../modules/validators'
 
@@ -44,7 +45,8 @@ export default class SpentForm extends Component {
 
     if (amount.isInvalid || type.isInvalid) {
       this.setState({
-        shake: true
+        shake: true,
+        hideErrors: false
       })
     } else {
       this.props.onItemAdd({
@@ -106,11 +108,11 @@ export default class SpentForm extends Component {
         </div>
 
         <div className={styles.buttonColumn}>
-          <button
-            className={styles.button}
+          <Button
+            mediaType={this.props.mediaType}
             onClick={saveItem}>
             {strings.save}
-          </button>
+          </Button>
         </div>
       </form>
     )
