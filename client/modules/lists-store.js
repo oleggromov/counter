@@ -57,6 +57,10 @@ function listsGet () {
   return data.lists
 }
 
+function listAdd (list) {
+  console.log(list)
+}
+
 function replaceList ({ index, list }) {
   profile('replaceList')
 
@@ -110,7 +114,7 @@ export default {
       : null
   },
   listsGet,
-  // listAdd: function listAdd (name) {},
+  listAdd,
   // listDelete: function listDelete (id) {},
   // listEdit: function listEdit (id, name) {},
   itemAdd,
