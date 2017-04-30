@@ -3,12 +3,34 @@ import { Link } from 'react-router-dom'
 import DateFormatted from '../DateFormatted/DateFormatted.jsx'
 import styles from './lists-item.css'
 
+const strings = {
+  pcs: 'pcs',
+  delete: 'Delete'
+}
+
 const ListsItem = props => {
   const renderDate = () => {
     if (props.date) {
       return (
         <div className={styles.date}>
           <DateFormatted date={props.date} />
+        </div>
+      )
+    }
+  }
+
+  const notifyDeletion = (e) => {
+    e.preventDefault()
+    props.onDelete()
+  }
+
+  const showDeleteButton = () => {
+    if (props.showDelete) {
+      return (
+        <div
+          className={styles.delete}
+          onClick={notifyDeletion}>
+          {strings.delete}
         </div>
       )
     }
@@ -27,8 +49,10 @@ const ListsItem = props => {
       { renderDate() }
 
       <div className={styles.count}>
-        {props.count} pcs
+        {props.count} {strings.pcs}
       </div>
+
+      { showDeleteButton() }
     </Link>
   )
 }

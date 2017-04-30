@@ -3,14 +3,21 @@ import Layout from '../Layout/Layout.jsx'
 import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import listsStore from '../../modules/lists-store'
-import ListForm from '../ListForm/ListForm.jsx'
+import ListEdit from '../ListEdit/ListEdit.jsx'
 
 export default class ScreenMain extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      lists: null
+      lists: null,
+      showDeletable: false
+    }
+  }
+
+  toggleDelete (showDeletable) {
+    if (showDeletable !== this.state.showDeletable) {
+      this.setState({ showDeletable })
     }
   }
 
@@ -19,13 +26,19 @@ export default class ScreenMain extends Component {
     this.updateState()
   }
 
+  deleteList (id) {
+    console.log(`deleteList ${id}`)
+  }
+
   componentWillMount () {
     this.updateState()
   }
 
   updateState () {
+    const lists = listsStore.listsGet()
+
     this.setState({
-      lists: listsStore.listsGet()
+      lists: lists
     })
   }
 
@@ -46,6 +59,8 @@ export default class ScreenMain extends Component {
         link={`/lists/${item.id}`}
         date={count ? item.items[0].date : null}
         count={count}
+        onDelete={this.deleteList.bind(this, item.id)}
+        showDelete={item.isDeletable && this.state.showDeletable}
         mediaType={this.props.mediaType}>
         {item.name}
       </ListsItem>
@@ -60,9 +75,10 @@ export default class ScreenMain extends Component {
 
         {this.state.lists.map(this.renderListItem, this)}
 
-        <ListForm
+        <ListEdit
           mediaType={this.props.mediaType}
-          onListAdd={this.addList.bind(this)} />
+          onListAdd={this.addList.bind(this)}
+          onToggleDelete={this.toggleDelete.bind(this)} />
       </Layout>
     )
   }
