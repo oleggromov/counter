@@ -1,0 +1,46 @@
+@import '../../styles/fonts.css';
+@value sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
+
+.listForm {
+	composes: fontNormal;
+	display: flex;
+	align-items: baseline;
+}
+
+.listForm.portrait,
+.listForm.landscape {
+	margin: 0.5em 0 2em;
+	padding: 0 paddingMobile;
+}
+
+/* layout */
+.column {
+	flex-basis: 0;
+}
+
+.listForm.portrait .column,
+.listForm.landscape .column {
+	padding: 0 0.2em;
+}
+
+.listForm.portrait .column:first-child,
+.listForm.landscape .column:first-child {
+	padding-left: 0;
+}
+
+
+.label {
+	composes: column;
+	flex-grow: 1;
+	padding-left: 0;
+}
+
+.input {
+	composes: column;
+	flex-grow: 8;
+}
+
+.button {
+	composes: column;
+	flex-grow: 1;
+}
