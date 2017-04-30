@@ -3,6 +3,7 @@ import Layout from '../Layout/Layout.jsx'
 import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import listsStore from '../../modules/lists-store'
+import ListForm from '../ListForm/ListForm.jsx'
 
 export default class ScreenMain extends Component {
   constructor (props) {
@@ -13,7 +14,16 @@ export default class ScreenMain extends Component {
     }
   }
 
+  addList (list) {
+    listsStore.listAdd(list)
+    this.updateState()
+  }
+
   componentWillMount () {
+    this.updateState()
+  }
+
+  updateState () {
     this.setState({
       lists: listsStore.listsGet()
     })
@@ -49,6 +59,10 @@ export default class ScreenMain extends Component {
         mediaType={this.props.mediaType}>
 
         {this.state.lists.map(this.renderListItem, this)}
+
+        <ListForm
+          mediaType={this.props.mediaType}
+          onListAdd={this.addList.bind(this)} />
       </Layout>
     )
   }
