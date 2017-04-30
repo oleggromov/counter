@@ -1,0 +1,71 @@
+@import '../../styles/fonts.css';
+@value sizeFontMobileMedium, sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
+
+.listEdit {
+
+}
+
+.listEdit.desktop {}
+
+.listEdit.portrait,
+.listEdit.landscape {
+	margin-top: 2em;
+	padding: 0 paddingMobile;
+}
+
+.heading {}
+
+.listEdit.desktop .heading {}
+
+.listEdit.portrait .heading,
+.listEdit.landscape .heading {
+	display: flex;
+	align-items: baseline;
+}
+
+/* title */
+.title {
+	composes: fontBold;
+	margin: 0;
+}
+
+.listEdit.desktop .title {}
+
+.listEdit.portrait .title,
+.listEdit.landscape .title {
+	display: inline-block;
+	font-size: sizeFontMobileMedium;
+	flex-grow: 10;
+}
+
+/* backLink */
+.backLink {}
+
+.listEdit.desktop .backLink {}
+
+.listEdit.portrait .backLink,
+.listEdit.landscape .backLink {
+	flex-grow: 1;
+}
+
+/* mode links */
+.modes {
+	padding: 0;
+	list-style: none;
+}
+
+.listEdit.portrait .modes,
+.listEdit.landscape .modes {
+	display: inline-block;
+	margin: 0.5em 0 0;
+}
+
+.modes li {
+	display: inline-block;
+	margin: 0 1em 0 0;
+}
+
+/* link */
+.link {
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
