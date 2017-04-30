@@ -11,6 +11,7 @@
 	padding: 0.2em 1em;
 	border: none;
 	background: colorButton;
+	white-space: nowrap;
 }
 
 .button.default {

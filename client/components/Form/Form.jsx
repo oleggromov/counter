@@ -3,16 +3,58 @@ import Input from './Input.jsx'
 import Label from './Label.jsx'
 import Button from './Button.jsx'
 import styles from './form.css'
+import { getInitialState, getValueFields, getStatefulConfig } from './form-helpers'
 import getValidator from '../../modules/get-validator'
+import pick from 'lodash/pick'
+import transform from 'lodash/transform'
 
 export default class Form extends Component {
-  callOnSubmit (e) {
-    this.props.onSubmit()
-    e.preventDefault()
+  constructor (props) {
+    super(props)
+
+    this.values = getValueFields(props.config)
+    this.state = getInitialState(props.config)
   }
 
-  renderChildren () {
-    return this.props.config.map((field, index) => {
+  setValue (name, validator, value) {
+    this.setState({
+      [name]: {
+        isInvalid: !validator(value),
+        value: value
+      },
+      hideErrors: false
+    })
+  }
+
+  callOnSubmit (e) {
+    e.preventDefault()
+
+    const values = pick(this.state, this.values)
+    const result = transform(values, (acc, value, key) => {
+      acc[key] = value.value
+      acc.isInvalid = acc.isInvalid || value.isInvalid
+      return acc
+    }, {})
+
+    if (result.isInvalid) {
+      this.setState({
+        hideErrors: false,
+        formIsInvalid: true
+      })
+    } else {
+      this.props.onSubmit(pick(result, this.values))
+      this.setState(getInitialState(this.props.config))
+    }
+  }
+
+  resetFormInvalid () {
+    this.setState({
+      formIsInvalid: false
+    })
+  }
+
+  renderChildren (config) {
+    return config.map((field, index) => {
       return (
         <div
           className={field.containerClass}
@@ -31,7 +73,7 @@ export default class Form extends Component {
     switch (field.type) {
       case 'Input':
         Object.assign(props, {
-          onChange: this.props.onChange.bind(null, field.name, getValidator(field.validator)),
+          onChange: this.setValue.bind(this, field.name, getValidator(field.validator)),
           isInvalid: field.isInvalid,
           value: field.value
         })
@@ -63,15 +105,19 @@ export default class Form extends Component {
 
   render () {
     let formClasses = `${styles.form} ${this.props.className}`
-    if (this.props.isInvalid) {
+    if (this.state.formIsInvalid) {
       formClasses = `${formClasses} ${styles.shake}`
     }
+
+    const statefulConfig = getStatefulConfig(this.state, this.props.config)
 
     return (
       <form
         className={formClasses}
-        onAnimationEnd={this.props.onAnimationEnd}>
-        {this.renderChildren()}
+        onAnimationEnd={this.resetFormInvalid.bind(this)}>
+
+        {this.renderChildren(statefulConfig)}
+
       </form>
     )
   }
