@@ -1,130 +1,116 @@
 import React, { Component } from 'react'
+import Input from '../Input/Input.jsx'
 import styles from './spent-form.css'
-import cloneDeep from 'lodash/cloneDeep'
+import validators from '../../modules/validators'
 
-function getInitialState () {
-  return {
-    amount: '',
-    type: '',
-    validity: {
-      amount: false,
-      type: false
-    },
-    shake: false,
-    showErrDecoration: false
-  }
+const strings = {
+  currency: '$',
+  for: 'for',
+  save: 'Save'
 }
 
-const shakeAnimDelay = 1000
+const getInitialState = () => ({
+  amount: {
+    value: '',
+    isInvalid: true
+  },
+  type: {
+    value: '',
+    isInvalid: true
+  },
+  shake: false,
+  hideErrors: true
+})
 
 export default class SpentForm extends Component {
   constructor (props) {
     super(props)
 
     this.state = getInitialState()
-
-    this.setAmount = this.setAmount.bind(this)
-    this.setType = this.setType.bind(this)
-    this.saveItem = this.saveItem.bind(this)
   }
 
-  componentWillUnmount () {
-    window.clearTimeout(this.shakeTimeout)
-  }
-
-  setAmount (e) {
-    const isNumber = /^\d+(\.\d{1,2})?$/
-    const value = e.target.value.trim()
-
-    this.setState(prevState => {
-      let newState = cloneDeep(prevState)
-
-      newState.showErrDecoration = true
-      newState.validity.amount = isNumber.test(value) && parseFloat(value) !== 0
-      newState.amount = value
-
-      return newState
-    })
-  }
-
-  setType (e) {
-    const isEmpty = /^\s+$/
-    const value = e.target.value
-
-    this.setState(prevState => {
-      let newState = cloneDeep(prevState)
-
-      newState.showErrDecoration = true
-      newState.validity.type = !isEmpty.test(value)
-      newState.type = value
-
-      return newState
+  setValue (type, validator, value) {
+    this.setState({
+      [type]: {
+        isInvalid: !validator(value),
+        value: value
+      },
+      hideErrors: false
     })
   }
 
   saveItem (e) {
-    const validity = this.state.validity.amount && this.state.validity.type
+    const { amount, type } = this.state
 
-    if (validity) {
+    if (amount.isInvalid || type.isInvalid) {
+      this.setState({
+        shake: true
+      })
+    } else {
       this.props.onItemAdd({
-        amount: Number(this.state.amount),
-        type: this.state.type.trim()
+        amount: Number(amount.value),
+        type: type.value.trim()
       })
 
       this.setState(getInitialState())
-      this.amountInput.focus()
-    } else {
-      this.setState({
-        shake: true,
-        showErrDecoration: true
-      })
     }
 
     e.preventDefault()
   }
 
-  finishShaking () {
-    this.shakeTimeout = window.setTimeout(() => {
-      this.setState({ shake: false })
-    }, shakeAnimDelay)
+  getIsInvalid (key) {
+    return !this.state.hideErrors && this.state[key].isInvalid
+  }
+
+  resetShaking () {
+    this.setState({ shake: false })
   }
 
   render () {
-    // This is an ugly way to remove animation class afterwards.
-    if (this.state.shake) {
-      this.finishShaking()
-    }
+    const setAmount = this.setValue.bind(this, 'amount', validators.PRICE)
+    const setType = this.setValue.bind(this, 'type', validators.NOT_EMPTY)
+    const saveItem = this.saveItem.bind(this)
 
     return (
-      <form className={`${styles.spentForm} ${styles[this.props.mediaType]} ${this.state.shake ? styles.shake : ''}`}>
+      <form
+        className={`${styles.spentForm} ${styles[this.props.mediaType]} ${this.state.shake ? styles.shake : ''}`}
+        onAnimationEnd={this.resetShaking.bind(this)}
+        >
         <div className={styles.currencyColumn}>
-          <span className={styles.label}>$</span>
+          <span className={styles.label}>
+            {strings.currency}
+          </span>
         </div>
 
         <div className={styles.amountColumn}>
-          <input
-            className={`${styles.input} ${this.state.showErrDecoration && !this.state.validity.amount ? styles.error : ''}`}
-            autoFocus
-            ref={(input) => { this.amountInput = input }}
-            onChange={this.setAmount}
-            value={this.state.amount} />
+          <Input
+            mediaType={this.props.mediaType}
+            onChange={setAmount}
+            isInvalid={this.getIsInvalid('amount')}
+            value={this.state.amount.value}
+            />
         </div>
 
         <div className={styles.forColumn}>
-          <span className={styles.label}>for</span>
+          <span className={styles.label}>
+            {strings.for}
+          </span>
         </div>
 
         <div className={styles.typeColumn}>
-          <input
-            className={`${styles.input} ${this.state.showErrDecoration && !this.state.validity.type ? styles.error : ''}`}
-            onChange={this.setType}
-            value={this.state.type} />
+          <Input
+            mediaType={this.props.mediaType}
+            onChange={setType}
+            isInvalid={this.getIsInvalid('type')}
+            value={this.state.type.value} />
         </div>
 
         <div className={styles.buttonColumn}>
           <button
             className={styles.button}
-            onClick={this.saveItem}>Save</button>
+            onClick={saveItem}>
+            {strings.save}
+          </button>
         </div>
       </form>
     )
