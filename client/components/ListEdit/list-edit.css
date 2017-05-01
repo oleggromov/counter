@@ -1,18 +1,48 @@
 @import '../../styles/fonts.css';
 @value sizeFontMobileMedium, sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
 
-.listEdit {
-
-}
+.listEdit {}
 
 .listEdit.desktop {}
 
 .listEdit.portrait,
 .listEdit.landscape {
+	overflow: hidden;
 	margin-top: 2em;
+}
+
+/* animated frame */
+.frame {
+	width: 100%;
+	transition: transform 0.3s ease;
+	transform: translateX(0);
+}
+
+.switch {
+	transform: translateX(100%);
+}
+
+/* sections */
+.section {
+	width: 100%;
+	box-sizing: border-box;
 	padding: 0 paddingMobile;
 }
 
+.main,
+.mode {
+	composes: section;
+}
+
+/* mode */
+.mode {
+	position: absolute;
+	top: 0;
+	right: 100%;
+}
+
+
+/* heading */
 .heading {}
 
 .listEdit.desktop .heading {}
@@ -45,7 +75,14 @@
 
 .listEdit.portrait .backLink,
 .listEdit.landscape .backLink {
+	flex-basis: 0;
 	flex-grow: 1;
+	padding-right: 0.5em;
+}
+
+/* content */
+.content {
+	padding: 0.5em 0;
 }
 
 /* mode links */
@@ -67,5 +104,9 @@
 
 /* link */
 .link {
+	white-space: nowrap;
+}
+
+.link span {
 	border-bottom: 1px solid rgba(0,0,0,.3);
 }
