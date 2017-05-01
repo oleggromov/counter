@@ -24,21 +24,14 @@ const ListsItem = props => {
     props.onDelete()
   }
 
-  const showDeleteButton = () => {
-    if (props.showDelete) {
-      return (
-        <div
-          className={styles.delete}
-          onClick={notifyDeletion}>
-          {strings.delete}
-        </div>
-      )
-    }
+  let classes = `${styles.listsItem} ${styles[props.mediaType]}`
+  if (props.showDelete) {
+    classes = `${classes} ${styles.readyToDelete}`
   }
 
   return (
     <Link
-      className={`${styles.listsItem} ${styles[props.mediaType]}`}
+      className={classes}
       to={props.link}>
       <div className={styles.link}>
         <span className={styles.linkText}>
@@ -52,7 +45,11 @@ const ListsItem = props => {
         {props.count} {strings.pcs}
       </div>
 
-      { showDeleteButton() }
+      <div
+        className={styles.delete}
+        onClick={notifyDeletion}>
+        {strings.delete}
+      </div>
     </Link>
   )
 }
