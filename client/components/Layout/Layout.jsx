@@ -5,19 +5,12 @@ import DateDisplay from '../DateDisplay/DateDisplay.jsx'
 
 const link = 'http://oleggromov.com'
 
-const Layout = (props) => {
-  const {
-    title,
-    children,
-    mediaType
-  } = props
-
+const Layout = ({ title, children }) => {
   return (
-    <div className={`${styles.layout} ${styles[mediaType]}`}>
+    <div className={styles.layout}>
       <div className={styles.header}>
         <Header
-          mediaType={mediaType}
-          rightComponent={<DateDisplay mediaType={mediaType} />} />
+          rightComponent={<DateDisplay />} />
       </div>
 
       <div className={styles.title}>

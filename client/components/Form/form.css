@@ -5,10 +5,6 @@
   display: flex;
 }
 
-.form.default {}
-.form.portrait {}
-.form.landscape {}
-
 .column {
   flex-basis: 0;
   padding: 0 0.2em;

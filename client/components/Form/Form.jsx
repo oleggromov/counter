@@ -66,20 +66,13 @@ export default class Form extends Component {
   }
 
   renderField (field) {
-    let props = {
-      mediaType: this.props.mediaType
-    }
-
     switch (field.type) {
       case 'Input':
-        Object.assign(props, {
-          onChange: this.setValue.bind(this, field.name, getValidator(field.validator)),
-          isInvalid: field.isInvalid,
-          value: field.value
-        })
-
         return (
-          <Input {...props} />
+          <Input
+            onChange={this.setValue.bind(this, field.name, getValidator(field.validator))}
+            isInvalid={field.isInvalid}
+            value={field.value} />
         )
 
       case 'Label':
@@ -88,12 +81,8 @@ export default class Form extends Component {
         )
 
       case 'Button':
-        Object.assign(props, {
-          onClick: this.callOnSubmit.bind(this)
-        })
-
         return (
-          <Button {...props}>
+          <Button onClick={this.callOnSubmit.bind(this)}>
             {field.text}
           </Button>
         )

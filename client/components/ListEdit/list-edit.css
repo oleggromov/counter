@@ -1,12 +1,7 @@
 @import '../../styles/fonts.css';
-@value sizeFontMobileMedium, sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
+@value sizeFontMedium, padding from '../../styles/sizes.css';
 
-.listEdit {}
-
-.listEdit.desktop {}
-
-.listEdit.portrait,
-.listEdit.landscape {
+.listEdit {
 	overflow: hidden;
 	/* beware! this is a hard fix */
 	height: 5em;
@@ -32,7 +27,7 @@
 .section {
 	width: 100%;
 	box-sizing: border-box;
-	padding: 0 paddingMobile;
+	padding: 0 padding;
 }
 
 .main,
@@ -53,12 +48,7 @@
 
 
 /* heading */
-.heading {}
-
-.listEdit.desktop .heading {}
-
-.listEdit.portrait .heading,
-.listEdit.landscape .heading {
+.heading {
 	display: flex;
 	align-items: baseline;
 }
@@ -67,24 +57,13 @@
 .title {
 	composes: fontBold;
 	margin: 0;
-}
-
-.listEdit.desktop .title {}
-
-.listEdit.portrait .title,
-.listEdit.landscape .title {
 	display: inline-block;
-	font-size: sizeFontMobileMedium;
+	font-size: sizeFontMedium;
 	flex-grow: 10;
 }
 
 /* backLink */
-.backLink {}
-
-.listEdit.desktop .backLink {}
-
-.listEdit.portrait .backLink,
-.listEdit.landscape .backLink {
+.backLink {
 	flex-basis: 0;
 	flex-grow: 1;
 	padding-right: 0.5em;
@@ -97,14 +76,10 @@
 
 /* mode links */
 .modes {
-	padding: 0;
-	list-style: none;
-}
-
-.listEdit.portrait .modes,
-.listEdit.landscape .modes {
 	display: inline-block;
 	margin: 0.5em 0 0;
+	padding: 0;
+	list-style: none;
 }
 
 .modes li {

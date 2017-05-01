@@ -1,24 +1,15 @@
-@value paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value padding from '../../styles/sizes.css';
 @value colorDelete from '../../styles/colors.css';
 
-.row.default {}
-
-.row.portrait,
-.row.landscape {
+.row {
 	position: relative;
 	transform: translate3d(0,0,0);
 	transition: 0.3s ease;
-}
-
-.row {
 	display: flex;
 	align-items: baseline;
 }
 
-.readyToDelete {}
-
-.row.portrait.readyToDelete,
-.row.landscape.readyToDelete {
+.readyToDelete {
 	transform: translateX(-5em);
 }
 
@@ -30,7 +21,7 @@
 .currency {
 	composes: column;
 	width: 11px;
-	padding-left: paddingMobile;
+	padding-left: padding;
 	text-align: right;
 	color: rgba(0,0,0,.3);
 }
@@ -46,11 +37,7 @@
 .name {
 	composes: column;
 	flex-grow: 12;
-	padding-right: paddingMobile;
-}
-
-.row.portrait .name,
-.row.landscape .name {
+	padding-right: padding;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -59,38 +46,13 @@
 .delete {
 	composes: column;
 	flex-grow: 1;
-}
-
-.row.portrait .delete,
-.row.landscape .delete {
 	position: absolute;
 	width: 3em;
 	left: 100%;
 	top: 0;
 	bottom: 0;
-	padding: 0.2em paddingMobile;
+	padding: 0.2em padding;
 	background: colorDelete;
 	color: white;
 	text-align: center;
-}
-
-.item.default .delete {
-	width: 10%;
-	font-size: 80%;
-
-	& span {
-		cursor: pointer;
-		color: rgba(0,0,0,.5);
-		border-bottom: 1px solid rgba(0,0,0,.3);
-		opacity: 0.5;
-		transition: 0.1s ease;
-	}
-
-	& span:hover {
-		color: black;
-	}
-}
-
-.item.default:hover .delete span {
-	opacity: 1;
 }

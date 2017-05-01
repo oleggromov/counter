@@ -1,18 +1,9 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
+@value padding from '../../styles/sizes.css';
 
-.spentForm {}
-
-.spentForm.default {
-	width: 50%;
-	margin: 1em 0;
-	font-size: sizeFontDefaultMedium;
-}
-
-.spentForm.portrait,
-.spentForm.landscape {
+.spentForm {
 	margin: 0.5em 0 2em;
-	padding: 0 paddingMobile;
+	padding: 0 padding;
 }
 
 /* layout */

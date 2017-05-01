@@ -36,7 +36,7 @@ export default class DateDisplay extends Component {
 
   render () {
     return (
-      <div className={`${styles.dateDisplay} ${styles[this.props.mediaType]}`}>
+      <div className={styles.dateDisplay}>
         <div className={styles.date}>
           <DateFormatted date={this.state} />
         </div>

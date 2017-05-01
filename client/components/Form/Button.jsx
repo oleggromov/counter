@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './button.css'
 
-export default ({ mediaType, onClick, children }) => (
+export default ({ onClick, children }) => (
   <button
-    className={`${styles.button} ${styles[mediaType]}`}
+    className={styles.button}
     onClick={onClick}>
     {children}
   </button>

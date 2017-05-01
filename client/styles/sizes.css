@@ -1,10 +1,5 @@
-@value sizeFontDefaultCaption: 30px;
-@value sizeFontDefaultMedium: 20px;
-@value sizeFontDefaultMain: 15px;
+@value sizeFontCaption: 20px;
+@value sizeFontMedium: 15px;
+@value sizeFontMain: 15px;
 
-@value sizeFontMobileCaption: 20px;
-@value sizeFontMobileMedium: 15px;
-@value sizeFontMobileMain: 15px;
-
-@value paddingDesktop: 30px;
-@value paddingMobile: 15px;
+@value padding: 15px;

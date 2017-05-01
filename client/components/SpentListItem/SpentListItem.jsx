@@ -1,22 +1,11 @@
 import React from 'react'
 import styles from './spent-list-item.css'
 
-const SpentListItem = (props) => {
-  const {
-    currency,
-    amount,
-    type,
-    isReadyToDelete,
-    onReadyToDelete,
-    onDelete,
-    mediaType
-  } = props
-
-  const extendedClass = isReadyToDelete
-      ? styles.readyToDelete
-      : ''
-
-  const classes = `${styles.row} ${styles[mediaType]} ${extendedClass}`
+const SpentListItem = ({ currency, amount, type, isReadyToDelete, onReadyToDelete, onDelete }) => {
+  let classes = styles.row
+  if (isReadyToDelete) {
+    classes = `${classes} ${styles.readyToDelete}`
+  }
 
   return (
     <div className={classes} onClick={onReadyToDelete}>

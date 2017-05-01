@@ -20,5 +20,4 @@
 - inline the font import
 - figure out how to expand the long text element
 
-- get rid of mediaType in favor of fixed-sized container for desktop
 - clean up everything

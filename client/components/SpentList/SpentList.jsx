@@ -7,7 +7,6 @@ import groupItemsByDays from './group-items-by-days.js'
 // TODO: refactor this to make it simplier
 const SpentList = (props) => {
   const {
-    mediaType,
     onItemDelete,
     readyToDeleteId,
     onReadyToDelete
@@ -20,7 +19,6 @@ const SpentList = (props) => {
 
     return (
       <ContainerSpentListItem
-        mediaType={mediaType}
         item={item}
         isDeletable={item.isDeletable}
         readyToDelete={readyToDelete}
@@ -36,7 +34,6 @@ const SpentList = (props) => {
 
     return (
       <SpentListDay
-        mediaType={mediaType}
         currentDay={currentDay}
         key={key}>
 

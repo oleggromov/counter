@@ -1,5 +1,5 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultCaption, sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value sizeFontCaption, padding from '../../styles/sizes.css';
 @value colorHeader from '../../styles/colors.css';
 
 /* container classes */
@@ -8,15 +8,7 @@
 	justify-content: space-between;
 	background: colorHeader;
 	box-shadow: 0 1px 0 rgba(0,0,0,.2);
-}
-
-.header.default {
-	padding: paddingDesktop;
-}
-
-.header.portrait,
-.header.landscape {
-	padding: paddingMobile;
+	padding: padding;
 }
 
 .leftCol {}
@@ -25,15 +17,7 @@
 /* logo classes */
 .logo {
 	composes: fontNormal;
-}
-
-.header.default .logo {
-	font-size: sizeFontDefaultCaption;
-}
-
-.header.portrait .logo,
-.header.landscape .logo {
-	font-size: sizeFontMobileCaption;
+	font-size: sizeFontCaption;
 }
 
 .logoVersion {

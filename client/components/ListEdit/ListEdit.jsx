@@ -75,7 +75,6 @@ export default class ListEdit extends Component {
   renderAddForm () {
     return (
       <ListForm
-        mediaType={this.props.mediaType}
         onListAdd={this.callOnListAdd.bind(this)} />
     )
   }
@@ -123,11 +122,10 @@ export default class ListEdit extends Component {
   }
 
   render () {
-    const classes = `${styles.listEdit} ${styles[this.props.mediaType]}`
     const nextModeType = this.getNextModeType()
 
     return (
-      <div className={classes}>
+      <div className={styles.listEdit}>
         <div className={this.getFrameClasses()}>
           <div className={styles.main}>
             <div className={styles.heading}>

@@ -1,5 +1,5 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMedium, sizeFontMobileMedium from '../../styles/sizes.css';
+@value sizeFontMedium from '../../styles/sizes.css';
 @value colorButton, colorButtonShadow from '../../styles/colors.css';
 
 /* button */
@@ -12,16 +12,7 @@
 	border: none;
 	background: colorButton;
 	white-space: nowrap;
-}
-
-.button.default {
-	font-size: sizeFontDefaultMedium;
-	box-shadow: 2px 2px 0 colorButtonShadow;
-}
-
-.button.portrait,
-.button.landscape {
-	font-size: sizeFontMobileMedium;
+	font-size: sizeFontMedium;
 	outline: none;
 	box-shadow: 1px 1px 0 colorButtonShadow;
 }

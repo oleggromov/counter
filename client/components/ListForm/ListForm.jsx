@@ -36,11 +36,9 @@ export default class ListForm extends Component {
   }
 
   render () {
-    const { mediaType } = this.props
     const props = {
       config,
-      mediaType: mediaType,
-      className: `${styles.listForm} ${styles[mediaType]}`,
+      className: styles.listForm,
       onSubmit: this.saveList.bind(this)
     }
 

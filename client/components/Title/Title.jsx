@@ -3,7 +3,7 @@ import styles from './title.css'
 
 export default (props) => {
   return (
-    <div className={`${styles.title} ${styles[props.mediaType]}`}>
+    <div className={styles.title}>
       <h1 className={styles.text}>{props.children}</h1>
       {props.back && (
         <div className={styles.back}>

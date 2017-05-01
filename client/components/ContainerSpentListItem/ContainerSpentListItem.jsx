@@ -25,8 +25,7 @@ export default class ContainerSpentListItem extends Component {
       type: props.item.type,
       isReadyToDelete: props.readyToDelete,
       onReadyToDelete: this.setPreDelete,
-      onDelete: props.onDelete,
-      mediaType: props.mediaType
+      onDelete: props.onDelete
     }
 
     return (

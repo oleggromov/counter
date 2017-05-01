@@ -1,6 +1,6 @@
 @import '../../styles/global.css';
 @import '../../styles/fonts.css';
-@value sizeFontMobileCaption, paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value sizeFontCaption, padding from '../../styles/sizes.css';
 
 .title {
 	composes: fontNormal;
@@ -8,20 +8,12 @@
 	align-items: baseline;
 }
 
-.title.desktop {
-
-}
-
 .text {
 	composes: fontBold;
-	margin: 0;
 	flex-grow: 5;
-}
-
-.title.portrait .text,
-.title.landscape .text {
-	padding: paddingMobile;
-	font-size: sizeFontMobileCaption;
+	margin: 0;
+	padding: padding;
+	font-size: sizeFontCaption;
 }
 
 .back {

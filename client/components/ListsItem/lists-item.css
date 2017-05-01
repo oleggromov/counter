@@ -1,26 +1,17 @@
 @import '../../styles/fonts.css';
-@value paddingDesktop, paddingMobile, sizeFontMobileMain from '../../styles/sizes.css';
+@value padding, sizeFontMain from '../../styles/sizes.css';
 @value colorDelete from '../../styles/colors.css';
 
 .listsItem {
-	display: flex;
-	text-decoration: none;
-	cursor: pointer;
-	color: black;
-}
-
-.listsItem.default {
-	padding: paddingDesktop;
-}
-
-.listsItem.portrait,
-.listsItem.landscape {
 	overflow: hidden;
 	position: relative;
-	padding: paddingMobile;
-	font-size: sizeFontMobileMain;
+	display: flex;
+	padding: padding;
+	cursor: pointer;
+	color: black;
+	text-decoration: none;
+	font-size: sizeFontMain;
 }
-
 
 .link {
 	composes: fontNormal;
@@ -51,7 +42,7 @@
 	width: 3em;
 	left: 100%;
 	top: 50%;
-	padding: 0.2em paddingMobile;
+	padding: 0.2em padding;
 	background: colorDelete;
 	color: white;
 	text-align: center;

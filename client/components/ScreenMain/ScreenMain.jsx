@@ -45,7 +45,7 @@ export default class ScreenMain extends Component {
 
   getTitle () {
     return (
-      <Title mediaType={this.props.mediaType}>
+      <Title>
         All lists
       </Title>
     )
@@ -61,8 +61,7 @@ export default class ScreenMain extends Component {
         date={count ? item.items[0].date : null}
         count={count}
         onDelete={this.deleteList.bind(this, item.id)}
-        showDelete={item.isDeletable && this.state.showDeletable}
-        mediaType={this.props.mediaType}>
+        showDelete={item.isDeletable && this.state.showDeletable}>
         {item.name}
       </ListsItem>
     )
@@ -70,14 +69,10 @@ export default class ScreenMain extends Component {
 
   render () {
     return (
-      <Layout
-        title={this.getTitle()}
-        mediaType={this.props.mediaType}>
-
+      <Layout title={this.getTitle()}>
         {this.state.lists.map(this.renderListItem, this)}
 
         <ListEdit
-          mediaType={this.props.mediaType}
           onListAdd={this.addList.bind(this)}
           onToggleDelete={this.toggleDelete.bind(this)} />
       </Layout>

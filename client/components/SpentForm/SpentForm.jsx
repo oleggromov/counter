@@ -53,11 +53,9 @@ export default class SpentFrom extends Component {
   }
 
   render () {
-    const { mediaType } = this.props
     const props = {
       config,
-      mediaType: mediaType,
-      className: `${styles.spentForm} ${styles[mediaType]}`,
+      className: styles.spentForm,
       onSubmit: this.saveItem.bind(this)
     }
 

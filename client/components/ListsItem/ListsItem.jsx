@@ -24,7 +24,7 @@ const ListsItem = props => {
     props.onDelete()
   }
 
-  let classes = `${styles.listsItem} ${styles[props.mediaType]}`
+  let classes = styles.listsItem
   if (props.showDelete) {
     classes = `${classes} ${styles.readyToDelete}`
   }

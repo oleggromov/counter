@@ -55,7 +55,6 @@ export default class ScreenList extends Component {
     if (items.length) {
       return (
         <SpentList
-          mediaType={this.props.mediaType}
           items={items}
           readyToDeleteId={this.state.readyToDeleteId}
           onReadyToDelete={this.setReadyToDelete}
@@ -67,7 +66,6 @@ export default class ScreenList extends Component {
   getTitle () {
     return (
       <Title
-        mediaType={this.props.mediaType}
         back={<Link to='/'>To the main screen</Link>}>
         {this.state.currentList.name}
       </Title>
@@ -77,11 +75,9 @@ export default class ScreenList extends Component {
   render () {
     return (
       <Layout
-        title={this.getTitle()}
-        mediaType={this.props.mediaType}>
+        title={this.getTitle()}>
         <div onClick={this.unsetReadyToDelete}>
           <SpentForm
-            mediaType={this.props.mediaType}
             onItemAdd={this.addItem} />
 
           {this.getContent()}

@@ -1,19 +1,10 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultCaption, sizeFontMobileMain from '../../styles/sizes.css';
+@value sizeFontMain from '../../styles/sizes.css';
 
 .dateDisplay {
 	composes: fontNormal;
-
 	display: flex;
-}
-
-.dateDisplay.default {
-	font-size: sizeFontDefaultCaption;
-}
-
-.dateDisplay.portrait,
-.dateDisplay.landscape {
-	font-size: sizeFontMobileMain;
+	font-size: sizeFontMain;
 }
 
 .date {

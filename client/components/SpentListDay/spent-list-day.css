@@ -1,24 +1,12 @@
 /* font classes */
 @import '../../styles/fonts.css';
-@value paddingDesktop, paddingMobile from '../../styles/sizes.css';
+@value padding from '../../styles/sizes.css';
 
-.day {}
-.day.default {}
-
-.day.portrait,
-.day.landscape {
+.day {
 	overflow: hidden;
 }
 
 .caption {
 	composes: fontNormal;
-}
-
-.day.default .caption {
-	padding: 1em 0 0.2em;
-}
-
-.day.portrait .caption,
-.day.landscape .caption {
-	padding: 1em paddingMobile 0.5em;
+	padding: 1em padding 0.5em;
 }
