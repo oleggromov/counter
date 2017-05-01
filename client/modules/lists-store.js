@@ -19,6 +19,13 @@ const canBeDeleted = {
   unit: 'minutes'
 }
 
+const getEmptyList = () => ({
+  id: null,
+  name: '',
+  nextId: 0,
+  items: []
+})
+
 function markDeletable (list) {
   const now = moment()
 
@@ -65,16 +72,36 @@ function listsGet () {
 }
 
 function listAdd (list) {
-  console.log(list)
+  let data = localStorage.get()
+  const newList = Object.assign(getEmptyList(), {
+    id: data.lists.nextId++,
+    name: list.name
+  })
+  data.lists.items.push(newList)
+
+  localStorage.set(data)
+}
+
+function listDelete (id) {
+  let data = localStorage.get()
+  let index = findIndex(data.lists.items, ['id', id])
+
+  if (index === -1) {
+    throw new Error(`cannot delete list ${id}`)
+  }
+
+  data.lists.items.splice(index, 1)
+  localStorage.set(data)
 }
 
 function replaceList ({ index, list }) {
   profile('replaceList')
 
-  let lists = listsGet()
+  let data = localStorage.get()
+  let lists = data.lists.items
   lists[index] = list
 
-  localStorage.set({ lists })
+  localStorage.set(data)
 
   profileEnd('replaceList')
 }
@@ -127,8 +154,7 @@ export default {
       : null
   },
   listAdd,
-  // listDelete: function listDelete (id) {},
-  // listEdit: function listEdit (id, name) {},
+  listDelete,
   itemAdd,
   itemDelete
 }

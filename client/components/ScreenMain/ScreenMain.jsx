@@ -27,7 +27,8 @@ export default class ScreenMain extends Component {
   }
 
   deleteList (id) {
-    console.log(`deleteList ${id}`)
+    listsStore.listDelete(id)
+    this.updateState()
   }
 
   componentWillMount () {
