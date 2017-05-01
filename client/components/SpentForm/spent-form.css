@@ -1,11 +1,7 @@
 @import '../../styles/fonts.css';
 @value sizeFontDefaultMedium, paddingMobile from '../../styles/sizes.css';
 
-.spentForm {
-	composes: fontNormal;
-	display: flex;
-	align-items: baseline;
-}
+.spentForm {}
 
 .spentForm.default {
 	width: 50%;
@@ -20,48 +16,23 @@
 }
 
 /* layout */
-.column {
-	flex-basis: 0;
-}
-
-.spentForm.default .column {
-	padding: 0 0.5em;
-}
-
-.spentForm.portrait .column,
-.spentForm.landscape .column {
-	padding: 0 0.2em;
-}
-
-.spentForm.default .column:first-child,
-.spentForm.portrait .column:first-child,
-.spentForm.landscape .column:first-child {
-	padding-left: 0;
-}
-
 .currency {
-	composes: column;
 	flex-grow: 1;
 	text-align: right;
 }
 
 .amount {
-	composes: column;
 	flex-grow: 4;
 }
 
 .for {
-	composes: column;
 	flex-grow: 1;
 }
 
 .type {
-	composes: column;
 	flex-grow: 12;
 }
 
 .button {
-	composes: column;
 	flex-grow: 4;
-	padding-right: 0;
 }

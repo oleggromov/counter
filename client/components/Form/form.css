@@ -1,8 +1,26 @@
-.form {}
+@import '../../styles/fonts.css';
+
+.form {
+  composes: fontNormal;
+  display: flex;
+}
 
 .form.default {}
 .form.portrait {}
 .form.landscape {}
+
+.column {
+  flex-basis: 0;
+  padding: 0 0.2em;
+}
+
+.column:first-child {
+  padding-left: 0;
+}
+
+.column:last-child {
+  padding-right: 0;
+}
 
 /* error animation */
 .shake {

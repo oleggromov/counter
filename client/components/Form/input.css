@@ -1,5 +1,5 @@
 @import '../../styles/fonts.css';
-@value sizeFontDefaultMedium, sizeFontMobileMedium, paddingMobile from '../../styles/sizes.css';
+@value sizeFontDefaultMedium, sizeFontMobileMedium from '../../styles/sizes.css';
 
 
 .input {
@@ -7,8 +7,10 @@
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
+	padding: 2px;
 	border: none;
 	border-bottom: 1px solid rgba(0,0,0,.2);
+	border-radius: 0;
 	outline: none;
 }
 

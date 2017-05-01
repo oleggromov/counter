@@ -57,7 +57,7 @@ export default class Form extends Component {
     return config.map((field, index) => {
       return (
         <div
-          className={field.containerClass}
+          className={`${styles.column} ${field.containerClass}`}
           key={index}>
           {this.renderField(field, index)}
         </div>
