@@ -61,7 +61,7 @@ function listGet (id) {
 
 function listsGet () {
   const data = localStorage.get()
-  return data.lists
+  return data.lists.items
 }
 
 function listAdd (list) {
