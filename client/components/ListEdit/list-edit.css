@@ -7,6 +7,9 @@
 
 .listEdit.portrait,
 .listEdit.landscape {
+	overflow: hidden;
+	/* beware! this is a hard fix */
+	height: 5em;
 	margin-top: 2em;
 }
 
@@ -89,7 +92,6 @@
 
 /* content */
 .content {
-	overflow: hidden;
 	padding: 0.5em 0;
 }
 
