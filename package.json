@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rm server/public/*; webpack",
+    "express": "nodemon server/app.js",
+    "server": "npm run build; npm run express",
     "dev": "webpack-dev-server",
     "dev-ip": "webpack-dev-server --host $(ipconfig getifaddr en0)",
-    "express": "node server/app.js",
     "lint": "standard --verbose | snazzy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

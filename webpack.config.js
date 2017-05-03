@@ -2,19 +2,17 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const htmlTemplate = new HtmlWebpackPlugin({
-  template: './client/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
+const selectorFormat = '[name]__[local]___[hash:base64:5]'
 
 module.exports = {
   entry: './client/index.js',
+
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('server/public'),
     publicPath: '/',
     filename: 'app.js'
   },
+
   module: {
     loaders: [
       {
@@ -24,14 +22,20 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader')
+        loader: ExtractTextPlugin.extract(`css-loader?modules&importLoaders=1&localIdentName=${selectorFormat}!postcss-loader`)
       }
     ]
   },
+
   plugins: [
-    htmlTemplate,
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      filename: 'index.html',
+      inject: 'body'
+    }),
     new ExtractTextPlugin('styles.css')
   ],
+
   devServer: {
     historyApiFallback: true
   }
