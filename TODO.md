@@ -21,3 +21,7 @@
 - figure out how to expand the long text element
 
 - clean up everything
+
+## Deploy
+
+- replace moment.js and brush up date types throughout the app
