@@ -13,7 +13,7 @@ body {
 :global(.app_desktop) {
 	width: 375px;
 	height: 667px;
-	margin: 20px auto;
+	margin: 10px auto;
 	border: 1px solid #ccc;
 	overflow-y: scroll;
 }
