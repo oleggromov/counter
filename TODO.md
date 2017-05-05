@@ -1,6 +1,7 @@
 ## Server
 
 - mysql connection errors handling
+- what to return if the item was not deleted because it didn't exist?
 
 ## Features
 

@@ -14,8 +14,6 @@ const defaultResolver = (resolve, result) => {
 const getPromise = (connection, sqlRequest, sqlData, resolver = defaultResolver) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlRequest, sqlData, (err, result) => {
-      console.log(result)
-
       if (err) {
         reject(err)
       } else {
