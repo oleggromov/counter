@@ -1,3 +1,7 @@
+## Server
+
+- mysql connection errors handling
+
 ## Features
 
 - i18n
