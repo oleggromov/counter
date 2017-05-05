@@ -1,10 +1,10 @@
 const sql = {
   GET_LISTS: 'SELECT * FROM `lists`',
-  GET_ITEMS: 'SELECT * FROM `items` WHERE `list_id` = ? ORDER BY `date` DESC',
+  GET_ITEMS: 'SELECT * FROM `items` WHERE `listId` = ? ORDER BY `date` DESC',
   CREATE_LIST: 'INSERT INTO `lists` (`name`) VALUES (?)',
-  CREATE_ITEM: 'INSERT INTO `items` (`list_id`, `name`, `value`, `date`) VALUES (?, ?, ?, ?)',
+  CREATE_ITEM: 'INSERT INTO `items` (`listId`, `name`, `value`, `date`) VALUES (?, ?, ?, ?)',
   DELETE_LIST: 'DELETE FROM `lists` WHERE `id` = ?',
-  DELETE_ITEM: 'DELETE FROM `items` WHERE `list_id` = ? AND `id` = ?'
+  DELETE_ITEM: 'DELETE FROM `items` WHERE `listId` = ? AND `id` = ?'
 }
 
 const defaultResolver = (resolve, result) => {

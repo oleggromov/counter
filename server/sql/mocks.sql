@@ -10,7 +10,8 @@ ALTER TABLE `lists` AUTO_INCREMENT=1;
 INSERT INTO `lists`
 	(`name`)
 VALUES
-	('L.A. & California');
+	('L.A. & California'),
+	('Italy: Milan and 9 cities');
 
 # LocalStorage data to SQL value strings:
 #
@@ -21,7 +22,7 @@ VALUES
 #     return acc + newStr
 #   }, '')
 INSERT INTO `items`
-	(`list_id`, `name`, `date`, `value`)
+	(`listId`, `name`, `date`, `value`)
 VALUES
 	(1, 'ticket to Thailand', '2016-12-29 10:00', 351.5),
 	(1, 'coffee', '2017-03-28 10:00', 4.95),
@@ -61,4 +62,6 @@ VALUES
 	(1, 'test', '2017-04-29 22:50:54', 6.5),
 	(1, 'fucking expensive breakfast', '2017-04-30 15:14:07', 17.5),
 	(1, 'fucking burger', '2017-04-30 22:01:33', 27.5),
-	(1, 'coffee and a sandwich', '2017-05-03 10:45:00', 18.99);
+	(1, 'coffee and a sandwich', '2017-05-03 10:45:00', 18.99),
+	(2, 'Ticket Milan - Rome', '2016-11-01 10:45:00', 25.50),
+	(2, 'Coffee in Rome', '2016-11-01 13:25', 4.20);
