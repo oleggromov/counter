@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 
 const full = 'MMMM D, YYYY'
+const contracted = 'MMM D, YYYY'
 const tiny = 'MMMM D'
 
 /**
@@ -11,7 +12,12 @@ const tiny = 'MMMM D'
 export default function Date (props) {
   const date = moment(props.date)
   const yearDiffers = moment().year() !== date.year()
-  const formatted = date.format(yearDiffers ? full : tiny)
+  const dateFormat = yearDiffers
+    ? props.contracted
+      ? contracted
+      : full
+    : tiny
+  const formatted = date.format(dateFormat)
 
   return (
     <span>

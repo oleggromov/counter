@@ -13,7 +13,7 @@ const ListsItem = props => {
     if (props.date) {
       return (
         <div className={styles.date}>
-          <DateFormatted date={props.date} />
+          <DateFormatted contracted date={props.date} />
         </div>
       )
     }
