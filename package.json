@@ -10,7 +10,8 @@
     "dev": "webpack-dev-server",
     "dev-ip": "webpack-dev-server --host $(ipconfig getifaddr en0)",
     "lint": "standard --verbose | snazzy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db-mock": "mysql -u counter <  ./server/sql/mocks.sql"
   },
   "standard": {
     "parser": "babel-eslint",
@@ -43,6 +44,8 @@
     "webpack-dev-server": "^2.4.3"
   },
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mysql": "^2.13.0"
   }
 }
