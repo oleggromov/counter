@@ -12,6 +12,12 @@ const db = require('../modules/db-actions.js')
 // API calls get JSON input
 apiRouter.use(bodyParser.json())
 
+// Logging requests
+apiRouter.use((req, res, next) => {
+  console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.originalUrl} data=${JSON.stringify(req.body)}`)
+  next()
+})
+
 routerHelpers.addRoutes(apiRouter, routesConfig, connection, db)
 
 // Absent URI/method returns 400 Bad Request error
