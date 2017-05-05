@@ -1,33 +1,41 @@
 const forOwn = require('lodash/forOwn')
 const statusCodes = require('./status-codes')
 
+// TODO change this to production/development flag
+const includeSqlDetails = true
+
 const getHandlerName = (method, key) => {
   return `${method}${key[0].toUpperCase()}${key.slice(1)}`
 }
 
+const getResultObject = (overrides) => {
+  return Object.assign({
+    error: null,
+    data: null
+  }, overrides)
+}
+
+const getResult = (errorText, dataKey, data) => {
+  if (errorText) {
+    return getResultObject({
+      error: {
+        text: errorText,
+        data: includeSqlDetails ? data : null
+      }
+    })
+  } else {
+    return getResultObject({
+      data: {
+        [dataKey]: data
+      }
+    })
+  }
+}
+
 const renderJson = (res, errorText, dataKey, statusCode) => {
   return (data) => {
-    let result
-
-    if (errorText) {
-      result = {
-        error: {
-          text: errorText,
-          data: data
-        },
-        data: null
-      }
-    } else {
-      result = {
-        error: null,
-        data: {
-          [dataKey]: data
-        }
-      }
-    }
-
     res.status(statusCode)
-    res.json(result)
+    res.json(getResult(errorText, dataKey, data))
     res.end()
   }
 }
