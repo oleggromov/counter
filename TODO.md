@@ -24,9 +24,10 @@
   - handle errors
   - animation between states
 
-### Check for bugs
+### Check for bugs / testing
 
-- ready to delete logic
+- client-server interaction: test everything with really long server answer delays
+- client: ready to delete logic
 
 ## Styling
 
