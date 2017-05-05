@@ -1,7 +1,8 @@
 ## Server
 
 - mysql connection errors handling
-- return created elements (lists, items) with their ids after creation?
+- return created elements (lists, items) with their ids after creation
+  - yes, it will be useful!
 - what to return if the item was not deleted because it didn't exist?
 - what to do when unexisting list is requested?
 
@@ -16,6 +17,12 @@
 
 - start counting the age of items in the background
 - figure out whether we need cloneDeep for objects and if yes, switch to Immutable.js
+- server sync logic:
+  - use returned inserted item instead of re-fetching the entire collection again
+  - after deletion delete it on the client without waiting for server to ask
+    - how to handle deletion error?
+  - handle errors
+  - animation between states
 
 ### Check for bugs
 

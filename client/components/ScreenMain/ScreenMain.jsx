@@ -2,8 +2,15 @@ import React, { Component } from 'react'
 import Layout from '../Layout/Layout.jsx'
 import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
-import listsStore from '../../modules/lists-store'
 import ListEdit from '../ListEdit/ListEdit.jsx'
+import api from '../../modules/api'
+
+const handleError = err => {
+  // window.alert('error!')
+  console.warn('Error!')
+  console.timeEnd('lists')
+  console.log(err)
+}
 
 export default class ScreenMain extends Component {
   constructor (props) {
@@ -11,7 +18,8 @@ export default class ScreenMain extends Component {
 
     this.state = {
       lists: null,
-      showDeletable: false
+      showDeletable: false,
+      pendingLoad: true
     }
   }
 
@@ -22,13 +30,19 @@ export default class ScreenMain extends Component {
   }
 
   addList (list) {
-    listsStore.listAdd(list)
-    this.updateState()
+    api.createList(list)
+      .then(data => {
+        this.updateState()
+      })
+      .catch(handleError)
   }
 
   deleteList (id) {
-    listsStore.listDelete(id)
-    this.updateState()
+    api.deleteList(id)
+      .then(data => {
+        this.updateState()
+      })
+      .catch(handleError)
   }
 
   componentWillMount () {
@@ -36,41 +50,42 @@ export default class ScreenMain extends Component {
   }
 
   updateState () {
-    const lists = listsStore.listsGet()
-
-    this.setState({
-      lists: lists
-    })
-  }
-
-  getTitle () {
-    return (
-      <Title>
-        All lists
-      </Title>
-    )
+    api.getLists()
+      .then(data => {
+        this.setState({
+          lists: data.data.lists,
+          pendingLoad: false
+        })
+      })
+      .catch(handleError)
   }
 
   renderListItem (item) {
-    const count = item.items.length
-
     return (
       <ListsItem
         key={item.id}
         link={`/lists/${item.id}`}
-        date={count ? item.items[0].date : null}
-        count={count}
+        date={item.lastDate}
+        count={item.itemsCount}
         onDelete={this.deleteList.bind(this, item.id)}
-        showDelete={item.isDeletable && this.state.showDeletable}>
+        showDelete={item.itemsCount === 0 && this.state.showDeletable}>
         {item.name}
       </ListsItem>
     )
   }
 
+  renderItems () {
+    if (!this.state.pendingLoad) {
+      return this.state.lists.map(this.renderListItem, this)
+    }
+  }
+
   render () {
+    const title = <Title>All lists</Title>
+
     return (
-      <Layout title={this.getTitle()}>
-        {this.state.lists.map(this.renderListItem, this)}
+      <Layout title={title}>
+        {this.renderItems()}
 
         <ListEdit
           onListAdd={this.addList.bind(this)}
