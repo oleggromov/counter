@@ -11,7 +11,7 @@ const defaultResolver = (resolve, result) => {
   resolve(result)
 }
 
-const getPromise = (connection, sqlRequest, sqlData, resolver = defaultResolver) => {
+const getPromise = (connection, sqlRequest, sqlData = null, resolver = defaultResolver) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlRequest, sqlData, (err, result) => {
       if (err) {
@@ -24,7 +24,7 @@ const getPromise = (connection, sqlRequest, sqlData, resolver = defaultResolver)
 }
 
 module.exports = {
-  getLists: connection => getPromise(connection, sql.GET_LISTS, null),
+  getLists: connection => getPromise(connection, sql.GET_LISTS),
 
   getItems: (connection, {listId}) => getPromise(connection, sql.GET_ITEMS, [listId]),
 

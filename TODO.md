@@ -1,6 +1,7 @@
 ## Server
 
 - mysql connection errors handling
+- return created elements (lists, items) with their ids after creation?
 - what to return if the item was not deleted because it didn't exist?
 - what to do when unexisting list is requested?
 
