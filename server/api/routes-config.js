@@ -1,24 +1,5 @@
 const statusCodes = require('./status-codes')
-
-const methods = {
-  GET: 'get',
-  POST: 'post',
-  DELETE: 'delete'
-}
-
-const dataKeys = {
-  LISTS: 'lists',
-  ITEMS: 'items',
-  ONE_LIST: 'list',
-  ONE_ITEM: 'item'
-}
-
-const URIs = {
-  LISTS: `/${dataKeys.LISTS}`,
-  ITEMS: `/${dataKeys.LISTS}/:listId/${dataKeys.ITEMS}`,
-  ONE_LIST: `/${dataKeys.LISTS}/:listId`,
-  ONE_ITEM: `/${dataKeys.LISTS}/:listId/${dataKeys.ITEMS}/:itemId`
-}
+const { methods, dataKeys, URIs } = require('../../common/api-constants')
 
 const errors = {
   GET_LISTS: 'Cannot retrieve list',

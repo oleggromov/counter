@@ -5,8 +5,6 @@ module.exports = {
 
   staticPath: './public',
 
-  apiVersionUrl: '0.1',
-
   db: {
     host: 'localhost',
     user: 'counter',

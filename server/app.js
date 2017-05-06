@@ -2,11 +2,12 @@ const express = require('express')
 const config = require('./config')
 const resolveToRoot = require('./modules/resolve-to-root')
 const apiRouter = require('./api/router')
+const { apiRoot } = require('../common/api-constants')
 
 const app = express()
 
 // API requests go first
-app.use(`/api/${config.apiVersionUrl}/`, apiRouter)
+app.use(apiRoot, apiRouter)
 
 // Everything that is found in public/ directory is served as static
 app.use('/', express.static(resolveToRoot(config.staticPath), {
