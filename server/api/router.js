@@ -22,7 +22,7 @@ routerHelpers.addRoutes(apiRouter, routesConfig, connection, db)
 
 // Absent URI/method returns 400 Bad Request error
 apiRouter.use((req, res) => {
-  routerHelpers.renderJson(res, 'Bad request: there\'s no such method or URI', null, statusCodes.BAD_REQUEST)(null)
+  routerHelpers.renderJson(res, 'Bad request: there\'s no such method or URI', statusCodes.BAD_REQUEST)(null)
 })
 
 module.exports = apiRouter

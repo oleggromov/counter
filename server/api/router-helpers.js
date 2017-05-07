@@ -4,10 +4,6 @@ const statusCodes = require('./status-codes')
 // TODO change this to production/development flag
 const includeSqlDetails = true
 
-const getHandlerName = (method, key) => {
-  return `${method}${key[0].toUpperCase()}${key.slice(1)}`
-}
-
 const getResultObject = (overrides) => {
   return Object.assign({
     error: null,
@@ -15,7 +11,7 @@ const getResultObject = (overrides) => {
   }, overrides)
 }
 
-const getResult = (errorText, dataKey, data) => {
+const getResult = (errorText, data) => {
   if (errorText) {
     return getResultObject({
       error: {
@@ -24,35 +20,30 @@ const getResult = (errorText, dataKey, data) => {
       }
     })
   } else {
-    return getResultObject({
-      data: {
-        [dataKey]: data
-      }
-    })
+    return getResultObject({ data })
   }
 }
 
-const renderJson = (res, errorText, dataKey, statusCode) => {
+const renderJson = (res, errorText, statusCode) => {
   return (data) => {
     res.status(statusCode)
-    res.json(getResult(errorText, dataKey, data))
+    res.json(getResult(errorText, data))
     res.end()
   }
 }
 
 const addRoutes = (router, routes, connection, db) => {
-  forOwn(routes, ({statusCode, uris}, method) => {
-    forOwn(uris, ({dataKey, error}, uri) => {
-      const handlerName = getHandlerName(method, dataKey)
-      if (typeof db[handlerName] !== 'function') {
-        throw new Error(`db doesn't have a method "${handlerName}"`)
+  forOwn(routes, ({statusCode, urls}, method) => {
+    forOwn(urls, ({handler, error}, url) => {
+      if (typeof db[handler] !== 'function') {
+        throw new Error(`db doesn't have a method "${handler}"`)
       }
 
-      router[method](uri, (req, res) => {
-        const renderSuccess = renderJson(res, null, dataKey, statusCode)
-        const renderError = renderJson(res, error, null, statusCodes.SERVER_ERROR)
+      router[method](url, (req, res) => {
+        const renderSuccess = renderJson(res, null, statusCode)
+        const renderError = renderJson(res, error, statusCodes.SERVER_ERROR)
 
-        db[handlerName](connection, req.params, req.body)
+        db[handler](connection, req.params, req.body)
           .then(renderSuccess)
           .catch(renderError)
       })

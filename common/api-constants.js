@@ -6,23 +6,14 @@ const methods = {
   DELETE: 'delete'
 }
 
-const dataKeys = {
-  LISTS: 'lists',
-  ITEMS: 'items',
-  ONE_LIST: 'list',
-  ONE_ITEM: 'item'
-}
-
-const URIs = {
-  LISTS: `/${dataKeys.LISTS}`,
-  ITEMS: `/${dataKeys.LISTS}/:listId/${dataKeys.ITEMS}`,
-  ONE_LIST: `/${dataKeys.LISTS}/:listId`,
-  ONE_ITEM: `/${dataKeys.LISTS}/:listId/${dataKeys.ITEMS}/:itemId`
+const urls = {
+  LISTS: `/lists`,
+  LIST: `/lists/:listId`,
+  ITEM: `/lists/:listId/:itemId`
 }
 
 module.exports = {
   apiRoot,
   methods,
-  dataKeys,
-  URIs
+  urls
 }

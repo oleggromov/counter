@@ -1,5 +1,5 @@
 const statusCodes = require('./status-codes')
-const { methods, dataKeys, URIs } = require('../../common/api-constants')
+const { methods, urls } = require('../../common/api-constants')
 
 const errors = {
   GET_LISTS: 'Cannot retrieve list',
@@ -14,16 +14,16 @@ const routes = {
   // GET methods only retrieve lists/items
   [methods.GET]: {
     statusCode: statusCodes.OK,
-    uris: {
+    urls: {
       // Gets all lists
-      [URIs.LISTS]: {
-        dataKey: dataKeys.LISTS,
+      [urls.LISTS]: {
+        handler: 'getLists',
         error: errors.GET_LISTS
       },
 
       // Gets all list items
-      [URIs.ITEMS]: {
-        dataKey: dataKeys.ITEMS,
+      [urls.LIST]: {
+        handler: 'getList',
         error: errors.GET_ITEMS
       }
     }
@@ -32,14 +32,14 @@ const routes = {
   // POST method creates list/items
   [methods.POST]: {
     statusCode: statusCodes.CREATED,
-    uris: {
-      [URIs.LISTS]: {
-        dataKey: dataKeys.ONE_LIST,
+    urls: {
+      [urls.LISTS]: {
+        handler: 'createList',
         error: errors.CREATE_LIST
       },
 
-      [URIs.ITEMS]: {
-        dataKey: dataKeys.ONE_ITEM,
+      [urls.LIST]: {
+        handler: 'createItem',
         error: errors.CREATE_ITEM
       }
     }
@@ -48,14 +48,14 @@ const routes = {
   // DELETE method does guess what
   [methods.DELETE]: {
     statusCode: statusCodes.OK,
-    uris: {
-      [URIs.ONE_LIST]: {
-        dataKey: dataKeys.ONE_LIST,
+    urls: {
+      [urls.LIST]: {
+        handler: 'deleteList',
         error: errors.DELETE_LIST
       },
 
-      [URIs.ONE_ITEM]: {
-        dataKey: dataKeys.ONE_ITEM,
+      [urls.ITEM]: {
+        handler: 'deleteItem',
         error: errors.DELETE_ITEM
       }
     }
