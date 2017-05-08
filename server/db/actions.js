@@ -1,3 +1,5 @@
+const SQL = require('./queries')
+
 const defaultResolver = (resolve, result) => {
   resolve(result)
 }
@@ -17,35 +19,17 @@ const getRequestPromise = (connection, sqlRequest, sqlData = null, resolver = de
 /**
  * Returns all lists
  */
-const getSqlGetLists = (listId) => {
-  const whereClause = listId
-    ? `WHERE lists.id = ${listId}`
-    : ''
-
-  return `SELECT lists.id, lists.name,
-      COUNT(items.id) AS itemsCount,
-      MAX(items.date) AS lastDate
-    FROM lists
-    LEFT JOIN items
-      ON lists.id = items.listId
-    ${whereClause}
-    GROUP BY lists.id
-    ORDER BY lastDate DESC`
-}
-
-const getLists = connection => getRequestPromise(connection, getSqlGetLists())
+const getLists = connection => getRequestPromise(connection, SQL.getLists())
 
 /**
  * Returns one list with items
  */
-const SQL_GET_LIST_ITEMS = 'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? ORDER BY `date` DESC'
-
 const getList = (connection, {listId}, {excludeItems}) => {
   const promises = [
-    getRequestPromise(connection, getSqlGetLists(listId), [listId]),
+    getRequestPromise(connection, SQL.getLists({ singleList: true }), [listId]),
     excludeItems
       ? null
-      : getRequestPromise(connection, SQL_GET_LIST_ITEMS, [listId])
+      : getRequestPromise(connection, SQL.listItems, [listId])
   ]
 
   return Promise.all(promises)
@@ -62,10 +46,8 @@ const getList = (connection, {listId}, {excludeItems}) => {
 /**
  * Creates a list and returns it
  */
-const SQL_CREATE_LIST = 'INSERT INTO `lists` (`name`) VALUES (?)'
-
 const createList = (connection, params, {name}) => {
-  return getRequestPromise(connection, SQL_CREATE_LIST, [name], (resolve, result) => {
+  return getRequestPromise(connection, SQL.createList, [name], (resolve, result) => {
     const params = { listId: result.insertId }
 
     getList(connection, params, { excludeItems: true })
@@ -78,12 +60,9 @@ const createList = (connection, params, {name}) => {
 /**
  * Creates a item and returns it
  */
-const SQL_CREATE_ITEM = 'INSERT INTO `items` (`listId`, `name`, `value`, `date`) VALUES (?, ?, ?, ?)'
-const SQL_GET_ITEM = 'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? and `id` = ?'
-
 const createItem = (connection, {listId}, {name, value, date}) => {
-  return getRequestPromise(connection, SQL_CREATE_ITEM, [listId, name, value, date], (resolve, result) => {
-    getRequestPromise(connection, SQL_GET_ITEM, [listId, result.insertId])
+  return getRequestPromise(connection, SQL.createItem, [listId, name, value, date], (resolve, result) => {
+    getRequestPromise(connection, SQL.getItem, [listId, result.insertId])
       .then(data => resolve(data[0]))
   })
 }
@@ -91,10 +70,8 @@ const createItem = (connection, {listId}, {name, value, date}) => {
 /**
  * Deletes the list and returns delete id
  */
-const SQL_DELETE_LIST = 'DELETE FROM `lists` WHERE `id` = ?'
-
 const deleteList = (connection, {listId}) => {
-  return getRequestPromise(connection, SQL_DELETE_LIST, [listId], (resolve, result) => {
+  return getRequestPromise(connection, SQL.deleteList, [listId], (resolve, result) => {
     // TODO: Always returns id, even if the list was not deleted
     resolve({
       listId: Number(listId)
@@ -105,10 +82,8 @@ const deleteList = (connection, {listId}) => {
 /**
  * Deletes the item and returns deleted list and item id
  */
-const SQL_DELETE_ITEM = 'DELETE FROM `items` WHERE `listId` = ? AND `id` = ?'
-
 const deleteItem = (connection, {listId, itemId}) => {
-  return getRequestPromise(connection, SQL_DELETE_ITEM, [listId, itemId], (resolve, result) => {
+  return getRequestPromise(connection, SQL.deleteItem, [listId, itemId], (resolve, result) => {
     // TODO: Always returns id, even if the item was not deleted
     resolve({
       listId: Number(listId),

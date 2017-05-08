@@ -7,7 +7,7 @@ const routerHelpers = require('./router-helpers')
 const statusCodes = require('./status-codes')
 
 const connection = require('../modules/get-connection')()
-const db = require('../modules/db-actions.js')
+const db = require('../db/actions.js')
 
 // API calls get JSON input
 apiRouter.use(bodyParser.json())
