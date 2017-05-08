@@ -1,6 +1,6 @@
 const SQL = require('./queries')
 
-const defaultResolver = (resolve, result) => {
+const defaultResolver = (resolve, reject, result) => {
   resolve(result)
 }
 
@@ -10,7 +10,7 @@ const getRequestPromise = (connection, sqlRequest, sqlData = null, resolver = de
       if (err) {
         reject(err)
       } else {
-        resolver(resolve, result)
+        resolver(resolve, reject, result)
       }
     })
   })
@@ -47,7 +47,7 @@ const getList = (connection, {listId}, {excludeItems}) => {
  * Creates a list and returns it
  */
 const createList = (connection, params, {name}) => {
-  return getRequestPromise(connection, SQL.createList, [name], (resolve, result) => {
+  return getRequestPromise(connection, SQL.createList, [name], (resolve, reject, result) => {
     const params = { listId: result.insertId }
 
     getList(connection, params, { excludeItems: true })
@@ -61,7 +61,7 @@ const createList = (connection, params, {name}) => {
  * Creates a item and returns it
  */
 const createItem = (connection, {listId}, {name, value, date}) => {
-  return getRequestPromise(connection, SQL.createItem, [listId, name, value, date], (resolve, result) => {
+  return getRequestPromise(connection, SQL.createItem, [listId, name, value, date], (resolve, reject, result) => {
     getRequestPromise(connection, SQL.getItem, [listId, result.insertId])
       .then(data => resolve(data[0]))
   })
@@ -71,7 +71,7 @@ const createItem = (connection, {listId}, {name, value, date}) => {
  * Deletes the list and returns delete id
  */
 const deleteList = (connection, {listId}) => {
-  return getRequestPromise(connection, SQL.deleteList, [listId], (resolve, result) => {
+  return getRequestPromise(connection, SQL.deleteList, [listId], (resolve, reject, result) => {
     // TODO: Always returns id, even if the list was not deleted
     resolve({
       listId: Number(listId)
@@ -83,7 +83,7 @@ const deleteList = (connection, {listId}) => {
  * Deletes the item and returns deleted list and item id
  */
 const deleteItem = (connection, {listId, itemId}) => {
-  return getRequestPromise(connection, SQL.deleteItem, [listId, itemId], (resolve, result) => {
+  return getRequestPromise(connection, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
     // TODO: Always returns id, even if the item was not deleted
     resolve({
       listId: Number(listId),
