@@ -17,31 +17,42 @@ const getPromise = (connection, sqlRequest, sqlData = null, resolver = defaultRe
 /**
  * Returns all lists
  */
-const SQL_GET_LISTS = `SELECT lists.id, lists.name,
-    COUNT(items.id) AS itemsCount,
-    MAX(items.date) AS lastDate
-  FROM lists
-  LEFT JOIN items
-    ON lists.id = items.listId
-  GROUP BY lists.id`
+const getSqlGetLists = (listId) => {
+  const whereClause = listId
+    ? `WHERE lists.id = ${listId}`
+    : ''
 
-const getLists = connection => getPromise(connection, SQL_GET_LISTS)
+  return `SELECT lists.id, lists.name,
+      COUNT(items.id) AS itemsCount,
+      MAX(items.date) AS lastDate
+    FROM lists
+    LEFT JOIN items
+      ON lists.id = items.listId
+    ${whereClause}
+    GROUP BY lists.id`
+}
+
+const getLists = connection => getPromise(connection, getSqlGetLists())
 
 /**
  * Returns one list with items
  */
-const SQL_GET_LIST = [
-  'SELECT * FROM `lists` WHERE `id` = ?',
-  'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? ORDER BY `date` DESC'
-]
+const SQL_GET_LIST_ITEMS = 'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? ORDER BY `date` DESC'
 
-const getList = (connection, {listId}) => {
-  const promises = SQL_GET_LIST.map(query => getPromise(connection, query, [listId]))
+const getList = (connection, {listId}, {excludeItems}) => {
+  const promises = [
+    getPromise(connection, getSqlGetLists(listId), [listId]),
+    excludeItems
+      ? null
+      : getPromise(connection, SQL_GET_LIST_ITEMS, [listId])
+  ]
 
   return Promise.all(promises)
     .then(data => {
       const listInfo = data[0][0]
-      const items = { items: data[1] }
+      const items = excludeItems
+        ? undefined
+        : { items: data[1] }
 
       return Object.assign({}, listInfo, items)
     })
@@ -56,7 +67,7 @@ const createList = (connection, params, {name}) => {
   return getPromise(connection, SQL_CREATE_LIST, [name], (resolve, result) => {
     const params = { listId: result.insertId }
 
-    getList(connection, params)
+    getList(connection, params, { excludeItems: true })
       .then(data => {
         resolve(data)
       })

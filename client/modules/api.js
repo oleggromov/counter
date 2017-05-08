@@ -1,16 +1,25 @@
+import cloneDeep from 'lodash/cloneDeep'
+import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
+
 const Request = window.Request
 const fetch = window.fetch
+
+// 15 minutes
+const maxDeletableAge = 60 * 15
 
 const {
   apiRoot,
   methods,
-  URIs
+  urls
 } = require('../../common/api-constants')
 
 const requestTypes = {
   GET_LISTS: 'getLists',
   CREATE_LIST: 'createList',
-  DELETE_LIST: 'deleteList'
+  DELETE_LIST: 'deleteList',
+  GET_LIST: 'getList',
+  CREATE_ITEM: 'createItem',
+  DELETE_ITEM: 'deleteItem'
 }
 
 const getFullUrl = path => {
@@ -24,18 +33,34 @@ const jsonHeaders = {
 
 const requests = {
   [requestTypes.GET_LISTS]: {
-    uri: getFullUrl(URIs.LISTS),
+    url: getFullUrl(urls.LISTS),
     method: methods.GET
   },
 
   [requestTypes.CREATE_LIST]: {
-    uri: getFullUrl(URIs.LISTS),
+    url: getFullUrl(urls.LISTS),
     method: methods.POST,
     headers: jsonHeaders
   },
 
   [requestTypes.DELETE_LIST]: {
-    uri: getFullUrl(URIs.ONE_LIST),
+    url: getFullUrl(urls.LIST),
+    method: methods.DELETE
+  },
+
+  [requestTypes.GET_LIST]: {
+    url: getFullUrl(urls.LIST),
+    method: methods.GET
+  },
+
+  [requestTypes.CREATE_ITEM]: {
+    url: getFullUrl(urls.LIST),
+    method: methods.POST,
+    headers: jsonHeaders
+  },
+
+  [requestTypes.DELETE_ITEM]: {
+    url: getFullUrl(urls.ITEM),
     method: methods.DELETE
   }
 }
@@ -58,11 +83,12 @@ const getParametrizedUrl = (url, params = {}) => {
   return url
 }
 
-const makeApiRequest = (type, bodyData, uriData) => {
+const defaultDataProcessor = data => data
+const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProcessor) => {
   profile(type)
 
   const reqParams = requests[type]
-  const url = getParametrizedUrl(reqParams.uri, uriData)
+  const url = getParametrizedUrl(reqParams.url, urlData)
   const req = new Request(url, {
     method: reqParams.method,
     body: bodyData ? JSON.stringify(bodyData) : null,
@@ -76,15 +102,40 @@ const makeApiRequest = (type, bodyData, uriData) => {
           profileEnd(type)
 
           if (response.ok) {
-            return data
+            return dataProcessor(data)
           }
           throw data
         })
     })
 }
 
+const markDeletableItem = (data) => {
+  let newData = cloneDeep(data)
+  newData.data.isDeletable = getDiffInSeconds(data.data.date, Date.now()) < maxDeletableAge
+  return newData
+}
+
+const markDeletableList = (data) => {
+  const now = Date.now()
+  let newData = cloneDeep(data)
+
+  newData.data.items = newData.data.items.map(item => {
+    item.isDeletable = getDiffInSeconds(item.date, now) < maxDeletableAge
+    return item
+  })
+  return newData
+}
+
 export default {
   [requestTypes.GET_LISTS]: () => makeApiRequest(requestTypes.GET_LISTS),
-  [requestTypes.CREATE_LIST]: (list) => makeApiRequest(requestTypes.CREATE_LIST, list),
-  [requestTypes.DELETE_LIST]: (id) => makeApiRequest(requestTypes.DELETE_LIST, null, {listId: id})
+  [requestTypes.CREATE_LIST]: (listData) => makeApiRequest(requestTypes.CREATE_LIST, listData),
+  [requestTypes.DELETE_LIST]: (listId) => makeApiRequest(requestTypes.DELETE_LIST, null, {listId}),
+  [requestTypes.GET_LIST]: (listId) => makeApiRequest(requestTypes.GET_LIST, null, {listId}, markDeletableList),
+  [requestTypes.CREATE_ITEM]: (listId, itemData) => {
+    itemData = Object.assign({}, itemData, {
+      date: getMysqlDateString(new Date())
+    })
+    return makeApiRequest(requestTypes.CREATE_ITEM, itemData, {listId}, markDeletableItem)
+  },
+  [requestTypes.DELETE_ITEM]: (listId, itemId) => makeApiRequest(requestTypes.DELETE_ITEM, null, {listId, itemId})
 }
