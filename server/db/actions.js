@@ -96,26 +96,36 @@ const createItem = (connection, defaultError, {listId}, {name, value, date}) => 
   })
 }
 
+const resolveIfDeleted = ({wasDeleted, resolve, reject, successData, errorMessage}) => {
+  if (wasDeleted) {
+    resolve(new APIResponse({
+      status: APIResponse.CODES.OK,
+      data: successData
+    }))
+  } else {
+    reject(new APIResponse({
+      status: APIResponse.CODES.GONE,
+      error: {
+        message: errorMessage
+      }
+    }))
+  }
+}
+
 /**
  * Deletes the list and returns delete id
  */
 const deleteList = (connection, defaultError, {listId}) => {
   return getRequestPromise(connection, defaultError, SQL.deleteList, [listId], (resolve, reject, result) => {
-    if (result.affectedRows) {
-      resolve(new APIResponse({
-        status: APIResponse.CODES.OK,
-        data: {
-          listId: Number(listId)
-        }
-      }))
-    } else {
-      reject(new APIResponse({
-        status: APIResponse.CODES.GONE,
-        error: {
-          message: `There's no list with id=${listId}`
-        }
-      }))
-    }
+    resolveIfDeleted({
+      wasDeleted: result.affectedRows === 1,
+      resolve,
+      reject,
+      successData: {
+        listId: Number(listId)
+      },
+      errorMessage: `Cannot delete list with id=${listId}`
+    })
   })
 }
 
@@ -124,22 +134,16 @@ const deleteList = (connection, defaultError, {listId}) => {
  */
 const deleteItem = (connection, defaultError, {listId, itemId}) => {
   return getRequestPromise(connection, defaultError, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
-    if (result.affectedRows) {
-      resolve(new APIResponse({
-        status: APIResponse.CODES.OK,
-        data: {
-          listId: Number(listId),
-          itemId: Number(itemId)
-        }
-      }))
-    } else {
-      reject(new APIResponse({
-        status: APIResponse.CODES.GONE,
-        error: {
-          message: `Cannot delete item ${listId}/${itemId}`
-        }
-      }))
-    }
+    resolveIfDeleted({
+      wasDeleted: result.affectedRows === 1,
+      resolve,
+      reject,
+      successData: {
+        listId: Number(listId),
+        itemId: Number(itemId)
+      },
+      errorMessage: `Cannot delete item ${listId}/${itemId}`
+    })
   })
 }
 
