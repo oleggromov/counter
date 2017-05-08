@@ -2,7 +2,7 @@ const defaultResolver = (resolve, result) => {
   resolve(result)
 }
 
-const getPromise = (connection, sqlRequest, sqlData = null, resolver = defaultResolver) => {
+const getRequestPromise = (connection, sqlRequest, sqlData = null, resolver = defaultResolver) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlRequest, sqlData, (err, result) => {
       if (err) {
@@ -29,10 +29,11 @@ const getSqlGetLists = (listId) => {
     LEFT JOIN items
       ON lists.id = items.listId
     ${whereClause}
-    GROUP BY lists.id`
+    GROUP BY lists.id
+    ORDER BY lastDate DESC`
 }
 
-const getLists = connection => getPromise(connection, getSqlGetLists())
+const getLists = connection => getRequestPromise(connection, getSqlGetLists())
 
 /**
  * Returns one list with items
@@ -41,10 +42,10 @@ const SQL_GET_LIST_ITEMS = 'SELECT `id`, `name`, `date`, `value` FROM `items` WH
 
 const getList = (connection, {listId}, {excludeItems}) => {
   const promises = [
-    getPromise(connection, getSqlGetLists(listId), [listId]),
+    getRequestPromise(connection, getSqlGetLists(listId), [listId]),
     excludeItems
       ? null
-      : getPromise(connection, SQL_GET_LIST_ITEMS, [listId])
+      : getRequestPromise(connection, SQL_GET_LIST_ITEMS, [listId])
   ]
 
   return Promise.all(promises)
@@ -64,7 +65,7 @@ const getList = (connection, {listId}, {excludeItems}) => {
 const SQL_CREATE_LIST = 'INSERT INTO `lists` (`name`) VALUES (?)'
 
 const createList = (connection, params, {name}) => {
-  return getPromise(connection, SQL_CREATE_LIST, [name], (resolve, result) => {
+  return getRequestPromise(connection, SQL_CREATE_LIST, [name], (resolve, result) => {
     const params = { listId: result.insertId }
 
     getList(connection, params, { excludeItems: true })
@@ -78,11 +79,11 @@ const createList = (connection, params, {name}) => {
  * Creates a item and returns it
  */
 const SQL_CREATE_ITEM = 'INSERT INTO `items` (`listId`, `name`, `value`, `date`) VALUES (?, ?, ?, ?)'
-const SQL_GET_ITEM = 'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? and `id` = ? ORDER BY `date` DESC'
+const SQL_GET_ITEM = 'SELECT `id`, `name`, `date`, `value` FROM `items` WHERE `listId` = ? and `id` = ?'
 
 const createItem = (connection, {listId}, {name, value, date}) => {
-  return getPromise(connection, SQL_CREATE_ITEM, [listId, name, value, date], (resolve, result) => {
-    getPromise(connection, SQL_GET_ITEM, [listId, result.insertId])
+  return getRequestPromise(connection, SQL_CREATE_ITEM, [listId, name, value, date], (resolve, result) => {
+    getRequestPromise(connection, SQL_GET_ITEM, [listId, result.insertId])
       .then(data => resolve(data[0]))
   })
 }
@@ -93,7 +94,7 @@ const createItem = (connection, {listId}, {name, value, date}) => {
 const SQL_DELETE_LIST = 'DELETE FROM `lists` WHERE `id` = ?'
 
 const deleteList = (connection, {listId}) => {
-  return getPromise(connection, SQL_DELETE_LIST, [listId], (resolve, result) => {
+  return getRequestPromise(connection, SQL_DELETE_LIST, [listId], (resolve, result) => {
     // TODO: Always returns id, even if the list was not deleted
     resolve({
       listId: Number(listId)
@@ -107,7 +108,7 @@ const deleteList = (connection, {listId}) => {
 const SQL_DELETE_ITEM = 'DELETE FROM `items` WHERE `listId` = ? AND `id` = ?'
 
 const deleteItem = (connection, {listId, itemId}) => {
-  return getPromise(connection, SQL_DELETE_ITEM, [listId, itemId], (resolve, result) => {
+  return getRequestPromise(connection, SQL_DELETE_ITEM, [listId, itemId], (resolve, result) => {
     // TODO: Always returns id, even if the item was not deleted
     resolve({
       listId: Number(listId),
