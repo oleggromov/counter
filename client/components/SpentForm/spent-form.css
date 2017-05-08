@@ -12,7 +12,7 @@
 	text-align: right;
 }
 
-.amount {
+.value {
 	flex-grow: 4;
 }
 
@@ -20,7 +20,7 @@
 	flex-grow: 1;
 }
 
-.type {
+.name {
 	flex-grow: 12;
 }
 

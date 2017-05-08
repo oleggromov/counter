@@ -6,11 +6,11 @@ export default (styles, strings) => ([
   },
   {
     type: 'Input',
-    name: 'amount',
+    name: 'value',
     value: '',
     isInvalid: true,
     validator: 'PRICE',
-    containerClass: styles.amount
+    containerClass: styles.value
   },
   {
     type: 'Label',
@@ -19,11 +19,11 @@ export default (styles, strings) => ([
   },
   {
     type: 'Input',
-    name: 'type',
+    name: 'name',
     value: '',
     isInvalid: true,
     validator: 'NOT_EMPTY',
-    containerClass: styles.type
+    containerClass: styles.name
   },
   {
     type: 'Button',

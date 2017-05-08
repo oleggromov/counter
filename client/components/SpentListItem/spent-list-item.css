@@ -26,7 +26,7 @@
 	color: rgba(0,0,0,.3);
 }
 
-.amount {
+.value {
 	composes: column;
 	flex-grow: 3;
 	padding-left: 0.1em;

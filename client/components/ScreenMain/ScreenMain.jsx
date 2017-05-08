@@ -4,9 +4,9 @@ import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import ListEdit from '../ListEdit/ListEdit.jsx'
 import api from '../../modules/api'
+import cloneDeep from 'lodash/cloneDeep'
 
 const handleError = err => {
-  // window.alert('error!')
   console.warn('Error!')
   console.timeEnd('lists')
   console.log(err)
@@ -31,16 +31,26 @@ export default class ScreenMain extends Component {
 
   addList (list) {
     api.createList(list)
-      .then(data => {
-        this.updateState()
+      .then(({data}) => {
+        this.setState(prevState => {
+          let newState = cloneDeep(prevState)
+          newState.lists.push(data)
+          return newState
+        })
       })
       .catch(handleError)
   }
 
   deleteList (id) {
     api.deleteList(id)
-      .then(data => {
-        this.updateState()
+      .then(({data}) => {
+        this.setState(prevState => {
+          let newState = cloneDeep(prevState)
+          newState.lists = newState.lists.filter(({ id }) => {
+            return id !== data.listId
+          })
+          return newState
+        })
       })
       .catch(handleError)
   }
@@ -53,7 +63,7 @@ export default class ScreenMain extends Component {
     api.getLists()
       .then(data => {
         this.setState({
-          lists: data.data.lists,
+          lists: data.data,
           pendingLoad: false
         })
       })

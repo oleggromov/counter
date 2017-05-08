@@ -16,11 +16,11 @@ const config = [
   },
   {
     type: 'Input',
-    name: 'amount',
+    name: 'value',
     value: '',
     isInvalid: true,
     validator: 'PRICE',
-    containerClass: styles.amount
+    containerClass: styles.value
   },
   {
     type: 'Label',
@@ -29,11 +29,11 @@ const config = [
   },
   {
     type: 'Input',
-    name: 'type',
+    name: 'name',
     value: '',
     isInvalid: true,
     validator: 'NOT_EMPTY',
-    containerClass: styles.type
+    containerClass: styles.name
   },
   {
     type: 'Button',
@@ -44,11 +44,11 @@ const config = [
 
 export default class SpentFrom extends Component {
   saveItem (item) {
-    const { amount, type } = item
+    const { value, name } = item
 
     this.props.onItemAdd({
-      amount: Number(amount),
-      type: type.trim()
+      value: Number(value),
+      name: name.trim()
     })
   }
 

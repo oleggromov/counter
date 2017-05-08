@@ -21,8 +21,8 @@ export default class ContainerSpentListItem extends Component {
     const props = this.props
     const presentationalProps = {
       currency,
-      amount: props.item.amount,
-      type: props.item.type,
+      value: props.item.value,
+      name: props.item.name,
       isReadyToDelete: props.readyToDelete,
       onReadyToDelete: this.setPreDelete,
       onDelete: props.onDelete

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './spent-list-item.css'
 
-const SpentListItem = ({ currency, amount, type, isReadyToDelete, onReadyToDelete, onDelete }) => {
+const SpentListItem = ({ currency, value, name, isReadyToDelete, onReadyToDelete, onDelete }) => {
   let classes = styles.row
   if (isReadyToDelete) {
     classes = `${classes} ${styles.readyToDelete}`
@@ -12,11 +12,11 @@ const SpentListItem = ({ currency, amount, type, isReadyToDelete, onReadyToDelet
       <div className={styles.currency}>
         {currency}
       </div>
-      <div className={styles.amount}>
-        {amount.toFixed(2)}
+      <div className={styles.value}>
+        {value.toFixed(2)}
       </div>
       <div className={styles.name}>
-        {type}
+        {name}
       </div>
       <div className={styles.delete}>
         <span onClick={onDelete}>Delete</span>

@@ -18,7 +18,7 @@ VALUES
 # data.lists.items[0].items
 #   .reverse()
 #   .reduce((acc, item) => {
-#     const newStr = `(1, '${item.type}', '${item.date}', ${item.amount}),\n`
+#     const newStr = `(1, '${item.type}', '${item.date}', ${item.value}),\n`
 #     return acc + newStr
 #   }, '')
 INSERT INTO `items`
