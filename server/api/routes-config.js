@@ -1,10 +1,8 @@
-const statusCodes = require('./status-codes')
 const { methods, urls } = require('../../common/api-constants')
 
 const routes = {
   // GET methods only retrieve lists/items
   [methods.GET]: {
-    statusCode: statusCodes.OK,
     urls: {
       // Gets all lists
       [urls.LISTS]: {
@@ -22,7 +20,6 @@ const routes = {
 
   // POST method creates list/items
   [methods.POST]: {
-    statusCode: statusCodes.CREATED,
     urls: {
       [urls.LISTS]: {
         handler: 'createList',
@@ -38,7 +35,7 @@ const routes = {
 
   // DELETE method does guess what
   [methods.DELETE]: {
-    statusCode: statusCodes.OK,
+
     urls: {
       [urls.LIST]: {
         handler: 'deleteList',

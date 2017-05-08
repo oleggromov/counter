@@ -1,14 +1,24 @@
+const APIResponse = require('../api/api-response')
 const SQL = require('./queries')
 
 const defaultResolver = (resolve, reject, result) => {
-  resolve(result)
+  resolve(new APIResponse({
+    status: APIResponse.CODES.OK,
+    data: result
+  }))
 }
 
-const getRequestPromise = (connection, sqlRequest, sqlData = null, resolver = defaultResolver) => {
+const getRequestPromise = (connection, defaultError, sqlRequest, sqlData = null, resolver = defaultResolver) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlRequest, sqlData, (err, result) => {
       if (err) {
-        reject(err)
+        reject(new APIResponse({
+          status: APIResponse.CODES.SERVER_ERROR,
+          error: {
+            data: err,
+            message: defaultError
+          }
+        }))
       } else {
         resolver(resolve, reject, result)
       }
@@ -19,40 +29,54 @@ const getRequestPromise = (connection, sqlRequest, sqlData = null, resolver = de
 /**
  * Returns all lists
  */
-const getLists = connection => getRequestPromise(connection, SQL.getLists())
+const getLists = (connection, defaultError) => getRequestPromise(connection, defaultError, SQL.getLists())
 
 /**
  * Returns one list with items
+ * TODO !!!!Refactor this!!!!
  */
-const getList = (connection, {listId}, {excludeItems}) => {
+const getList = (connection, defaultError, {listId}, {excludeItems}) => {
   const promises = [
-    getRequestPromise(connection, SQL.getLists({ singleList: true }), [listId]),
+    getRequestPromise(connection, defaultError, SQL.getLists({ singleList: true }), [listId]),
     excludeItems
       ? null
-      : getRequestPromise(connection, SQL.listItems, [listId])
+      : getRequestPromise(connection, defaultError, SQL.listItems, [listId])
   ]
 
   return Promise.all(promises)
     .then(data => {
-      const listInfo = data[0][0]
-      const items = excludeItems
-        ? undefined
-        : { items: data[1] }
+      const listInfo = data[0].data[0]
+      const items = excludeItems ? undefined : { items: data[1].data }
 
-      return Object.assign({}, listInfo, items)
+      if (!listInfo) {
+        return new APIResponse({
+          status: APIResponse.CODES.NOT_FOUND,
+          error: {
+            message: defaultError
+          }
+        })
+      }
+
+      return new APIResponse({
+        status: APIResponse.CODES.OK,
+        data: Object.assign({}, listInfo, items)
+      })
     })
 }
 
 /**
  * Creates a list and returns it
  */
-const createList = (connection, params, {name}) => {
-  return getRequestPromise(connection, SQL.createList, [name], (resolve, reject, result) => {
+const createList = (connection, defaultError, params, {name}) => {
+  return getRequestPromise(connection, defaultError, SQL.createList, [name], (resolve, reject, result) => {
     const params = { listId: result.insertId }
 
-    getList(connection, params, { excludeItems: true })
+    getList(connection, defaultError, params, { excludeItems: true })
       .then(data => {
-        resolve(data)
+        resolve(new APIResponse({
+          status: APIResponse.CODES.CREATED,
+          data: data.data
+        }))
       })
   })
 }
@@ -60,35 +84,62 @@ const createList = (connection, params, {name}) => {
 /**
  * Creates a item and returns it
  */
-const createItem = (connection, {listId}, {name, value, date}) => {
-  return getRequestPromise(connection, SQL.createItem, [listId, name, value, date], (resolve, reject, result) => {
-    getRequestPromise(connection, SQL.getItem, [listId, result.insertId])
-      .then(data => resolve(data[0]))
+const createItem = (connection, defaultError, {listId}, {name, value, date}) => {
+  return getRequestPromise(connection, defaultError, SQL.createItem, [listId, name, value, date], (resolve, reject, result) => {
+    getRequestPromise(connection, defaultError, SQL.getItem, [listId, result.insertId])
+      .then(data => {
+        resolve(new APIResponse({
+          status: APIResponse.CODES.CREATED,
+          data: data.data[0]
+        }))
+      })
   })
 }
 
 /**
  * Deletes the list and returns delete id
  */
-const deleteList = (connection, {listId}) => {
-  return getRequestPromise(connection, SQL.deleteList, [listId], (resolve, reject, result) => {
-    // TODO: Always returns id, even if the list was not deleted
-    resolve({
-      listId: Number(listId)
-    })
+const deleteList = (connection, defaultError, {listId}) => {
+  return getRequestPromise(connection, defaultError, SQL.deleteList, [listId], (resolve, reject, result) => {
+    if (result.affectedRows) {
+      resolve(new APIResponse({
+        status: APIResponse.CODES.OK,
+        data: {
+          listId: Number(listId)
+        }
+      }))
+    } else {
+      reject(new APIResponse({
+        status: APIResponse.CODES.GONE,
+        error: {
+          message: `There's no list with id=${listId}`
+        }
+      }))
+    }
   })
 }
 
 /**
  * Deletes the item and returns deleted list and item id
  */
-const deleteItem = (connection, {listId, itemId}) => {
-  return getRequestPromise(connection, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
-    // TODO: Always returns id, even if the item was not deleted
-    resolve({
-      listId: Number(listId),
-      itemId: Number(itemId)
-    })
+const deleteItem = (connection, defaultError, {listId, itemId}) => {
+  return getRequestPromise(connection, defaultError, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
+    if (result.affectedRows) {
+      resolve(new APIResponse({
+        status: APIResponse.CODES.OK,
+        data: {
+          listId: Number(listId),
+          itemId: Number(itemId)
+        }
+      }))
+    } else {
+      reject(new APIResponse({
+        status: APIResponse.CODES.GONE,
+        error: {
+          message: `Cannot delete item ${listId}/${itemId}`
+        }
+      }))
+    }
   })
 }
 

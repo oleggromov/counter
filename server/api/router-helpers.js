@@ -1,35 +1,9 @@
 const forOwn = require('lodash/forOwn')
-const statusCodes = require('./status-codes')
 
-// TODO change this to production/development flag
-const includeSqlDetails = true
-
-const getResultObject = (overrides) => {
-  return Object.assign({
-    error: null,
-    data: null
-  }, overrides)
-}
-
-const getResult = (errorText, data) => {
-  if (errorText) {
-    return getResultObject({
-      error: {
-        text: errorText,
-        data: includeSqlDetails ? data : null
-      }
-    })
-  } else {
-    return getResultObject({ data })
-  }
-}
-
-const renderJson = (res, errorText, statusCode) => {
-  return (data) => {
-    res.status(statusCode)
-    res.json(getResult(errorText, data))
-    res.end()
-  }
+const respond = (res, apiResponse) => {
+  res.status(apiResponse.status)
+  res.json(apiResponse.toData())
+  res.end()
 }
 
 const addRoutes = (router, routes, connection, db) => {
@@ -40,12 +14,9 @@ const addRoutes = (router, routes, connection, db) => {
       }
 
       router[method](url, (req, res) => {
-        const renderSuccess = renderJson(res, null, statusCode)
-        const renderError = renderJson(res, error, statusCodes.SERVER_ERROR)
-
-        db[handler](connection, req.params, req.body)
-          .then(renderSuccess)
-          .catch(renderError)
+        const respondBinded = respond.bind(null, res)
+        db[handler](connection, error, req.params, req.body)
+          .then(respondBinded, respondBinded)
       })
     })
   })
@@ -53,5 +24,5 @@ const addRoutes = (router, routes, connection, db) => {
 
 module.exports = {
   addRoutes,
-  renderJson
+  respond
 }
