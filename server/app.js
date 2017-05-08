@@ -15,7 +15,7 @@ app.use('/', express.static(resolveToRoot(config.staticPath), {
 }))
 
 // And if nothing was found, send index.html by default
-app.use(/.*/, (req, res) => {
+app.use(/\/lists\/\d+/, (req, res) => {
   res.sendFile(resolveToRoot('public/index.html'))
 })
 
