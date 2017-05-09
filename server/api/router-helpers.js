@@ -1,3 +1,4 @@
+const getActionPromise = require('../db/get-action-promise')
 const forOwn = require('lodash/forOwn')
 
 const respond = (res, apiResponse) => {
@@ -6,17 +7,27 @@ const respond = (res, apiResponse) => {
   res.end()
 }
 
-const addRoutes = (router, routes, connection, db) => {
-  forOwn(routes, ({statusCode, urls}, method) => {
-    forOwn(urls, ({handler, error}, url) => {
-      if (typeof db[handler] !== 'function') {
-        throw new Error(`db doesn't have a method "${handler}"`)
-      }
+const respondNew = (res, status, data) => {
+  res.status(status)
+  res.send(data)
+  res.end()
+}
+
+const addRoutes = (router, routes) => {
+
+  forOwn(routes, (urls, method) => {
+    forOwn(urls, (action, url) => {
 
       router[method](url, (req, res) => {
-        const respondBinded = respond.bind(null, res)
-        db[handler](connection, error, req.params, req.body)
-          .then(respondBinded, respondBinded)
+        // req.params
+        // req.body
+
+        const respondError = respondNew.bind(null, res, 500)
+        const respondOk = respondNew.bind(null, res, 200)
+
+        getActionPromise(action)
+          .then(respondOk)
+          .catch(respondError)
       })
     })
   })

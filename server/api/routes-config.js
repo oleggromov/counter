@@ -1,52 +1,99 @@
 const { methods, urls } = require('../../common/api-constants')
+const codes = require('./api-response').CODES
 
 const routes = {
   // GET methods only retrieve lists/items
   [methods.GET]: {
-    urls: {
-      // Gets all lists
-      [urls.LISTS]: {
-        handler: 'getLists',
-        error: 'Cannot retrieve lists'
-      },
+    // Gets all lists
+    [urls.LISTS]: [
+      [{
+        name: 'getLists',
+        error: {
+          text: 'Cannot retrieve lists'
+        }
+      }]
+    ],
 
-      // Gets all list items
-      [urls.LIST]: {
-        handler: 'getList',
-        error: 'Cannot retrieve list items'
-      }
-    }
+    // Gets all list items
+    [urls.LIST]: [
+      [{
+        name: 'getLists',
+        params: ['listId'],
+        error: {
+          code: codes.NOT_FOUND,
+          text: 'Cannot retrieve list items'
+        }
+      }],
+      [{
+        name: 'listItems',
+        params: ['listId'],
+        resultKey: 'items'
+      }]
+    ]
   },
 
   // POST method creates list/items
   [methods.POST]: {
-    urls: {
-      [urls.LISTS]: {
-        handler: 'createList',
-        error: 'Cannot create list'
-      },
+    // Creates a list and returns it back
+    [urls.LISTS]: [
+      [
+        {
+          name: 'createList',
+          params: ['name'],
+          error: {
+            text: 'Cannot create list'
+          }
+        },
+        {
+          code: codes.CREATED,
+          name: 'getList',
+          params: ['result.insertedId']
+        }
+      ]
+    ],
 
-      [urls.LIST]: {
-        handler: 'createItem',
-        error: 'Cannot create list item'
-      }
-    }
+    // Creates an item and returns it back
+    [urls.LIST]: [
+      [
+        {
+          name: 'createItem',
+          params: ['listId', 'name', 'value', 'date'],
+          error: {
+            text: 'Cannot create list item'
+          }
+        },
+        {
+          code: codes.CREATED,
+          name: 'getItem',
+          params: ['listId', 'result.insertedId']
+        }
+      ]
+    ]
   },
 
   // DELETE method does guess what
   [methods.DELETE]: {
+    [urls.LIST]: [
+      [{
+        name: 'deleteList',
+        params: ['listId'],
+        error: {
+          code: codes.GONE,
+          text: 'Cannot delete list'
+        }
+      }]
+    ],
 
-    urls: {
-      [urls.LIST]: {
-        handler: 'deleteList',
-        error: 'Cannot delete list'
-      },
-
-      [urls.ITEM]: {
-        handler: 'deleteItem',
-        error: 'Cannot delete list item'
-      }
-    }
+    [urls.ITEM]: [
+      [{
+        name: 'deleteItem',
+        params: ['listId', 'itemId'],
+        error: {
+          code: codes.GONE,
+          text: 'Cannot delete list item'
+        }
+      }]
+    ]
   }
 
   // Editing is not implemented for the purpose:
