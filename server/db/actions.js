@@ -96,8 +96,8 @@ const createItem = (connection, defaultError, {listId}, {name, value, date}) => 
   })
 }
 
-const resolveIfDeleted = ({wasDeleted, resolve, reject, successData, errorMessage}) => {
-  if (wasDeleted) {
+const resolveIfDeleted = ({result, resolve, reject, successData, errorMessage}) => {
+  if (result.affectedRows === 1) {
     resolve(new APIResponse({
       status: APIResponse.CODES.OK,
       data: successData
@@ -118,7 +118,7 @@ const resolveIfDeleted = ({wasDeleted, resolve, reject, successData, errorMessag
 const deleteList = (connection, defaultError, {listId}) => {
   return getRequestPromise(connection, defaultError, SQL.deleteList, [listId], (resolve, reject, result) => {
     resolveIfDeleted({
-      wasDeleted: result.affectedRows === 1,
+      result,
       resolve,
       reject,
       successData: {
@@ -135,7 +135,7 @@ const deleteList = (connection, defaultError, {listId}) => {
 const deleteItem = (connection, defaultError, {listId, itemId}) => {
   return getRequestPromise(connection, defaultError, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
     resolveIfDeleted({
-      wasDeleted: result.affectedRows === 1,
+      result,
       resolve,
       reject,
       successData: {
