@@ -1,4 +1,4 @@
-const getActionPromise = require('../db/get-action-promise')
+const getQueryPromise = require('../db/get-query-promise')
 const forOwn = require('lodash/forOwn')
 
 const respond = (res, apiResponse) => {
@@ -13,21 +13,30 @@ const respondNew = (res, status, data) => {
   res.end()
 }
 
-const addRoutes = (router, routes) => {
+const addRoutes = (router, methods) => {
+  forOwn(methods, (urls, method) => {
+    forOwn(urls, ({handlers}, url) => {
+      const lastIndex = handlers.length - 1
+      handlers.forEach((handler, index) => {
+        const returnsResult = index === lastIndex
 
-  forOwn(routes, (urls, method) => {
-    forOwn(urls, (action, url) => {
+        router[method](url, (req, res, next) => {
+          const params = Object.assign({}, req.params, req.body, res.intermediate || {})
 
-      router[method](url, (req, res) => {
-        // req.params
-        // req.body
-
-        const respondError = respondNew.bind(null, res, 500)
-        const respondOk = respondNew.bind(null, res, 200)
-
-        getActionPromise(action)
-          .then(respondOk)
-          .catch(respondError)
+          getQueryPromise(handler.queries, params)
+            .then(data => {
+              if (returnsResult) {
+                respondNew(res, 200, data)
+              } else {
+                res.intermediate = res.intermediate || {}
+                res.intermediate[handler.id] = data
+                next()
+              }
+            })
+            .catch(err => {
+              respondNew(res, 500, err)
+            })
+        })
       })
     })
   })

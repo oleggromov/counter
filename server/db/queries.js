@@ -1,6 +1,6 @@
-const getLists = (params = {singleList: false}) => {
-  const whereClause = params.singleList
-    ? `WHERE lists.id = ?`
+const getListsCommon = (params) => {
+  const whereClause = params && params.onlySpecificLists
+    ? 'WHERE lists.id = ?'
     : ''
 
   return `SELECT lists.id, lists.name,
@@ -13,6 +13,9 @@ const getLists = (params = {singleList: false}) => {
     GROUP BY lists.id
     ORDER BY lastDate DESC`
 }
+
+const getLists = getListsCommon()
+const getList = getListsCommon({onlySpecificLists: true})
 
 const listItems = `SELECT id, name, date, value
   FROM items
@@ -37,6 +40,7 @@ const deleteItem = `DELETE FROM items
 
 module.exports = {
   getLists,
+  getList,
   listItems,
   createList,
   createItem,

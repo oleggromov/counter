@@ -5,95 +5,143 @@ const routes = {
   // GET methods only retrieve lists/items
   [methods.GET]: {
     // Gets all lists
-    [urls.LISTS]: [
-      [{
-        name: 'getLists',
-        error: {
-          text: 'Cannot retrieve lists'
+    [urls.LISTS]: {
+      handlers: [
+        {
+          queries: [
+            {
+              name: 'Retrieving lists',
+              query: 'getLists',
+              resultKey: 'lists'
+            }
+          ]
         }
-      }]
-    ],
+      ]
+    },
 
     // Gets all list items
-    [urls.LIST]: [
-      [{
-        name: 'getLists',
-        params: ['listId'],
-        error: {
-          code: codes.NOT_FOUND,
-          text: 'Cannot retrieve list items'
+    [urls.LIST]: {
+      handlers: [
+        {
+          queries: [
+            {
+              name: 'Retrieving list',
+              query: 'getList',
+              params: ['listId'],
+              emptyError: {
+                code: codes.NOT_FOUND,
+                text: 'list doesn\'t exist'
+              }
+            },
+            {
+              name: 'Retrieving list items',
+              query: 'listItems',
+              params: ['listId'],
+              resultKey: 'items'
+            }
+          ]
         }
-      }],
-      [{
-        name: 'listItems',
-        params: ['listId'],
-        resultKey: 'items'
-      }]
-    ]
+      ]
+    }
   },
 
   // POST method creates list/items
   [methods.POST]: {
     // Creates a list and returns it back
-    [urls.LISTS]: [
-      [
+    [urls.LISTS]: {
+      handlers: [
         {
-          name: 'createList',
-          params: ['name'],
-          error: {
-            text: 'Cannot create list'
-          }
+          id: 'create',
+          queries: [
+            {
+              name: 'Creating list',
+              query: 'createList',
+              params: ['name']
+            }
+          ]
         },
         {
-          code: codes.CREATED,
-          name: 'getList',
-          params: ['result.insertedId']
+          queries: [
+            {
+              name: 'Retrieving created list',
+              code: codes.CREATED,
+              query: 'getList',
+              params: ['create.insertId']
+            }
+          ]
         }
       ]
-    ],
+    },
 
     // Creates an item and returns it back
-    [urls.LIST]: [
-      [
+    [urls.LIST]: {
+      handlers: [
         {
-          name: 'createItem',
-          params: ['listId', 'name', 'value', 'date'],
-          error: {
-            text: 'Cannot create list item'
-          }
+          id: 'create',
+          queries: [
+            {
+              name: 'Creating item',
+              query: 'createItem',
+              params: ['listId', 'name', 'value', 'date'],
+              error: {
+                text: 'Cannot create list item'
+              }
+            }
+          ]
         },
         {
-          code: codes.CREATED,
-          name: 'getItem',
-          params: ['listId', 'result.insertedId']
+          queries: [
+            {
+              name: 'Retreiving created item',
+              code: codes.CREATED,
+              query: 'getItem',
+              params: ['listId', 'create.insertId']
+            }
+          ]
         }
       ]
-    ]
+    }
   },
 
   // DELETE method does guess what
   [methods.DELETE]: {
-    [urls.LIST]: [
-      [{
-        name: 'deleteList',
-        params: ['listId'],
-        error: {
-          code: codes.GONE,
-          text: 'Cannot delete list'
+    [urls.LIST]: {
+      handlers: [
+        {
+          queries: [
+            {
+              name: 'Deleting list',
+              query: 'deleteList',
+              type: 'delete',
+              params: ['listId'],
+              noRowsError: {
+                code: codes.GONE,
+                text: 'Cannot delete list'
+              }
+            }
+          ]
         }
-      }]
-    ],
+      ]
+    },
 
-    [urls.ITEM]: [
-      [{
-        name: 'deleteItem',
-        params: ['listId', 'itemId'],
-        error: {
-          code: codes.GONE,
-          text: 'Cannot delete list item'
+    [urls.ITEM]: {
+      handlers: [
+        {
+          queries: [
+            {
+              name: 'Deleting item',
+              query: 'deleteItem',
+              params: ['listId', 'itemId'],
+              type: 'delete',
+              noRowsError: {
+                code: codes.GONE,
+                text: 'Cannot delete list item'
+              }
+            }
+          ]
         }
-      }]
-    ]
+      ]
+    }
   }
 
   // Editing is not implemented for the purpose:
