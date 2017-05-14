@@ -3,6 +3,7 @@ import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
 
 const Request = window.Request
 const fetch = window.fetch
+const Headers = window.Headers
 
 // 15 minutes
 const maxDeletableAge = 60 * 15
@@ -26,10 +27,9 @@ const getFullUrl = path => {
   return `${apiRoot}/${path}`.replace(/\/+/g, '/')
 }
 
-const jsonHeaders = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json'
-}
+const jsonHeaders = new Headers()
+jsonHeaders.append('Accept', 'application/json')
+jsonHeaders.append('Content-Type', 'application/json')
 
 const requests = {
   [requestTypes.GET_LISTS]: {
@@ -93,7 +93,7 @@ const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProc
     credentials: 'include',
     method: reqParams.method,
     body: bodyData ? JSON.stringify(bodyData) : null,
-    headers: reqParams.headers || null
+    headers: reqParams.headers || undefined
   })
 
   return fetch(req)
