@@ -1,5 +1,10 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  port: process.env.NODE_ENV === 'production'
+  protocol: 'http',
+  host: 'localhost',
+
+  port: isProd
     ? 80
     : 3000,
 
