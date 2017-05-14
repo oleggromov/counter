@@ -9,9 +9,10 @@ CREATE DATABASE IF NOT EXISTS `counter_0_1`
 
 USE `counter_0_1`;
 
-DROP TABLE `items`;
-DROP TABLE `lists`;
-DROP TABLE `users`;
+DROP TABLE IF EXISTS `items`;
+DROP TABLE IF EXISTS `permissions`;
+DROP TABLE IF EXISTS `lists`;
+DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -21,21 +22,25 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `lists` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`userId` INT NOT NULL,
 	`name` TEXT NOT NULL,
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`userId`) REFERENCES `users`(`id`)
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `permissions` (
+	`userId` INT NOT NULL,
+	`listId` INT NOT NULL,
+	PRIMARY KEY (`userId`, `listId`),
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`),
+	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `items` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`listId` INT NOT NULL,
-	`userId` INT NOT NULL,
 	`name` TEXT NOT NULL,
 	`date` DATETIME NOT NULL,
 	`value` DECIMAL(10,2) NOT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`),
-	FOREIGN KEY (`userId`) REFERENCES `users`(`id`)
+	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`)
 );
 
