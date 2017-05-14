@@ -6,6 +6,7 @@ const config = require('./config')
 const resolveToRoot = require('./modules/resolve-to-root')
 const apiRouter = require('./api/router')
 const { apiRoot } = require('../common/api-constants')
+const log = require('./modules/log')
 
 const app = express()
 
@@ -14,14 +15,14 @@ const loginUrl = '/auth/login'
 // Some (API) calls get JSON input
 app.use(bodyParser.json())
 
+// Auth
+auth(app)
+
 // Logging requests
 app.use((req, res, next) => {
-  const dataString = Object.keys(req.body).length ? ` data=${JSON.stringify(req.body)} ` : ' '
-  console.log(`${req.method}${dataString}${req.protocol}://${req.get('host')}${req.originalUrl}`)
+  log(req)
   next()
 })
-
-auth(app)
 
 // API requests go first
 app.use(apiRoot, apiRouter)

@@ -1,16 +1,25 @@
 const session = require('express-session')
 const passport = require('passport')
 const Strategy = require('passport-facebook').Strategy
+const dbActions = require('./db/actions')
+const log = require('./modules/log')
 
+const fbAppSecret = '5a4dfa6321739f7c89345a25d8220e6b'
 const cookieSecret = 'bfa6c5df923efce3c06b38e9c85616f9'
 
 module.exports = (app) => {
   passport.use(new Strategy({
     clientID: '470519336672906',
-    clientSecret: '5a4dfa6321739f7c89345a25d8220e6b',
+    clientSecret: fbAppSecret,
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
   }, (accessToken, refreshToken, profile, done) => {
-    return done(null, profile)
+    dbActions.createAndGetUser(profile.id)
+      .then(id => {
+        done(null, { id })
+      })
+      .catch(err => {
+        done(err)
+      })
   }))
 
   passport.serializeUser((user, cb) => cb(null, user))
@@ -22,18 +31,24 @@ module.exports = (app) => {
     saveUninitialized: true
   }))
 
+  app.use(passport.initialize())
+  app.use(passport.session())
+
   app.get('/auth/login', (req, res) => {
-    res.send(`<a href="/auth/facebook">Enter via Facebook</a>`)
-    res.end()
+    log(req)
+    if (req.isAuthenticated()) {
+      res.redirect('/')
+    } else {
+      res.send(`<a href="/auth/facebook">Enter via Facebook</a>`)
+      res.end()
+    }
   })
 
   app.get('/auth/logout', (req, res) => {
+    log(req)
     req.session.destroy()
     res.redirect('/auth/login')
   })
-
-  app.use(passport.initialize())
-  app.use(passport.session())
 
   app.get('/auth/facebook', passport.authenticate('facebook'))
 
