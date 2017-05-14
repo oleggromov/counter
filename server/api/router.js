@@ -18,6 +18,25 @@ apiRouter.use((req, res, next) => {
   next()
 })
 
+// Authorization check hook
+apiRouter.use((req, res, next) => {
+  const isAuthorized = true
+
+  if (!isAuthorized) {
+    const unauthorized = new APIResponse({
+      status: APIResponse.CODES.UNAUTHORIZED,
+      error: {
+        message: 'Not authorized'
+      }
+    })
+
+    routerHelpers.respond(res, unauthorized)
+  } else {
+    next()
+  }
+})
+
+// All the business logic routes
 routerHelpers.addRoutes(apiRouter, routesConfig, connection, db)
 
 // Absent URI/method returns 400 Bad Request error
