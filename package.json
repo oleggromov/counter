@@ -45,7 +45,11 @@
   },
   "dependencies": {
     "body-parser": "^1.17.1",
+    "connect-ensure-login": "^0.1.1",
     "express": "^4.15.2",
-    "mysql": "^2.13.0"
+    "express-session": "^1.15.2",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
   }
 }

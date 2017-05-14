@@ -1,20 +1,8 @@
 const express = require('express')
 const apiRouter = express.Router()
-const bodyParser = require('body-parser')
-
 const routesConfig = require('./routes-config')
 const routerHelpers = require('./router-helpers')
-
 const APIResponse = require('./api-response')
-
-// API calls get JSON input
-apiRouter.use(bodyParser.json())
-
-// Logging requests
-apiRouter.use((req, res, next) => {
-  console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.originalUrl} data=${JSON.stringify(req.body)}`)
-  next()
-})
 
 // Authorization check hook
 apiRouter.use((req, res, next) => {
