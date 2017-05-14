@@ -35,6 +35,13 @@ const deleteList = `DELETE FROM lists
 const deleteItem = `DELETE FROM items
   WHERE listId = ? AND id = ?`
 
+const getUser = `SELECT id FROM users
+  WHERE facebookId = ?`
+
+const addUser = `INSERT INTO users (facebookId)
+  VALUES (?)
+  ON DUPLICATE KEY UPDATE facebookId = facebookId`
+
 module.exports = {
   getLists,
   listItems,
@@ -42,5 +49,7 @@ module.exports = {
   createItem,
   getItem,
   deleteList,
-  deleteItem
+  deleteItem,
+  getUser,
+  addUser
 }

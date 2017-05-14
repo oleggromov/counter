@@ -148,11 +148,46 @@ const deleteItem = (defaultError, {listId, itemId}) => {
   })
 }
 
+const createAndGetUser = (facebookId) => {
+  const getRejectObj = (err, msg) => {
+    return new APIResponse({
+      status: APIResponse.CODES.SERVER_ERROR,
+      error: {
+        data: err,
+        message: msg
+      }
+    })
+  }
+
+  const createUser = new Promise((resolve, reject) => {
+    connection.query(SQL.addUser, [facebookId], (err, result) => {
+      if (err) {
+        reject(getRejectObj(err, 'Cannot create user'))
+      } else {
+        resolve()
+      }
+    })
+  })
+
+  return createUser.then(() => {
+    return new Promise((resolve, reject) => {
+      connection.query(SQL.getUser, [facebookId], (err, result) => {
+        if (err) {
+          reject(getRejectObj(err, 'Cannot create user'))
+        } else {
+          resolve(result[0].id)
+        }
+      })
+    })
+  })
+}
+
 module.exports = {
   getLists,
   getList,
   createList,
   createItem,
   deleteList,
-  deleteItem
+  deleteItem,
+  createAndGetUser
 }
