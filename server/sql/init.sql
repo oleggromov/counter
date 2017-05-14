@@ -27,3 +27,9 @@ CREATE TABLE IF NOT EXISTS `items` (
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `users` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`facebookId` VARCHAR(128) NOT NULL UNIQUE,
+	PRIMARY KEY (`id`)
+);

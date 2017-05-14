@@ -5,6 +5,8 @@ DELETE FROM `items`;
 ALTER TABLE `items` AUTO_INCREMENT=1;
 DELETE FROM `lists`;
 ALTER TABLE `lists` AUTO_INCREMENT=1;
+DELETE FROM `users`;
+ALTER TABLE `users` AUTO_INCREMENT=1;
 
 # then reinserting
 INSERT INTO `lists`
@@ -13,14 +15,6 @@ VALUES
 	('L.A. & California'),
 	('Italy: Milan and 9 cities');
 
-# LocalStorage data to SQL value strings:
-#
-# data.lists.items[0].items
-#   .reverse()
-#   .reduce((acc, item) => {
-#     const newStr = `(1, '${item.type}', '${item.date}', ${item.value}),\n`
-#     return acc + newStr
-#   }, '')
 INSERT INTO `items`
 	(`listId`, `name`, `date`, `value`)
 VALUES
