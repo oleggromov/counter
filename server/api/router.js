@@ -5,8 +5,6 @@ const bodyParser = require('body-parser')
 const routesConfig = require('./routes-config')
 const routerHelpers = require('./router-helpers')
 
-const connection = require('../modules/get-connection')()
-const db = require('../db/actions.js')
 const APIResponse = require('./api-response')
 
 // API calls get JSON input
@@ -37,7 +35,7 @@ apiRouter.use((req, res, next) => {
 })
 
 // All the business logic routes
-routerHelpers.addRoutes(apiRouter, routesConfig, connection, db)
+routerHelpers.addRoutes(apiRouter, routesConfig)
 
 // Absent URI/method returns 400 Bad Request error
 apiRouter.use((req, res) => {

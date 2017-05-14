@@ -1,3 +1,4 @@
+const connection = require('../modules/get-connection')()
 const APIResponse = require('../api/api-response')
 const SQL = require('./queries')
 
@@ -8,7 +9,7 @@ const defaultResolver = (resolve, reject, result) => {
   }))
 }
 
-const getRequestPromise = (connection, defaultError, sqlRequest, sqlData = null, resolver = defaultResolver) => {
+const getRequestPromise = (defaultError, sqlRequest, sqlData = null, resolver = defaultResolver) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlRequest, sqlData, (err, result) => {
       if (err) {
@@ -29,18 +30,18 @@ const getRequestPromise = (connection, defaultError, sqlRequest, sqlData = null,
 /**
  * Returns all lists
  */
-const getLists = (connection, defaultError) => getRequestPromise(connection, defaultError, SQL.getLists())
+const getLists = (defaultError) => getRequestPromise(defaultError, SQL.getLists())
 
 /**
  * Returns one list with items
  * TODO !!!!Refactor this!!!!
  */
-const getList = (connection, defaultError, {listId}, {excludeItems}) => {
+const getList = (defaultError, {listId}, {excludeItems}) => {
   const promises = [
-    getRequestPromise(connection, defaultError, SQL.getLists({ singleList: true }), [listId]),
+    getRequestPromise(defaultError, SQL.getLists({ singleList: true }), [listId]),
     excludeItems
       ? null
-      : getRequestPromise(connection, defaultError, SQL.listItems, [listId])
+      : getRequestPromise(defaultError, SQL.listItems, [listId])
   ]
 
   return Promise.all(promises)
@@ -67,11 +68,11 @@ const getList = (connection, defaultError, {listId}, {excludeItems}) => {
 /**
  * Creates a list and returns it
  */
-const createList = (connection, defaultError, params, {name}) => {
-  return getRequestPromise(connection, defaultError, SQL.createList, [name], (resolve, reject, result) => {
+const createList = (defaultError, params, {name}) => {
+  return getRequestPromise(defaultError, SQL.createList, [name], (resolve, reject, result) => {
     const params = { listId: result.insertId }
 
-    getList(connection, defaultError, params, { excludeItems: true })
+    getList(defaultError, params, { excludeItems: true })
       .then(data => {
         resolve(new APIResponse({
           status: APIResponse.CODES.CREATED,
@@ -84,9 +85,9 @@ const createList = (connection, defaultError, params, {name}) => {
 /**
  * Creates a item and returns it
  */
-const createItem = (connection, defaultError, {listId}, {name, value, date}) => {
-  return getRequestPromise(connection, defaultError, SQL.createItem, [listId, name, value, date], (resolve, reject, result) => {
-    getRequestPromise(connection, defaultError, SQL.getItem, [listId, result.insertId])
+const createItem = (defaultError, {listId}, {name, value, date}) => {
+  return getRequestPromise(defaultError, SQL.createItem, [listId, name, value, date], (resolve, reject, result) => {
+    getRequestPromise(defaultError, SQL.getItem, [listId, result.insertId])
       .then(data => {
         resolve(new APIResponse({
           status: APIResponse.CODES.CREATED,
@@ -115,8 +116,8 @@ const resolveIfDeleted = ({result, resolve, reject, successData, errorMessage}) 
 /**
  * Deletes the list and returns delete id
  */
-const deleteList = (connection, defaultError, {listId}) => {
-  return getRequestPromise(connection, defaultError, SQL.deleteList, [listId], (resolve, reject, result) => {
+const deleteList = (defaultError, {listId}) => {
+  return getRequestPromise(defaultError, SQL.deleteList, [listId], (resolve, reject, result) => {
     resolveIfDeleted({
       result,
       resolve,
@@ -132,8 +133,8 @@ const deleteList = (connection, defaultError, {listId}) => {
 /**
  * Deletes the item and returns deleted list and item id
  */
-const deleteItem = (connection, defaultError, {listId, itemId}) => {
-  return getRequestPromise(connection, defaultError, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
+const deleteItem = (defaultError, {listId, itemId}) => {
+  return getRequestPromise(defaultError, SQL.deleteItem, [listId, itemId], (resolve, reject, result) => {
     resolveIfDeleted({
       result,
       resolve,
