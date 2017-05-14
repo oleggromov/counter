@@ -90,6 +90,7 @@ const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProc
   const reqParams = requests[type]
   const url = getParametrizedUrl(reqParams.url, urlData)
   const req = new Request(url, {
+    credentials: 'include',
     method: reqParams.method,
     body: bodyData ? JSON.stringify(bodyData) : null,
     headers: reqParams.headers || null

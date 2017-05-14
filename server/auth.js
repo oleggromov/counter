@@ -34,6 +34,7 @@ module.exports = (app) => {
   passport.deserializeUser((obj, cb) => cb(null, obj))
 
   app.use(session({
+    name: 'sid',
     secret: cookieSecret,
     resave: true,
     saveUninitialized: true

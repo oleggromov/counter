@@ -1,5 +1,14 @@
 const dbActions = require('../db/actions.js')
 const forOwn = require('lodash/forOwn')
+const APIResponse = require('./api-response')
+const sendUnauthorized = require('../modules/if-not-logged')((req, res) => {
+  respond(res, new APIResponse({
+    status: APIResponse.CODES.UNAUTHORIZED,
+    error: {
+      message: 'Unathorized'
+    }
+  }))
+})
 
 const respond = (res, apiResponse) => {
   res.status(apiResponse.status)
@@ -14,7 +23,7 @@ const addRoutes = (router, routes) => {
         throw new Error(`dbActions doesn't have a method "${handler}"`)
       }
 
-      router[method](url, (req, res) => {
+      router[method](url, sendUnauthorized, (req, res) => {
         const respondBinded = respond.bind(null, res)
         dbActions[handler](error, req.params, req.body)
           .then(respondBinded, respondBinded)
