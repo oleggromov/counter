@@ -1,7 +1,10 @@
 const getLists = (params = {singleList: false}) => {
   const whereClause = params.singleList
     ? `WHERE lists.id = ?`
-    : ''
+    // Default behavior is to find only lists the user has permission
+    // to view, i.e. has created himself
+    : `WHERE lists.id IN
+        (SELECT listId FROM permissions WHERE userId = ?)`
 
   return `SELECT lists.id, lists.name,
       COUNT(items.id) AS itemsCount,
@@ -38,9 +41,21 @@ const deleteItem = `DELETE FROM items
 const getUser = `SELECT id FROM users
   WHERE facebookId = ?`
 
+// TODO: auto increment increases like a crazy because of this
+// "on duplicate key update". Perhaps it could become an issue
+// some time.
 const addUser = `INSERT INTO users (facebookId)
   VALUES (?)
   ON DUPLICATE KEY UPDATE facebookId = facebookId`
+
+const getPermission = `SELECT * FROM permissions
+  WHERE userId = ? AND listId = ?`
+
+const addPermission = `INSERT INTO permissions (userId, listId)
+  VALUES (?, ?)`
+
+const deletePermission = `DELETE FROM permissions
+  WHERE userId = ? AND listId = ?`
 
 module.exports = {
   getLists,
@@ -51,5 +66,8 @@ module.exports = {
   deleteList,
   deleteItem,
   getUser,
-  addUser
+  addUser,
+  getPermission,
+  addPermission,
+  deletePermission
 }

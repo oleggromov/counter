@@ -21,6 +21,7 @@ module.exports = (app) => {
     clientSecret: fbAppSecret,
     callbackURL: `${config.protocol}://${config.host}:${config.port}${facebookCbUrl}`
   }, (accessToken, refreshToken, profile, done) => {
+    // TODO understand what happens here
     dbActions.createAndGetUser(profile.id)
       .then(id => {
         done(null, { id })

@@ -5,12 +5,15 @@ const SQL = require('./queries')
 /**
  * Creates a list and returns it
  */
-const createList = (defaultError, params, {name}) => {
+const createList = (defaultError, {userId}, {name}) => {
   return makeQuery(SQL.createList, [name])
-    .then(({insertId}) => makeQuery(SQL.getLists({singleList: true}), [insertId]))
+    .then(({insertId}) => Promise.all([
+      makeQuery(SQL.addPermission, [userId, insertId]),
+      makeQuery(SQL.getLists({singleList: true}), [insertId])
+    ]))
     .then(data => new APIResponse({
       status: APIResponse.CODES.CREATED,
-      data: data[0]
+      data: data[1][0]
     }))
     .catch(APIResponse.getDefaultCatch(defaultError))
 }

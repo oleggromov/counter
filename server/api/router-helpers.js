@@ -1,6 +1,7 @@
 const dbActions = require('../db/actions.js')
 const forOwn = require('lodash/forOwn')
 const APIResponse = require('./api-response')
+
 const sendUnauthorized = require('../modules/if-not-logged')((req, res) => {
   respond(res, new APIResponse({
     status: APIResponse.CODES.UNAUTHORIZED,
@@ -25,7 +26,11 @@ const addRoutes = (router, routes) => {
 
       router[method](url, sendUnauthorized, (req, res) => {
         const respondBinded = respond.bind(null, res)
-        dbActions[handler](error, req.params, req.body)
+        const reqParams = Object.assign({}, req.params, {
+          userId: req.user.id
+        })
+
+        dbActions[handler](error, reqParams, req.body)
           .then(respondBinded, respondBinded)
       })
     })
