@@ -8,15 +8,8 @@ const SQL = require('./queries')
 const deleteList = (defaultError, {listId}) => {
   return makeQuery(SQL.deleteList, [listId])
     .then(result => {
-      if (result.affectedRows === 1) {
-        return new APIResponse({
-          status: APIResponse.CODES.OK,
-          data: {
-            listId: Number(listId)
-          }
-        })
-      } else {
-        return new APIResponse({
+      if (result.affectedRows === 0) {
+        throw new APIResponse({
           status: APIResponse.CODES.GONE,
           error: {
             message: `Cannot delete list with id=${listId}`
@@ -24,13 +17,25 @@ const deleteList = (defaultError, {listId}) => {
         })
       }
     })
-    .catch(err => new APIResponse({
-      status: APIResponse.CODES.SERVER_ERROR,
-      error: {
-        data: err,
-        message: defaultError
+    .then(result => new APIResponse({
+      status: APIResponse.CODES.OK,
+      data: {
+        listId: Number(listId)
       }
     }))
+    .catch(err => {
+      if (err instanceof APIResponse) {
+        return err
+      }
+
+      return new APIResponse({
+        status: APIResponse.CODES.SERVER_ERROR,
+        error: {
+          data: err,
+          message: defaultError
+        }
+      })
+    })
 }
 
 module.exports = deleteList
