@@ -6,13 +6,7 @@ const createAndGetUser = (facebookId) => {
   return makeQuery(SQL.addUser, [facebookId])
     .then(() => makeQuery(SQL.getUser, [facebookId]))
     .then(result => result[0].id)
-    .catch(err => new APIResponse({
-      status: APIResponse.CODES.SERVER_ERROR,
-      error: {
-        data: err,
-        message: 'Cannot create user'
-      }
-    }))
+    .catch(APIResponse.getDefaultCatch('Cannot create or get user'))
 }
 
 module.exports = createAndGetUser

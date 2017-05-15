@@ -12,13 +12,7 @@ const createItem = (defaultError, {listId}, {name, value, date}) => {
       status: APIResponse.CODES.CREATED,
       data: data[0]
     }))
-    .catch(err => new APIResponse({
-      status: APIResponse.CODES.SERVER_ERROR,
-      error: {
-        data: err,
-        message: defaultError
-      }
-    }))
+    .catch(APIResponse.getDefaultCatch(defaultError))
 }
 
 module.exports = createItem

@@ -23,19 +23,7 @@ const deleteList = (defaultError, {listId}) => {
         listId: Number(listId)
       }
     }))
-    .catch(err => {
-      if (err instanceof APIResponse) {
-        return err
-      }
-
-      return new APIResponse({
-        status: APIResponse.CODES.SERVER_ERROR,
-        error: {
-          data: err,
-          message: defaultError
-        }
-      })
-    })
+    .catch(APIResponse.getDefaultCatch(defaultError))
 }
 
 module.exports = deleteList

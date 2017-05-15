@@ -27,19 +27,7 @@ const getList = (defaultError, {userId, listId}, {excludeItems}) => {
       status: APIResponse.CODES.OK,
       data: Object.assign({}, results[0][0], { items: results[1] })
     }))
-    .catch(err => {
-      if (err instanceof APIResponse) {
-        return err
-      }
-
-      return new APIResponse({
-        status: APIResponse.CODES.SERVER_ERROR,
-        error: {
-          data: err,
-          message: defaultError
-        }
-      })
-    })
+    .catch(APIResponse.getDefaultCatch(defaultError))
 }
 
 module.exports = getList

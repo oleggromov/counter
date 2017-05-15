@@ -8,13 +8,7 @@ const getLists = defaultError => {
       status: APIResponse.CODES.OK,
       data
     }))
-    .catch(err => new APIResponse({
-      status: APIResponse.CODES.SERVER_ERROR,
-      error: {
-        data: err,
-        message: defaultError
-      }
-    }))
+    .catch(APIResponse.getDefaultCatch(defaultError))
 }
 
 module.exports = getLists
