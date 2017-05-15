@@ -29,4 +29,20 @@ APIResponse.CODES = {
   SERVER_ERROR: 500
 }
 
+APIResponse.getDefaultCatch = (errorText) => {
+  return (err) => {
+    if (err instanceof APIResponse) {
+      return err
+    }
+
+    return new APIResponse({
+      status: APIResponse.CODES.SERVER_ERROR,
+      error: {
+        data: err,
+        message: errorText
+      }
+    })
+  }
+}
+
 module.exports = APIResponse
