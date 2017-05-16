@@ -1,0 +1,47 @@
+@import '../../styles/global.css';
+@import '../../styles/fonts.css';
+@value sizeFontSmall, padding from '../../styles/sizes.css';
+@value colorDelete from '../../styles/colors.css';
+
+@value logoutSize: 60px;
+
+.user {
+	position: relative;
+	overflow: hidden;
+	padding-left: logoutSize;
+	composes: fontNormal;
+	font-size: sizeFontNormal;
+}
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	padding-right: logoutSize;
+	transition: transform 0.3s ease;
+	transform: translateX(logoutSize)
+}
+
+.logout .wrapper {
+	transform: translateX(0);
+}
+
+.picture {
+	width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	background-size: contain;
+	background-position: center;
+}
+
+.name {
+	padding: 0 15px 0 7px;
+	white-space: nowrap;
+}
+
+.link {
+	margin: 1px -60px 0 0;
+	text-decoration: none;
+	color: black;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+	white-space: nowrap;
+}

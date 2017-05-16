@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './layout.css'
 import Header from '../Header/Header.jsx'
-import DateDisplay from '../DateDisplay/DateDisplay.jsx'
+import User from '../User/User.jsx'
 
 const link = 'http://oleggromov.com'
 
@@ -10,7 +10,7 @@ const Layout = ({ title, children }) => {
     <div className={styles.layout}>
       <div className={styles.header}>
         <Header
-          rightComponent={<DateDisplay />} />
+          rightComponent={<User />} />
       </div>
 
       <div className={styles.title}>

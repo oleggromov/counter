@@ -9,7 +9,9 @@ const methods = {
 const urls = {
   LISTS: `/lists`,
   LIST: `/lists/:listId`,
-  ITEM: `/lists/:listId/:itemId`
+  ITEM: `/lists/:listId/:itemId`,
+  AUTH_INFO: '/auth/info',
+  AUTH_LOGOUT: '/auth/logout'
 }
 
 module.exports = {
