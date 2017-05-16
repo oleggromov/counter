@@ -4,6 +4,7 @@ const Strategy = require('passport-facebook').Strategy
 const dbActions = require('./db/actions')
 const log = require('./modules/log')
 const config = require('./config')
+const APIResponse = require('./api/api-response')
 
 // Change to production values
 const fbAppSecret = '5a4dfa6321739f7c89345a25d8220e6b'
@@ -14,17 +15,23 @@ const loginUrl = '/auth/login'
 const logoutUrl = '/auth/logout'
 const facebookRedirectUrl = '/auth/facebook'
 const facebookCbUrl = '/auth/facebook/callback'
+const loginInfo = '/auth/info'
 
 module.exports = (app) => {
   passport.use(new Strategy({
     clientID: '470519336672906',
     clientSecret: fbAppSecret,
-    callbackURL: `${config.protocol}://${config.host}:${config.port}${facebookCbUrl}`
+    callbackURL: `${config.protocol}://${config.host}:${config.port}${facebookCbUrl}`,
+    profileFields: ['id', 'displayName', 'photos']
   }, (accessToken, refreshToken, profile, done) => {
     // TODO understand what happens here
     dbActions.createAndGetUser(profile.id)
       .then(id => {
-        done(null, { id })
+        done(null, {
+          id,
+          name: profile.displayName,
+          picture: profile.photos[0].value
+        })
       })
       .catch(err => {
         done(err)
@@ -66,4 +73,22 @@ module.exports = (app) => {
     successRedirect: loginedUrl,
     failureRedirect: loginUrl
   }))
+
+  app.get(loginInfo, (req, res) => {
+    // TODO: we do not want to set cookie on this response
+    if (req.isAuthenticated()) {
+      res.status(APIResponse.CODES.OK)
+      res.send({
+        error: null,
+        data: req.user
+      })
+    } else {
+      res.status(APIResponse.CODES.UNAUTHORIZED)
+      res.send({
+        error: 'There\'s no active session',
+        data: null
+      })
+    }
+    res.end()
+  })
 }

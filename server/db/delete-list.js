@@ -10,7 +10,7 @@ const deleteList = (defaultError, {userId, listId}) => {
   return hasPermission({ userId, listId })
     .then(() => makeQuery(SQL.deletePermission, [userId, listId]))
     .then(() => makeQuery(SQL.deleteList, [listId]))
-    // This never works because of permissions check
+    // This never works because of permission check
     // .then(result => {
     //   if (result.affectedRows === 0) {
     //     throw new APIResponse({

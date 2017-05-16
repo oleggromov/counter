@@ -4,6 +4,7 @@ const SQL = require('./queries')
 
 const hasPermission = ({userId, listId}) => {
   return makeQuery(SQL.getPermission, [userId, listId])
+    // TODO: figure out how to make it work
     // .catch(APIResponse.getDefaultCatch(`Cannot get permissions for user ${userId} on list ${listId}`))
     .then(result => {
       if (result.length === 0) {
