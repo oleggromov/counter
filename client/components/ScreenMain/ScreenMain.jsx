@@ -92,7 +92,7 @@ export default class ScreenMain extends Component {
 
   render () {
     return (
-      <Layout>
+      <div>
         <Title>All lists</Title>
 
         {this.renderItems()}
@@ -100,7 +100,7 @@ export default class ScreenMain extends Component {
         <ListEdit
           onListAdd={this.addList.bind(this)}
           onToggleDelete={this.toggleDelete.bind(this)} />
-      </Layout>
+      </div>
     )
   }
 }

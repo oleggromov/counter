@@ -98,7 +98,7 @@ export default class ScreenList extends Component {
 
   render () {
     return (
-      <Layout>
+      <div>
         {this.getTitle()}
         <div onClick={this.unsetReadyToDelete}>
           <SpentForm
@@ -106,7 +106,7 @@ export default class ScreenList extends Component {
 
           {this.getContent()}
         </div>
-      </Layout>
+      </div>
     )
   }
 }
