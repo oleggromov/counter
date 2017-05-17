@@ -1,0 +1,23 @@
+@import '../../styles/global.css';
+@value sizeFontCaption, padding from '../../styles/sizes.css';
+
+.login {
+	margin-top: 15em;
+	text-align: center;
+}
+
+.message {
+	margin: 30px padding;
+	color: #999;
+	text-align: left;
+}
+
+.button {
+	display: inline-block;
+	padding: padding 30px;
+	border-radius: 4px;
+	text-decoration: none;
+	color: white;
+	background: #3b5998;
+	font-size: sizeFontCaption;
+}

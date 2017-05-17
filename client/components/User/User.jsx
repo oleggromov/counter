@@ -34,9 +34,9 @@ class User extends Component {
         this.setState({ data })
       })
       .catch(() => {
-        // TODO: add a flash message window here!
-        window.alert(message)
-        window.location = urls.AUTH_LOGOUT
+        // // TODO: add a flash message window here!
+        // window.alert(message)
+        // window.location = urls.AUTH_LOGOUT
       })
   }
 
