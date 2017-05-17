@@ -91,10 +91,10 @@ export default class ScreenMain extends Component {
   }
 
   render () {
-    const title = <Title>All lists</Title>
-
     return (
-      <Layout title={title}>
+      <Layout>
+        <Title>All lists</Title>
+
         {this.renderItems()}
 
         <ListEdit

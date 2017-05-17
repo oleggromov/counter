@@ -5,16 +5,12 @@ import User from '../User/User.jsx'
 
 const link = 'http://oleggromov.com'
 
-const Layout = ({ title, children }) => {
+const Layout = ({ children }) => {
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
         <Header
           rightComponent={<User />} />
-      </div>
-
-      <div className={styles.title}>
-        {title}
       </div>
 
       <div className={styles.content}>

@@ -98,8 +98,8 @@ export default class ScreenList extends Component {
 
   render () {
     return (
-      <Layout
-        title={this.getTitle()}>
+      <Layout>
+        {this.getTitle()}
         <div onClick={this.unsetReadyToDelete}>
           <SpentForm
             onItemAdd={this.addItem} />
