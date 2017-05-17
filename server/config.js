@@ -8,7 +8,7 @@ module.exports = {
     ? 80
     : 3000,
 
-  staticPath: './public',
+  staticPath: './public/static',
 
   db: {
     host: 'localhost',

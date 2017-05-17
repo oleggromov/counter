@@ -1,8 +1,5 @@
 const express = require('express')
 const auth = require('./auth')
-const redirectToLogin = require('./modules/if-not-logged')((req, res) => {
-  res.redirect(loginUrl)
-})
 const bodyParser = require('body-parser')
 const config = require('./config')
 const resolveToRoot = require('./modules/resolve-to-root')
@@ -13,6 +10,12 @@ const log = require('./modules/log')
 const app = express()
 
 const loginUrl = '/auth/login'
+const redirectToLogin = require('./modules/if-not-logged')((req, res) => {
+  res.redirect(loginUrl)
+})
+
+// Serving static before anything else
+app.use('/static', express.static(resolveToRoot(config.staticPath)))
 
 // Some (API) calls get JSON input
 app.use(bodyParser.json())
@@ -29,13 +32,11 @@ app.use((req, res, next) => {
 // API requests go first
 app.use(apiRoot, apiRouter)
 
-// Everything that is found in public/ directory is served as static
-app.use('/', redirectToLogin, express.static(resolveToRoot(config.staticPath), {
-  fallthrough: true
-}))
+app.get(['/', /\/lists\/\d+/], redirectToLogin, (req, res) => {
+  res.sendFile(resolveToRoot('public/index.html'))
+})
 
-// And if nothing was found, send index.html by default
-app.use(/\/lists\/\d+/, redirectToLogin, (req, res) => {
+app.get('/auth/login', (req, res) => {
   res.sendFile(resolveToRoot('public/index.html'))
 })
 

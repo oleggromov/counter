@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm server/public/*; webpack",
+    "remove-static": "rm -rf server/public/*; cp client/index.html server/public",
+    "build": "npm run remove-static; webpack",
+    "build-watch": "npm run remove-static; webpack --hot --watch",
     "express": "nodemon server/app.js",
     "server": "npm run build; npm run express",
     "dev": "webpack-dev-server",

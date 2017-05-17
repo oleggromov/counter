@@ -51,13 +51,12 @@ module.exports = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  app.get(loginUrl, (req, res) => {
+  app.get(loginUrl, (req, res, next) => {
     log(req)
     if (req.isAuthenticated()) {
       res.redirect(loginedUrl)
     } else {
-      res.send(`<a href="${facebookRedirectUrl}">Enter via Facebook</a>`)
-      res.end()
+      next()
     }
   })
 
