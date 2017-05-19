@@ -32,11 +32,17 @@ app.use((req, res, next) => {
 // API requests go first
 app.use(apiRoot, apiRouter)
 
-app.get(['/', /\/lists\/\d+/], redirectToLogin, (req, res) => {
+const clientUrls = [
+  '/',
+  '/settings',
+  /\/lists\/\d+/
+]
+
+app.get(clientUrls, redirectToLogin, (req, res) => {
   res.sendFile(resolveToRoot('public/index.html'))
 })
 
-app.get('/auth/login', (req, res) => {
+app.get(loginUrl, (req, res) => {
   res.sendFile(resolveToRoot('public/index.html'))
 })
 
