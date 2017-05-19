@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './layout.css'
 import Header from '../Header/Header.jsx'
 import User from '../User/User.jsx'
@@ -10,7 +11,7 @@ const settingsLink = '/settings'
 const renderSettings = (render) => {
   if (render) {
     return (
-      <a className={styles.settings} href={settingsLink} dangerouslySetInnerHTML={{__html: gearIcon}} />
+      <Link className={styles.settings} to={settingsLink} dangerouslySetInnerHTML={{__html: gearIcon}} />
     )
   }
 }
