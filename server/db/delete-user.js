@@ -1,6 +1,6 @@
 const makeQuery = require('../modules/make-query')
 const APIResponse = require('../api/api-response')
-const SQL = require('./queries')
+const SQL = require('./sql')
 
 const getIdsArray = (data) => data.reduce((acc, list) => {
   acc.push(list.listId)
