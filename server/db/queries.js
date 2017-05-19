@@ -1,3 +1,8 @@
+// const PERMISSIONS_TABLE = 'permissions'
+// const LISTS_TABLE = 'lists'
+// const ITEMS_TABLE = 'items'
+// const USERS_TABLE = 'users'
+
 const getLists = (params = {singleList: false}) => {
   const whereClause = params.singleList
     ? `WHERE lists.id = ?`
@@ -48,14 +53,11 @@ const addUser = `INSERT INTO users (facebookId)
   VALUES (?)
   ON DUPLICATE KEY UPDATE facebookId = facebookId`
 
-const getPermission = `SELECT * FROM permissions
+const hasPermission = `SELECT * FROM permissions
   WHERE userId = ? AND listId = ?`
 
 const addPermission = `INSERT INTO permissions (userId, listId)
   VALUES (?, ?)`
-
-const deletePermission = `DELETE FROM permissions
-  WHERE userId = ? AND listId = ?`
 
 module.exports = {
   getLists,
@@ -67,7 +69,12 @@ module.exports = {
   deleteItem,
   getUser,
   addUser,
-  getPermission,
+  hasPermission,
   addPermission,
-  deletePermission
+  deletePermission: `DELETE FROM permissions WHERE userId = ? AND listId = ?`,
+  getUserListIds: `SELECT listId FROM permissions WHERE userId = ?`,
+  deleteAllItems: `DELETE FROM items WHERE listId IN (?)`,
+  deleteAllUserPermissions: `DELETE FROM permissions WHERE userId = ?`,
+  deleteAllListsIn: `DELETE FROM lists WHERE id IN (?)`,
+  deleteUser: `DELETE FROM users WHERE id = ?`
 }

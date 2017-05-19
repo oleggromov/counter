@@ -3,7 +3,7 @@ const APIResponse = require('../api/api-response')
 const SQL = require('./queries')
 
 const hasPermission = ({userId, listId}) => {
-  return makeQuery(SQL.getPermission, [userId, listId])
+  return makeQuery(SQL.hasPermission, [userId, listId])
     // TODO: figure out how to make it work
     // .catch(APIResponse.getDefaultCatch(`Cannot get permissions for user ${userId} on list ${listId}`))
     .then(result => {
