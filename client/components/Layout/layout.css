@@ -33,10 +33,12 @@
 
 .footerLayout {
 	display: flex;
+	align-items: center;
 }
 
 .copyright {
 	flex-grow: 10;
+	font-size: 12px;
 }
 
 .copyright a {
@@ -46,8 +48,8 @@
 }
 
 .settings {
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
 	text-decoration: none;
 }
 

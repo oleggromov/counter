@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import api from '../../modules/api'
 import styles from './user.css'
-
 const { urls } = require('../../../common/api-constants')
-
-const message = 'Seems you\'ve been logged out or the session is timed out'
 const logout = 'Log out'
 
 const trimName = (name) => {
@@ -23,55 +19,46 @@ class User extends Component {
     super(props)
 
     this.state = {
-      logout: false,
-      data: null
+      logout: false
     }
-  }
-
-  componentDidMount () {
-    api.getAuthInfo()
-      .then(({data}) => {
-        this.setState({ data })
-      })
-      .catch(() => {
-        // // TODO: add a flash message window here!
-        // window.alert(message)
-        // window.location = urls.AUTH_LOGOUT
-      })
   }
 
   triggerLogout () {
     this.setState({ logout: !this.state.logout })
   }
 
-  renderUser () {
+  render () {
+    const { data } = this.props
+    const triggerLogout = this.triggerLogout.bind(this)
+    const stopPropagation = (e) => e.stopPropagation()
+
+    if (!data) {
+      return null
+    }
+
     let classes = styles.user
     if (this.state.logout) {
       classes = `${classes} ${styles.logout}`
     }
 
+    const bgStyles = {
+      backgroundImage: `url(${data.picture})`
+    }
+
     return (
-      <div className={classes} onClick={this.triggerLogout.bind(this)}>
+      <div className={classes} onClick={triggerLogout}>
         <div className={styles.wrapper}>
-          <div className={styles.picture} style={{ backgroundImage: `url(${this.state.data.picture})` }} />
+          <div className={styles.picture} style={bgStyles} />
           <div className={styles.name}>
-            {trimName(this.state.data.name)}
+            {trimName(data.name)}
           </div>
 
-          <a href={urls.AUTH_LOGOUT} onClick={(e) => e.stopPropagation()} className={styles.link}>
+          <a href={urls.AUTH_LOGOUT} onClick={stopPropagation} className={styles.link}>
             {logout}
           </a>
         </div>
       </div>
     )
-  }
-
-  render () {
-    if (this.state.data) {
-      return this.renderUser()
-    }
-
-    return null
   }
 }
 
