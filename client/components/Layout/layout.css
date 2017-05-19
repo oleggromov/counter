@@ -20,6 +20,7 @@
 	flex-grow: 10;
 	padding: padding 0;
 	font-size: sizeFontMain;
+
 }
 
 /* footer */
@@ -30,8 +31,26 @@
 	padding: padding;
 }
 
-.footer a {
+.footerLayout {
+	display: flex;
+}
+
+.copyright {
+	flex-grow: 10;
+}
+
+.copyright a {
 	color: grey;
 	text-decoration: none;
 	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+.settings {
+	width: 22px;
+	height: 22px;
+	text-decoration: none;
+}
+
+.settings path  {
+	fill: rgba(0,0,0,.3);
 }

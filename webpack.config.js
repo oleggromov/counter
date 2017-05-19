@@ -8,7 +8,7 @@ module.exports = {
 
   output: {
     path: path.resolve('server/public/static'),
-    publicPath: '/static',
+    publicPath: '/static/',
     filename: 'app.js'
   },
 
@@ -22,6 +22,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(`css-loader?modules&importLoaders=1&localIdentName=${selectorFormat}!postcss-loader`)
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       }
     ]
   },
