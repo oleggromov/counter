@@ -1,42 +1,58 @@
-## Server
+# Current version (0.1)
 
-- mysql connection errors handling
-- return created elements (lists, items) with their ids after creation
-  - yes, it will be useful!
-- what to return if the item was not deleted because it didn't exist?
-- what to do when unexisting list is requested?
+## Check it
+- are the server-side errors in promises handled correctly?
+- FB auth cases
+- iPhone real usage
 
-## Features
 
-- i18n
-- lists editing (perhaps we don't need?)
-- currencies
-- spending categorizing
+## DB
+- connection pool
+- indexes, are they needed?
 
-## App logic
-
-- start counting the age of items in the background
-- figure out whether we need cloneDeep for objects and if yes, switch to Immutable.js
-- server sync logic:
-  - use returned inserted item instead of re-fetching the entire collection again
-  - after deletion delete it on the client without waiting for server to ask
-    - how to handle deletion error?
-  - handle errors
-  - animation between states
-
-### Check for bugs / testing
-
-- client-server interaction: test everything with really long server answer delays
-- client: ready to delete logic
-
-## Styling
-
-- add `postcss-autoreset`
-- inline the font import
-- figure out how to expand the long text element
-
-- clean up everything
-
-## Deploy
-
+## Production version
+- minification / uglification
+- different ports / hosts
 - replace moment.js and brush up date types throughout the app
+- static files caching
+
+## Deploy / publication
+
+- find out how/where to deploy
+- make a production App on Facebook
+  - figure out where to store all the App private data as ids/hash strings
+- how to log what happens
+- database backup
+- **presentation**
+	- write a nice readme
+	- make a counter-demo.oleggromov.com website
+	- write a project description for portfolio
+	- write the second part of "how I made it"
+	- brush up the first and publish both of them on the website
+		- publish on social networks
+
+# Next version (1.0?)
+
+- spending reports and categorization
+- different currencies
+- i18n
+
+## Think about
+
+- items and lists editing
+- **appearance**
+  - beautiful client-side errors instead of alerts
+  - animation between states
+  - figure out how to expand the long text element
+- off-line working web app, wouldn't it be great?
+
+## Tech stuff
+
+- brush up css/markup for different browsers
+- start counting the age of items in the background without page reload
+- add `postcss-autoreset`
+
+# Figure out / ToDo
+
+- do we need cloneDeep for objects and if yes, switch to Immutable.js
+- timezones, do they work as expected?
