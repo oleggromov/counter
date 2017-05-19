@@ -35,7 +35,7 @@ export default class App extends Component {
   deleteUser () {
     api.deleteData()
       .then((data) => {
-        window.alert('All your data has been deleted')
+        window.alert(data.data.message)
         window.location.href = '/'
       })
       .catch((err) => {

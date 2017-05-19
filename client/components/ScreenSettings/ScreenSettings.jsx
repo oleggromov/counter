@@ -42,7 +42,7 @@ export default class ScreenSettings extends Component {
           </ul>
 
           <p>It also uses cookies for session storage purposes.</p>
-          <p>If you want to completely delete all the stored data from the server, use the button below.</p>
+          <p>If you want to completely delete all the stored data from the server use the button below.</p>
 
           <div className={styles.confirmation}>
             <input
