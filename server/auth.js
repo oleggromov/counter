@@ -11,19 +11,13 @@ const deleteUser = require('./db/actions').deleteUser
 const fbAppSecret = '5a4dfa6321739f7c89345a25d8220e6b'
 const cookieSecret = 'bfa6c5df923efce3c06b38e9c85616f9'
 
-const loginedUrl = '/'
-const loginUrl = '/auth/login'
-const logoutUrl = '/auth/logout'
-const facebookRedirectUrl = '/auth/facebook'
-const facebookCbUrl = '/auth/facebook/callback'
-const loginInfo = '/auth/info'
-const deleteData = '/auth/delete'
+const URLs = require('../common/api-constants').urls
 
 module.exports = (app) => {
   passport.use(new Strategy({
     clientID: '470519336672906',
     clientSecret: fbAppSecret,
-    callbackURL: `${config.protocol}://${config.host}:${config.port}${facebookCbUrl}`,
+    callbackURL: `${config.protocol}://${config.host}:${config.port}${URLs.AUTH_FB_CB}`,
     profileFields: ['id', 'displayName', 'photos']
   }, (accessToken, refreshToken, profile, done) => {
     // TODO understand what happens here
@@ -53,29 +47,29 @@ module.exports = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  app.get(loginUrl, (req, res, next) => {
+  app.get(URLs.AUTH_LOGIN, (req, res, next) => {
     log(req)
     if (req.isAuthenticated()) {
-      res.redirect(loginedUrl)
+      res.redirect(URLs.MAIN)
     } else {
       next()
     }
   })
 
-  app.get(logoutUrl, (req, res) => {
+  app.get(URLs.AUTH_LOGOUT, (req, res) => {
     log(req)
     req.session.destroy()
-    res.redirect(loginUrl)
+    res.redirect(URLs.AUTH_LOGIN)
   })
 
-  app.get(facebookRedirectUrl, passport.authenticate('facebook'))
+  app.get(URLs.AUTH_FB_REDIR, passport.authenticate('facebook'))
 
-  app.get(facebookCbUrl, passport.authenticate('facebook', {
-    successRedirect: loginedUrl,
-    failureRedirect: loginUrl
+  app.get(URLs.AUTH_FB_CB, passport.authenticate('facebook', {
+    successRedirect: URLs.MAIN,
+    failureRedirect: URLs.AUTH_LOGIN
   }))
 
-  app.get(loginInfo, (req, res) => {
+  app.get(URLs.AUTH_INFO, (req, res) => {
     // TODO: we do not want to set cookie on this response
     if (req.isAuthenticated()) {
       res.status(APIResponse.CODES.OK)
@@ -93,7 +87,7 @@ module.exports = (app) => {
     res.end()
   })
 
-  app.delete(deleteData, (req, res) => {
+  app.delete(URLs.AUTH_DELETE, (req, res) => {
     log(req)
 
     if (req.isAuthenticated()) {
