@@ -3,7 +3,7 @@ const APIResponse = require('../api/api-response')
 const SQL = require('./queries')
 
 const getLists = (defaultError, {userId}) => {
-  return makeQuery(SQL.getLists(), [userId])
+  return makeQuery(SQL.getLists, [userId])
     .then(data => new APIResponse({
       status: APIResponse.CODES.OK,
       data

@@ -3,8 +3,8 @@
 // const ITEMS_TABLE = 'items'
 // const USERS_TABLE = 'users'
 
-const getLists = (params = {singleList: false}) => {
-  const whereClause = params.singleList
+const getQueryGetLists = ({ singleList }) => {
+  const whereClause = singleList
     ? `WHERE lists.id = ?`
     // Default behavior is to find only lists the user has permission
     // to view, i.e. has created himself
@@ -21,6 +21,9 @@ const getLists = (params = {singleList: false}) => {
     GROUP BY lists.id
     ORDER BY lastDate DESC`
 }
+
+const getList = getQueryGetLists({ singleList: true })
+const getLists = getQueryGetLists({ singleList: false })
 
 const listItems = `SELECT id, name, date, value
   FROM items
@@ -60,6 +63,7 @@ const addPermission = `INSERT INTO permissions (userId, listId)
   VALUES (?, ?)`
 
 module.exports = {
+  getList,
   getLists,
   listItems,
   createList,

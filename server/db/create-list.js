@@ -9,7 +9,7 @@ const createList = (defaultError, {userId}, {name}) => {
   return makeQuery(SQL.createList, [name])
     .then(({insertId}) => Promise.all([
       makeQuery(SQL.addPermission, [userId, insertId]),
-      makeQuery(SQL.getLists({singleList: true}), [insertId])
+      makeQuery(SQL.getList, [insertId])
     ]))
     .then(data => new APIResponse({
       status: APIResponse.CODES.CREATED,

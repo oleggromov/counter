@@ -21,8 +21,8 @@ const getList = (defaultError, {userId, listId}, {excludeItems}) => {
 
   return hasPermission({ userId, listId })
     .then(() => Promise.all([
-      // makeQuery(SQL.getLists({ singleList: true }), [listId]).then(checkIfListExists),
-      makeQuery(SQL.getLists({ singleList: true }), [listId]),
+      // makeQuery(SQL.getList, [listId]).then(checkIfListExists),
+      makeQuery(SQL.getList, [listId]),
       makeQuery(SQL.listItems, [listId])
     ]))
     .then(results => new APIResponse({
