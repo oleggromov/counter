@@ -3,10 +3,10 @@ USE `counter_0_1`;
 # first truncating everything
 DELETE FROM `items`;
 ALTER TABLE `items` AUTO_INCREMENT=1;
-DELETE FROM `lists`;
-ALTER TABLE `lists` AUTO_INCREMENT=1;
 DELETE FROM `permissions`;
 ALTER TABLE `permissions`;
+DELETE FROM `lists`;
+ALTER TABLE `lists` AUTO_INCREMENT=1;
 DELETE FROM `users`;
 ALTER TABLE `users` AUTO_INCREMENT=1;
 
