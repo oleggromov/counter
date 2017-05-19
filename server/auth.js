@@ -1,10 +1,11 @@
 const session = require('express-session')
 const passport = require('passport')
 const Strategy = require('passport-facebook').Strategy
-const dbActions = require('./db/actions')
+const createAndGetUser = require('./db/create-and-get-user')
 const log = require('./modules/log')
 const config = require('./config')
 const APIResponse = require('./api/api-response')
+const deleteUser = require('./db/actions').deleteUser
 
 // Change to production values
 const fbAppSecret = '5a4dfa6321739f7c89345a25d8220e6b'
@@ -26,7 +27,7 @@ module.exports = (app) => {
     profileFields: ['id', 'displayName', 'photos']
   }, (accessToken, refreshToken, profile, done) => {
     // TODO understand what happens here
-    dbActions.createAndGetUser(profile.id)
+    createAndGetUser(profile.id)
       .then(id => {
         done(null, {
           id,
@@ -96,14 +97,14 @@ module.exports = (app) => {
     log(req)
 
     if (req.isAuthenticated()) {
-      req.session.destroy()
-      res.status(APIResponse.CODES.OK)
-      res.send({
-        error: null,
-        data: {
-          message: 'Deleted'
-        }
-      })
+      const sendResponse = response => {
+        res.status(response.status)
+        res.json(response.toData())
+        res.end()
+        req.session.destroy()
+      }
+
+      deleteUser(req.user.id).then(sendResponse, sendResponse)
     } else {
       res.status(APIResponse.CODES.UNAUTHORIZED)
       res.send({

@@ -11,7 +11,8 @@ const urls = {
   LIST: `/lists/:listId`,
   ITEM: `/lists/:listId/:itemId`,
   AUTH_INFO: '/auth/info',
-  AUTH_LOGOUT: '/auth/logout'
+  AUTH_LOGOUT: '/auth/logout',
+  AUTH_DELETE: '/auth/delete'
 }
 
 module.exports = {

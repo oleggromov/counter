@@ -35,7 +35,6 @@ const routes = {
 
   // DELETE method does guess what
   [methods.DELETE]: {
-
     urls: {
       [urls.LIST]: {
         handler: 'deleteList',
