@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Layout from '../Layout/Layout.jsx'
 import SpentForm from '../SpentForm/SpentForm.jsx'
 import SpentList from '../SpentList/SpentList.jsx'
 import Title from '../Title/Title.jsx'

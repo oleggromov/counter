@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Layout from '../Layout/Layout.jsx'
 import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import ListEdit from '../ListEdit/ListEdit.jsx'

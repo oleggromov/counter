@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import detectMedia from '../modules/detect-media'
 import api from '../modules/api'
 import Layout from './Layout/Layout.jsx'
-
 import ScreenMain from './ScreenMain/ScreenMain.jsx'
 import ScreenList from './ScreenList/ScreenList.jsx'
 import ScreenLogin from './ScreenLogin/ScreenLogin.jsx'
+import ScreenSettings from './ScreenSettings/ScreenSettings.jsx'
 
 const mediaType = detectMedia({
   '(max-device-width: 799px)': 'mobile',
@@ -32,11 +32,17 @@ export default class App extends Component {
       })
   }
 
+  deleteUser () {
+    console.log('deleting user')
+  }
+
   render () {
     let classes = 'app'
     if (mediaType !== 'mobile') {
       classes = `${classes} app_desktop`
     }
+
+    const settingsScreen = () => <ScreenSettings onDeleteUser={this.deleteUser.bind(this)} />
 
     return (
       <Router>
@@ -45,6 +51,7 @@ export default class App extends Component {
             <Route path='/' exact component={ScreenMain} />
             <Route path='/lists/:id' component={ScreenList} />
             <Route path='/auth/login' component={ScreenLogin} />
+            <Route path='/settings' component={settingsScreen} />
           </Layout>
         </div>
       </Router>
