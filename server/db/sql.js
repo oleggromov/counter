@@ -1,8 +1,3 @@
-// const PERMISSIONS_TABLE = 'permissions'
-// const LISTS_TABLE = 'lists'
-// const ITEMS_TABLE = 'items'
-// const USERS_TABLE = 'users'
-
 const getQueryGetLists = ({ singleList }) => {
   const whereClause = singleList
     ? `WHERE lists.id = ?`
@@ -22,12 +17,9 @@ const getQueryGetLists = ({ singleList }) => {
     ORDER BY lastDate DESC`
 }
 
-const getList = getQueryGetLists({ singleList: true })
-const getLists = getQueryGetLists({ singleList: false })
-
 module.exports = {
-  getList,
-  getLists,
+  getList: getQueryGetLists({ singleList: true }),
+  getLists: getQueryGetLists({ singleList: false }),
 
   listItems: `SELECT id, name, date, value
     FROM items
