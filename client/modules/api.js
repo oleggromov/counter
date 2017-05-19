@@ -21,7 +21,8 @@ const requestTypes = {
   GET_LIST: 'getList',
   CREATE_ITEM: 'createItem',
   DELETE_ITEM: 'deleteItem',
-  GET_AUTH_INFO: 'getAuthInfo'
+  GET_AUTH_INFO: 'getAuthInfo',
+  DELETE_DATA: 'deleteData'
 }
 
 const getFullUrl = path => {
@@ -68,6 +69,11 @@ const requests = {
   [requestTypes.GET_AUTH_INFO]: {
     url: '/auth/info',
     method: methods.GET
+  },
+
+  [requestTypes.DELETE_DATA]: {
+    url: '/auth/delete',
+    method: methods.DELETE
   }
 }
 
@@ -145,5 +151,6 @@ export default {
     return makeApiRequest(requestTypes.CREATE_ITEM, itemData, {listId}, markDeletableItem)
   },
   [requestTypes.DELETE_ITEM]: (listId, itemId) => makeApiRequest(requestTypes.DELETE_ITEM, null, {listId, itemId}),
-  [requestTypes.GET_AUTH_INFO]: () => makeApiRequest(requestTypes.GET_AUTH_INFO)
+  [requestTypes.GET_AUTH_INFO]: () => makeApiRequest(requestTypes.GET_AUTH_INFO),
+  [requestTypes.DELETE_DATA]: () => makeApiRequest(requestTypes.DELETE_DATA)
 }

@@ -33,7 +33,7 @@ export default class App extends Component {
   }
 
   deleteUser () {
-    console.log('deleting user')
+    api.deleteData()
   }
 
   render () {

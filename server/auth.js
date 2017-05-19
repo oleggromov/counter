@@ -16,6 +16,7 @@ const logoutUrl = '/auth/logout'
 const facebookRedirectUrl = '/auth/facebook'
 const facebookCbUrl = '/auth/facebook/callback'
 const loginInfo = '/auth/info'
+const deleteData = '/auth/delete'
 
 module.exports = (app) => {
   passport.use(new Strategy({
@@ -89,5 +90,26 @@ module.exports = (app) => {
       })
     }
     res.end()
+  })
+
+  app.delete(deleteData, (req, res) => {
+    log(req)
+
+    if (req.isAuthenticated()) {
+      req.session.destroy()
+      res.status(APIResponse.CODES.OK)
+      res.send({
+        error: null,
+        data: {
+          message: 'Deleted'
+        }
+      })
+    } else {
+      res.status(APIResponse.CODES.UNAUTHORIZED)
+      res.send({
+        error: 'Unauthorized',
+        data: null
+      })
+    }
   })
 }

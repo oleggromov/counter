@@ -22,7 +22,7 @@ export default class ScreenSettings extends Component {
   renderButton () {
     if (this.state.canDelete) {
       return (
-        <Button onClick={this.props.onDeleteUser}>Delete my profile</Button>
+        <Button onClick={this.props.onDeleteUser}>Delete all my data</Button>
       )
     }
   }
