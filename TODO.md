@@ -5,7 +5,6 @@
 - FB auth cases
 - iPhone real usage
 
-
 ## DB
 - connection pool
 - indexes, are they needed?
@@ -24,18 +23,19 @@
 - how to log what happens
 - database backup
 - **presentation**
-	- write a nice readme
-	- make a counter-demo.oleggromov.com website
-	- write a project description for portfolio
-	- write the second part of "how I made it"
-	- brush up the first and publish both of them on the website
-		- publish on social networks
+  - write a nice readme
+  - make a counter-demo.oleggromov.com website
+  - write a project description for portfolio
+  - write the second part of "how I made it"
+  - brush up the first and publish both of them on the website
+    - publish on social networks
 
 # Next version (1.0?)
 
 - spending reports and categorization
 - different currencies
 - i18n
+- https
 
 ## Think about
 
@@ -46,8 +46,16 @@
   - figure out how to expand the long text element
 - off-line working web app, wouldn't it be great?
 
+## Tests
+- API tests:
+  - write tests
+  - figure out how to pass by the authorization for testing
+  - and how to *actually test* it
+- client-side tests
+
 ## Tech stuff
 
+- directory structure
 - brush up css/markup for different browsers
 - start counting the age of items in the background without page reload
 - add `postcss-autoreset`
