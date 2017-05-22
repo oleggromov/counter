@@ -6,6 +6,7 @@
 
 ## Fix it
 - Add `loading` state to all components that load data
+- delete list button swipe animation
 
 ## DB
 - connection pool
