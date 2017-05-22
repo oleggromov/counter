@@ -1,9 +1,9 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
 
+const Headers = window.Headers
 const Request = window.Request
 const fetch = window.fetch
-const Headers = window.Headers
 
 // 15 minutes
 const maxDeletableAge = 60 * 15
@@ -95,18 +95,31 @@ const getParametrizedUrl = (url, params = {}) => {
   return url
 }
 
+const getReqData = (method, bodyData, headers) => {
+  let data = {
+    credentials: 'include',
+    method
+  }
+
+  if (bodyData) {
+    data.body = JSON.stringify(bodyData)
+  }
+
+  if (headers) {
+    data.headers = headers
+  }
+
+  return data
+}
+
 const defaultDataProcessor = data => data
 const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProcessor) => {
   profile(type)
 
   const reqParams = requests[type]
   const url = getParametrizedUrl(reqParams.url, urlData)
-  const req = new Request(url, {
-    credentials: 'include',
-    method: reqParams.method,
-    body: bodyData ? JSON.stringify(bodyData) : null,
-    headers: reqParams.headers || undefined
-  })
+  const reqData = getReqData(reqParams.method, bodyData, reqParams.headers)
+  const req = new Request(url, reqData)
 
   return fetch(req)
     .then(response => {
