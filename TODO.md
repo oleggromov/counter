@@ -3,7 +3,9 @@
 ## Check it
 - are the server-side errors in promises handled correctly?
 - FB auth cases
-- iPhone real usage
+
+## Fix it
+- Add `loading` state to all components that load data
 
 ## DB
 - connection pool
