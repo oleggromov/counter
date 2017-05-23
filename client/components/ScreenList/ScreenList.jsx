@@ -4,7 +4,9 @@ import SpentForm from '../SpentForm/SpentForm.jsx'
 import SpentList from '../SpentList/SpentList.jsx'
 import Title from '../Title/Title.jsx'
 import api from '../../modules/api'
-import cloneDeep from 'lodash/cloneDeep'
+import cloneAndMutate from '../../modules/clone-and-mutate'
+
+const stringBack = 'Back'
 
 export default class ScreenList extends Component {
   constructor (props) {
@@ -23,10 +25,6 @@ export default class ScreenList extends Component {
   }
 
   componentWillMount () {
-    this.updateState()
-  }
-
-  updateState () {
     api.getList(this.state.listId)
       .then(({data}) => {
         this.setState({
@@ -37,26 +35,39 @@ export default class ScreenList extends Component {
   }
 
   addItem (item) {
+    const loadingId = Date.now()
+
+    item.isLoading = true
+    item.id = loadingId
+
+    this.setState(cloneAndMutate(state => {
+      state.currentList.items.unshift(item)
+      state.currentList.itemsCount++
+    }))
+
     api.createItem(this.state.listId, item)
       .then(({data}) => {
-        this.setState(prevState => {
-          let newState = cloneDeep(prevState)
-          newState.currentList.items.unshift(data)
-          newState.currentList.itemsCount++
-          return newState
-        })
+        this.setState(cloneAndMutate(state => {
+          const items = state.currentList.items
+          const insertedIndex = items.findIndex(item => item.id === loadingId)
+          items[insertedIndex] = data
+        }))
       })
   }
 
   deleteItem (id) {
+    const deletedIndex = this.state.currentList.items.findIndex(item => item.id === id)
+
+    this.setState(cloneAndMutate(state => {
+      state.currentList.items[deletedIndex].isLoading = true
+    }))
+
     api.deleteItem(this.state.listId, id)
       .then(({data}) => {
-        this.setState(prevState => {
-          let newState = cloneDeep(prevState)
-          newState.currentList.items = newState.currentList.items.filter(({id}) => id !== data.itemId)
-          newState.currentList.itemsCount--
-          return newState
-        })
+        this.setState(cloneAndMutate(state => {
+          state.currentList.items = state.currentList.items.filter(({id}) => id !== data.itemId)
+          state.currentList.itemsCount--
+        }))
       })
   }
 
@@ -88,7 +99,7 @@ export default class ScreenList extends Component {
     if (this.state.isLoaded) {
       return (
         <Title
-          back={<Link to='/'>To the main screen</Link>}>
+          back={<Link to='/'>{stringBack}</Link>}>
           {this.state.currentList.name}
         </Title>
       )
