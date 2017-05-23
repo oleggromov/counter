@@ -24,7 +24,8 @@ const SpentList = (props) => {
         readyToDelete={readyToDelete}
         onPreDelete={onReadyToDelete}
         onDelete={deleteItem}
-        key={item.id} />
+        key={item.id}
+        isLoading={item.isLoading} />
     )
   }
 
