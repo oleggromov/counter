@@ -13,6 +13,10 @@
 	transform: translateX(-5em);
 }
 
+.isLoading {
+	opacity: 0.4;
+}
+
 .column {
 	flex-basis: 0;
 	padding: 0.25em 0.5em;
@@ -55,4 +59,12 @@
 	background: colorDelete;
 	color: white;
 	text-align: center;
+}
+
+.loading {
+	position: absolute;
+	right: 5px;
+	top: 0;
+	width: 25px;
+	height: 25px;
 }
