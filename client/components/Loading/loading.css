@@ -1,0 +1,8 @@
+.loading {
+	width: 25px;
+	height: 25px;
+}
+
+.loading svg path {
+	fill: #777;
+}
