@@ -3,10 +3,14 @@
 ## Check it
 - are the server-side errors in promises handled correctly?
 - FB auth cases
+- client side error handling
 
-## Fix it
+## ToDo
 - Add `loading` state to all components that load data
-- delete list button swipe animation
+- Adjust screen paddings to a real phone screen size
+- animations
+  - delete list button swipe animation
+  - figure out why clicking into list element forces animation to hop to the beginning
 
 ## DB
 - connection pool
@@ -48,6 +52,7 @@
   - animation between states
   - figure out how to expand the long text element
 - off-line working web app, wouldn't it be great?
+- Denchik: make interface elements bigger
 
 ## Tests
 - API tests:
@@ -65,5 +70,5 @@
 
 # Figure out / ToDo
 
-- do we need cloneDeep for objects and if yes, switch to Immutable.js
+- figure out how to switch to Immutable.js for immutable states
 - timezones, do they work as expected?
