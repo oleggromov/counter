@@ -13,6 +13,10 @@
 	font-size: sizeFontMain;
 }
 
+.isLoading {
+	opacity: 0.4;
+}
+
 .link {
 	composes: fontNormal;
 	flex-grow: 5;
@@ -20,6 +24,10 @@
 
 .linkText {
 	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+.isLoading .linkText {
+	border-bottom: none;
 }
 
 .rightColumn {
@@ -50,6 +58,15 @@
 	transform: translateY(-50%);
 }
 
-.readyToDelete .delete {
+.isReadyToDelete .delete {
 	transform: translate3d(-100%, -50%, 0);
+}
+
+.loading {
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	margin-top: -12px;
+	width: 25px;
+	height: 25px;
 }
