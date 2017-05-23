@@ -8,6 +8,8 @@ import ScreenList from './ScreenList/ScreenList.jsx'
 import ScreenLogin from './ScreenLogin/ScreenLogin.jsx'
 import ScreenSettings from './ScreenSettings/ScreenSettings.jsx'
 
+const afterDeletedUrl = '/'
+
 const mediaType = detectMedia({
   '(max-device-width: 799px)': 'mobile',
   '(min-device-width: 800px)': 'desktop'
@@ -36,7 +38,7 @@ export default class App extends Component {
     api.deleteData()
       .then((data) => {
         window.alert(data.data.message)
-        window.location.href = '/'
+        window.location.href = afterDeletedUrl
       })
       .catch((err) => {
         window.alert('Uncaught error! See the dev console')
