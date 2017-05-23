@@ -3,11 +3,10 @@ import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import ListEdit from '../ListEdit/ListEdit.jsx'
 import api from '../../modules/api'
-import cloneDeep from 'lodash/cloneDeep'
+import cloneAndMutate from '../../modules/clone-and-mutate'
 
 const handleError = err => {
   console.warn('Error!')
-  console.timeEnd('lists')
   console.log(err)
 }
 
@@ -31,11 +30,7 @@ export default class ScreenMain extends Component {
   addList (list) {
     api.createList(list)
       .then(({data}) => {
-        this.setState(prevState => {
-          let newState = cloneDeep(prevState)
-          newState.lists.push(data)
-          return newState
-        })
+        this.setState(cloneAndMutate(state => state.lists.push(data)))
       })
       .catch(handleError)
   }
@@ -43,13 +38,11 @@ export default class ScreenMain extends Component {
   deleteList (id) {
     api.deleteList(id)
       .then(({data}) => {
-        this.setState(prevState => {
-          let newState = cloneDeep(prevState)
-          newState.lists = newState.lists.filter(({ id }) => {
-            return id !== data.listId
+        this.setState(cloneAndMutate(state => {
+          state.lists = state.lists.filter(item => {
+            return item.id !== data.listId
           })
-          return newState
-        })
+        }))
       })
       .catch(handleError)
   }
