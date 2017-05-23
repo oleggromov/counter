@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep'
 import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
 
 const Headers = window.Headers
@@ -112,8 +111,7 @@ const getReqData = (method, bodyData, headers) => {
   return data
 }
 
-const defaultDataProcessor = data => data
-const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProcessor) => {
+const makeApiRequest = (type, bodyData, urlData, dataProcessor) => {
   profile(type)
 
   const reqParams = requests[type]
@@ -128,28 +126,28 @@ const makeApiRequest = (type, bodyData, urlData, dataProcessor = defaultDataProc
           profileEnd(type)
 
           if (response.ok) {
-            return dataProcessor(data)
+            return dataProcessor
+              ? dataProcessor(data)
+              : data
           }
+
           throw data
         })
     })
 }
 
-const markDeletableItem = (data) => {
-  let newData = cloneDeep(data)
-  newData.data.isDeletable = getDiffInSeconds(data.data.date, Date.now()) < maxDeletableAge
-  return newData
+const markDeletableItem = (response) => {
+  response.data.isDeletable = getDiffInSeconds(response.data.date, Date.now()) < maxDeletableAge
+  return response
 }
 
-const markDeletableList = (data) => {
+const markDeletableList = (response) => {
   const now = Date.now()
-  let newData = cloneDeep(data)
-
-  newData.data.items = newData.data.items.map(item => {
+  response.data.items = response.data.items.map(item => {
     item.isDeletable = getDiffInSeconds(item.date, now) < maxDeletableAge
     return item
   })
-  return newData
+  return response
 }
 
 export default {
