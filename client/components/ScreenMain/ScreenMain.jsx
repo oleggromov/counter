@@ -28,14 +28,29 @@ export default class ScreenMain extends Component {
   }
 
   addList (list) {
+    const loadingId = Date.now()
+
+    list.isLoading = true
+    list.id = loadingId
+
+    this.setState(cloneAndMutate(state => state.lists.push(list)))
+
     api.createList(list)
       .then(({data}) => {
-        this.setState(cloneAndMutate(state => state.lists.push(data)))
+        this.setState(cloneAndMutate(state => {
+          const insertedIndex = state.lists.findIndex(item => item.id === loadingId)
+          state.lists[insertedIndex] = data
+        }))
       })
       .catch(handleError)
   }
 
   deleteList (id) {
+    this.setState(cloneAndMutate(state => {
+      const index = state.lists.findIndex(item => item.id === id)
+      state.lists[index].isLoading = true
+    }))
+
     api.deleteList(id)
       .then(({data}) => {
         this.setState(cloneAndMutate(state => {
@@ -48,10 +63,6 @@ export default class ScreenMain extends Component {
   }
 
   componentWillMount () {
-    this.updateState()
-  }
-
-  updateState () {
     api.getLists()
       .then(data => {
         this.setState({
@@ -70,7 +81,8 @@ export default class ScreenMain extends Component {
         date={item.lastDate}
         count={item.itemsCount}
         onDelete={this.deleteList.bind(this, item.id)}
-        showDelete={item.itemsCount === 0 && this.state.showDeletable}>
+        isLoading={item.isLoading}
+        isReadyToDelete={item.itemsCount === 0 && this.state.showDeletable}>
         {item.name}
       </ListsItem>
     )
