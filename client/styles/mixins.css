@@ -1,0 +1,5 @@
+@value padding from '../../styles/sizes.css';
+
+.loadingContainer {
+	padding: 0 padding;
+}

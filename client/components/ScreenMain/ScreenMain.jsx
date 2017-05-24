@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import Title from '../Title/Title.jsx'
 import ListsItem from '../ListsItem/ListsItem.jsx'
 import ListEdit from '../ListEdit/ListEdit.jsx'
+import Loading from '../Loading/Loading.jsx'
 import api from '../../modules/api'
 import cloneAndMutate from '../../modules/clone-and-mutate'
+import css from './screen-main.css'
 
 const handleError = err => {
   console.warn('Error!')
@@ -89,9 +91,15 @@ export default class ScreenMain extends Component {
   }
 
   renderItems () {
-    if (!this.state.pendingLoad) {
-      return this.state.lists.map(this.renderListItem, this)
+    if (this.state.pendingLoad) {
+      return (
+        <div className={css.loading}>
+          <Loading />
+        </div>
+      )
     }
+
+    return this.state.lists.map(this.renderListItem, this)
   }
 
   render () {

@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import SpentForm from '../SpentForm/SpentForm.jsx'
 import SpentList from '../SpentList/SpentList.jsx'
+import Loading from '../Loading/Loading.jsx'
 import Title from '../Title/Title.jsx'
 import api from '../../modules/api'
 import cloneAndMutate from '../../modules/clone-and-mutate'
+import css from './screen-list.css'
 
 const stringBack = 'Back'
 
@@ -78,42 +80,47 @@ export default class ScreenList extends Component {
     this.setState({ readyToDeleteId: id })
   }
 
-  getContent () {
-    if (this.state.isLoaded) {
-      const items = this.state.currentList.items
-
-      if (items.length) {
-        return (
-          <SpentList
-            items={items}
-            readyToDeleteId={this.state.readyToDeleteId}
-            onReadyToDelete={this.setReadyToDelete}
-            onItemDelete={this.deleteItem} />
-        )
-      }
-    }
-  }
-
-  getTitle () {
+  renderTitle () {
     if (this.state.isLoaded) {
       return (
-        <Title
-          back={<Link to='/'>{stringBack}</Link>}>
+        <Title back={<Link to='/'>{stringBack}</Link>}>
           {this.state.currentList.name}
         </Title>
       )
     }
   }
 
+  renderContent () {
+    const items = this.state.currentList.items
+
+    if (items.length) {
+      return (
+        <SpentList
+          items={items}
+          readyToDeleteId={this.state.readyToDeleteId}
+          onReadyToDelete={this.setReadyToDelete}
+          onItemDelete={this.deleteItem} />
+      )
+    }
+  }
+
   render () {
+    if (!this.state.isLoaded) {
+      return (
+        <div className={css.loading}>
+          <Loading />
+        </div>
+      )
+    }
+
     return (
       <div>
-        {this.getTitle()}
+        <Title back={<Link to='/'>{stringBack}</Link>}>
+          {this.state.currentList.name}
+        </Title>
         <div onClick={this.unsetReadyToDelete}>
-          <SpentForm
-            onItemAdd={this.addItem} />
-
-          {this.getContent()}
+          <SpentForm onItemAdd={this.addItem} />
+          {this.renderContent()}
         </div>
       </div>
     )
