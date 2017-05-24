@@ -56,10 +56,9 @@ export default class ScreenList extends Component {
   }
 
   deleteItem (id) {
-    const deletedIndex = this.state.currentList.items.findIndex(item => item.id === id)
-
     this.setState(cloneAndMutate(state => {
-      state.currentList.items[deletedIndex].isLoading = true
+      const index = this.state.currentList.items.findIndex(item => item.id === id)
+      state.currentList.items[index].isLoading = true
     }))
 
     api.deleteItem(this.state.listId, id)

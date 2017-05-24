@@ -11,6 +11,7 @@
 - animations
   - delete list button swipe animation
   - figure out why clicking into list element forces animation to hop to the beginning
+- switching between components before data is loaded
 
 ## DB
 - connection pool
