@@ -70,9 +70,12 @@ const ListsItem = ({ children, link, date, count, isLoading, isReadyToDelete, on
 
   if (isLoading) {
     control = renderLoading()
-    onClick = (e) => e.preventDefault()
   } else {
     control = renderDeleteButton(onDelete)
+  }
+
+  if (isLoading || isReadyToDelete) {
+    onClick = (e) => e.preventDefault()
   }
 
   return (
