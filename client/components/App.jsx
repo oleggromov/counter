@@ -20,6 +20,15 @@ const handleError = (err) => {
   console.error(err)
 }
 
+const getComponentRender = (Component, commonProps) => {
+  return (props) => {
+    const renderProps = Object.assign({}, commonProps, props)
+    return (
+      <Component {...renderProps} />
+    )
+  }
+}
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -61,10 +70,12 @@ export default class App extends Component {
       onError: handleError
     }
 
-    const login = () => <ScreenLogin {...screenProps} />
-    const main = () => <ScreenMain {...screenProps} />
-    const list = () => <ScreenList {...screenProps} />
-    const settings = () => <ScreenSettings onDeleteUser={this.deleteUser.bind(this)} {...screenProps} />
+    const login = getComponentRender(ScreenLogin, screenProps)
+    const main = getComponentRender(ScreenMain, screenProps)
+    const list = getComponentRender(ScreenList, screenProps)
+    const settings = getComponentRender(ScreenSettings, Object.assign({}, screenProps, {
+      onDeleteUser: this.deleteUser.bind(this)
+    }))
 
     return (
       <Router>
