@@ -15,6 +15,11 @@ const mediaType = detectMedia({
   '(min-device-width: 800px)': 'desktop'
 })
 
+const handleError = (err) => {
+  window.alert('Error! Open dev console for details')
+  console.error(err)
+}
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -52,16 +57,23 @@ export default class App extends Component {
       classes = `${classes} app_desktop`
     }
 
-    const settingsScreen = () => <ScreenSettings onDeleteUser={this.deleteUser.bind(this)} />
+    const screenProps = {
+      onError: handleError
+    }
+
+    const login = () => <ScreenLogin {...screenProps} />
+    const main = () => <ScreenMain {...screenProps} />
+    const list = () => <ScreenList {...screenProps} />
+    const settings = () => <ScreenSettings onDeleteUser={this.deleteUser.bind(this)} {...screenProps} />
 
     return (
       <Router>
         <div className={classes}>
           <Layout loginData={this.state.loginData}>
-            <Route path='/' exact component={ScreenMain} />
-            <Route path='/lists/:id' component={ScreenList} />
-            <Route path='/auth/login' component={ScreenLogin} />
-            <Route path='/settings' component={settingsScreen} />
+            <Route path='/auth/login' render={login} />
+            <Route exact path='/' render={main} />
+            <Route path='/lists/:id' render={list} />
+            <Route path='/settings' render={settings} />
           </Layout>
         </div>
       </Router>
