@@ -5,6 +5,7 @@ import SpentList from '../SpentList/SpentList.jsx'
 import Loading from '../Loading/Loading.jsx'
 import Title from '../Title/Title.jsx'
 import api from '../../modules/api'
+import cloneDeep from 'lodash/cloneDeep'
 import cloneAndMutate from '../../modules/clone-and-mutate'
 import css from './screen-list.css'
 
@@ -37,15 +38,7 @@ export default class ScreenList extends Component {
   }
 
   addItem (item) {
-    const loadingId = Date.now()
-
-    item.isLoading = true
-    item.id = loadingId
-
-    this.setState(cloneAndMutate(state => {
-      state.currentList.items.unshift(item)
-      state.currentList.itemsCount++
-    }))
+    const loadingId = this.addIntermediateItem(item)
 
     api.createItem(this.state.listId, item)
       .then(({data}) => {
@@ -55,6 +48,20 @@ export default class ScreenList extends Component {
           items[insertedIndex] = data
         }))
       })
+  }
+
+  addIntermediateItem (item) {
+    item = cloneDeep(item)
+
+    item.isLoading = true
+    item.id = Date.now()
+
+    this.setState(cloneAndMutate(state => {
+      state.currentList.items.unshift(item)
+      state.currentList.itemsCount++
+    }))
+
+    return item.id
   }
 
   deleteItem (id) {

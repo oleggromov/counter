@@ -5,6 +5,7 @@ import ListEdit from '../ListEdit/ListEdit.jsx'
 import Loading from '../Loading/Loading.jsx'
 import api from '../../modules/api'
 import cloneAndMutate from '../../modules/clone-and-mutate'
+import cloneDeep from 'lodash/cloneDeep'
 import css from './screen-main.css'
 
 const handleError = err => {
@@ -30,12 +31,7 @@ export default class ScreenMain extends Component {
   }
 
   addList (list) {
-    const loadingId = Date.now()
-
-    list.isLoading = true
-    list.id = loadingId
-
-    this.setState(cloneAndMutate(state => state.lists.push(list)))
+    const loadingId = this.addIntermediateList(list)
 
     api.createList(list)
       .then(({data}) => {
@@ -45,6 +41,17 @@ export default class ScreenMain extends Component {
         }))
       })
       .catch(handleError)
+  }
+
+  addIntermediateList (list) {
+    list = cloneDeep(list)
+
+    list.isLoading = true
+    list.id = Date.now()
+
+    this.setState(cloneAndMutate(state => state.lists.push(list)))
+
+    return list.id
   }
 
   deleteList (id) {
