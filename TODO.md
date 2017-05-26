@@ -6,12 +6,11 @@
 - client side error handling
 
 ## ToDo
-- Add `loading` state to all components that load data
 - Adjust screen paddings to a real phone screen size
 - animations
   - delete list button swipe animation
   - figure out why clicking into list element forces animation to hop to the beginning
-- switching between components before data is loaded
+- [find out a good solution](https://github.com/ReactTraining/react-router/issues/4407#issuecomment-304395759) to prevent navigation before data sync is finished.
 
 ## DB
 - connection pool
