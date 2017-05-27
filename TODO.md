@@ -1,9 +1,8 @@
 # Current version (0.1)
 
 ## Check it
-- are the server-side errors in promises handled correctly?
-- FB auth cases
 - client side error handling
+- FB auth cases
 
 ## ToDo
 - Adjust screen paddings to a real phone screen size
@@ -21,6 +20,7 @@
 - different ports / hosts
 - replace moment.js and brush up date types throughout the app
 - static files caching
+- logging server-side errors
 
 ## Deploy / publication
 
