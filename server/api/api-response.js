@@ -1,3 +1,6 @@
+// Change this in production environment
+const sendErrors = true
+
 function APIResponse ({ status, error, data }) {
   this.isError = Boolean(error)
   this.status = status
@@ -29,6 +32,27 @@ APIResponse.CODES = {
   SERVER_ERROR: 500
 }
 
+const getClientErrData = (err) => {
+  let clientData
+
+  if (err instanceof Error) {
+    if (sendErrors) {
+      clientData = {
+        name: err.name,
+        message: err.message
+      }
+    } else {
+      clientData = {
+        type: 'Server logic error'
+      }
+    }
+
+    return clientData
+  }
+
+  return err
+}
+
 APIResponse.getDefaultCatch = (errorText) => {
   return (err) => {
     if (err instanceof APIResponse) {
@@ -38,7 +62,7 @@ APIResponse.getDefaultCatch = (errorText) => {
     return new APIResponse({
       status: APIResponse.CODES.SERVER_ERROR,
       error: {
-        data: err,
+        data: getClientErrData(err),
         message: errorText
       }
     })
