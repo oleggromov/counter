@@ -4,24 +4,8 @@ const SQL = require('./sql')
 const hasPermission = require('./has-permission')
 
 const getList = (defaultError, {userId, listId}, {excludeItems}) => {
-  // TODO: this check is likely to never work
-  // because if list doesn't exist, the user has no permission
-  // to access it
-  // const checkIfListExists = results => {
-  //   if (!results.length) {
-  //     throw new APIResponse({
-  //       status: APIResponse.CODES.NOT_FOUND,
-  //       error: {
-  //         message: defaultError
-  //       }
-  //     })
-  //   }
-  //   return results
-  // }
-
   return hasPermission({ userId, listId })
     .then(() => Promise.all([
-      // makeQuery(SQL.getList, [listId]).then(checkIfListExists),
       makeQuery(SQL.getList, [listId]),
       makeQuery(SQL.listItems, [listId])
     ]))
