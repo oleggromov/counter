@@ -4,23 +4,15 @@ const SQL = require('./sql')
 const hasPermission = require('./has-permission')
 
 /**
- * Deletes the list and returns delete id
+ * Deletes the list and returns delete id.
+ * Note: there's a bug-feature: the user will always receive
+ * a "no permission" error when trying to delete an absent
+ * list even if it was owned by that user before.
  */
 const deleteList = (defaultError, {userId, listId}) => {
   return hasPermission({ userId, listId })
     .then(() => makeQuery(SQL.deletePermission, [userId, listId]))
     .then(() => makeQuery(SQL.deleteList, [listId]))
-    // This never works because of permission check
-    // .then(result => {
-    //   if (result.affectedRows === 0) {
-    //     throw new APIResponse({
-    //       status: APIResponse.CODES.GONE,
-    //       error: {
-    //         message: `Cannot delete list with id=${listId}`
-    //       }
-    //     })
-    //   }
-    // })
     .then(result => new APIResponse({
       status: APIResponse.CODES.OK,
       data: {
