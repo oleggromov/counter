@@ -4,20 +4,18 @@ const sendErrors = true
 function APIResponse ({ status, error, data }) {
   this.isError = Boolean(error)
   this.status = status
+  this.error = error
 
   if (!this.status) {
     throw new Error('APIResponse: no status has been specified')
   }
 
   this.data = data
-  if (error) {
-    this.errors = [error]
-  }
 }
 
 APIResponse.prototype.toData = function () {
   return {
-    errors: this.isError ? this.errors : null,
+    error: this.isError ? this.error : null,
     data: this.isError ? null : this.data
   }
 }

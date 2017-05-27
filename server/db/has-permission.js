@@ -9,8 +9,7 @@ const hasPermission = ({userId, listId}) => {
         throw new APIResponse({
           status: APIResponse.CODES.UNAUTHORIZED,
           error: {
-            message: 'Access is not permitted',
-            data: result.length
+            message: 'Access is not permitted'
           }
         })
       }
