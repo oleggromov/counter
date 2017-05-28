@@ -1,0 +1,68 @@
+@import '../../styles/fonts.css';
+@value sizeFontCaption, sizeFontMain, padding from '../../styles/sizes.css';
+@value transitionLength: 0.3s;
+
+.root {
+	position: fixed;
+	left: -100%;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0;
+	transition: opacity transitionLength ease, left 0.01s ease transitionLength;
+}
+
+.show {
+	opacity: 1;
+	left: 0;
+}
+
+.bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(192,0,0,.7);
+}
+
+.message {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 80vw;
+	height: 80vh;
+	box-sizing: border-box;
+	padding: padding;
+	top: -100%;
+	left: 10vw;
+	background: white;
+	box-shadow: 0 0 5px rgba(0,0,0,.3);
+	transition: top transitionLength ease transitionLength;
+}
+
+.show .message {
+	top: 10vh;
+}
+
+.title {
+	composes: fontBold;
+	font-size: sizeFontCaption;
+}
+
+.text {
+	overflow-y: scroll;
+	flex-grow: 10;
+	margin: padding 0;
+	font-size: sizeFontMain;
+	font-family: monospace;
+}
+
+.dismiss {
+	composes: fontNormal;
+	text-align: center;
+}
+
+.dismissText {
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
