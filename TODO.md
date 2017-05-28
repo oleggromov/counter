@@ -4,10 +4,8 @@
 - FB auth cases
 
 ## ToDo
-- animations
-  - figure out why clicking into list element forces animation to hop to the beginning
-- [find out a good solution](https://github.com/ReactTraining/react-router/issues/4407#issuecomment-304395759) to prevent navigation before data sync is finished.
-- brush up API response class usage, especially in the auth parth
+
+- brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 
 ## DB
@@ -43,7 +41,7 @@
 - i18n
 - https
 
-## Think about
+## ToDo
 
 - items and lists editing
 - **appearance**
@@ -53,24 +51,23 @@
   - find out how to make error message transitions for blurring/opacity and whatsoever more gradual
 - off-line working web app, wouldn't it be great?
 - Denchik: make interface elements bigger
-
-## Tests
-- API tests:
-  - write tests
-  - figure out how to pass by the authorization for testing
-  - and how to *actually test* it
-- client-side tests
-
-## Tech stuff
-
+- [find out a good solution](https://github.com/ReactTraining/react-router/issues/4407#issuecomment-304395759) to prevent navigation before data sync is finished.
+- tests:
+  - API tests
+    - write tests
+    - figure out how to pass by the authorization for testing
+    - and how to *actually test* it
+  - client-side tests
 - directory structure
 - brush up css/markup for different browsers
 - start counting the age of items in the background without page reload
 - add `postcss-autoreset`
 - find out why the user ids are increased as crazy
+- animations
+  - figure out why clicking into list element forces animation to hop to the beginning
 - [safari iOS delete button swipe animation bug](https://github.com/daneden/animate.css/issues/519#issuecomment-304545710)
 
-# Figure out / ToDo
+## Figure out
 
 - figure out how to switch to Immutable.js for immutable states
 - timezones, do they work as expected?
