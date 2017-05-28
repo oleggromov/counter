@@ -28,7 +28,7 @@ export default class ScreenSettings extends Component {
   }
 
   render () {
-    const backLink = <Link to='/'>Back</Link>
+    const backLink = <Link to='/'>Main screen</Link>
 
     return (
       <div>
