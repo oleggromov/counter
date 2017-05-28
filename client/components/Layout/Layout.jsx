@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from './layout.css'
+import css from './layout.css'
 import Header from '../Header/Header.jsx'
 import User from '../User/User.jsx'
 import gearIcon from './gear.svg'
@@ -11,28 +11,33 @@ const settingsLink = '/settings'
 const renderSettings = (render) => {
   if (render) {
     return (
-      <Link className={styles.settings} to={settingsLink} dangerouslySetInnerHTML={{__html: gearIcon}} />
+      <Link className={css.settings} to={settingsLink} dangerouslySetInnerHTML={{__html: gearIcon}} />
     )
   }
 }
 
-const Layout = ({ loginData, children }) => {
+const Layout = ({ loginData, children, blur }) => {
   const userIsLogged = Boolean(loginData)
   const user = <User data={loginData} />
+  let classes = css.layout
+
+  if (blur) {
+    classes = `${classes} ${css.blur}`
+  }
 
   return (
-    <div className={styles.layout}>
-      <div className={styles.header}>
+    <div className={classes}>
+      <div className={css.header}>
         <Header rightComponent={user} />
       </div>
 
-      <div className={styles.content}>
+      <div className={css.content}>
         {children}
       </div>
 
-      <div className={styles.footer}>
-        <div className={styles.footerLayout}>
-          <div className={styles.copyright}>
+      <div className={css.footer}>
+        <div className={css.footerLayout}>
+          <div className={css.copyright}>
             Made in 2017 by Oleg Gromov,{' '}
             <a href={github}>source code</a>
           </div>
