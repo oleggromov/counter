@@ -30,22 +30,10 @@ APIResponse.CODES = {
   SERVER_ERROR: 500
 }
 
-const getClientErrData = (err) => {
-  let clientData
-
+/* TODO: figure out how it actually works */
+const getClientErrText = (err) => {
   if (err instanceof Error) {
-    if (sendErrors) {
-      clientData = {
-        name: err.name,
-        message: err.message
-      }
-    } else {
-      clientData = {
-        type: 'Server logic error'
-      }
-    }
-
-    return clientData
+    return sendErrors ? err.message : 'Server logic error'
   }
 
   return err
@@ -60,7 +48,7 @@ APIResponse.getDefaultCatch = (errorText) => {
     return new APIResponse({
       status: APIResponse.CODES.SERVER_ERROR,
       error: {
-        data: getClientErrData(err),
+        text: getClientErrText(err),
         message: errorText
       }
     })

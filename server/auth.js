@@ -100,6 +100,7 @@ module.exports = (app) => {
 
       deleteUser(req.user.id).then(sendResponse, sendResponse)
     } else {
+      // Get rid of code duplication
       res.status(APIResponse.CODES.UNAUTHORIZED)
       res.send({
         error: 'Unauthorized',
