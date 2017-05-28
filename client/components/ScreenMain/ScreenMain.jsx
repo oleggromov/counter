@@ -8,11 +8,6 @@ import cloneAndMutate from '../../modules/clone-and-mutate'
 import cloneDeep from 'lodash/cloneDeep'
 import css from './screen-main.css'
 
-const handleError = err => {
-  console.warn('Error!')
-  console.log(err)
-}
-
 export default class ScreenMain extends Component {
   constructor (props) {
     super(props)
@@ -40,7 +35,7 @@ export default class ScreenMain extends Component {
           state.lists[insertedIndex] = data
         }))
       })
-      .catch(handleError)
+      .catch(this.props.onError)
   }
 
   addIntermediateList (list) {
@@ -68,7 +63,7 @@ export default class ScreenMain extends Component {
           })
         }))
       })
-      .catch(handleError)
+      .catch(this.props.onError)
   }
 
   componentWillMount () {
@@ -79,7 +74,7 @@ export default class ScreenMain extends Component {
           pendingLoad: false
         })
       })
-      .catch(handleError)
+      .catch(this.props.onError)
   }
 
   renderListItem (item) {

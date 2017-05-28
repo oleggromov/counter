@@ -35,6 +35,7 @@ export default class ScreenList extends Component {
           isLoaded: true
         })
       })
+      .catch(this.props.onError)
   }
 
   addItem (item) {
@@ -48,6 +49,7 @@ export default class ScreenList extends Component {
           items[insertedIndex] = data
         }))
       })
+      .catch(this.props.onError)
   }
 
   addIntermediateItem (item) {
@@ -77,6 +79,7 @@ export default class ScreenList extends Component {
           state.currentList.itemsCount--
         }))
       })
+      .catch(this.props.onError)
   }
 
   setReadyToDelete (id) {
