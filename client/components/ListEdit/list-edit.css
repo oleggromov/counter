@@ -8,13 +8,8 @@
 	margin-top: 2em;
 }
 
-.forceHardware {
-	transform: translateZ(0);
-}
-
 /* animated frame */
 .frame {
-	composes: forceHardware;
 	width: 100%;
 	transition: transform 0.3s ease;
 }
@@ -33,10 +28,6 @@
 .main,
 .mode {
 	composes: section;
-}
-
-.main {
-	composes: forceHardware;
 }
 
 /* mode */

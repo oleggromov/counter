@@ -3,7 +3,6 @@
 
 .row {
 	position: relative;
-	transform: translate3d(0,0,0);
 	transition: 0.3s ease;
 	display: flex;
 	align-items: baseline;

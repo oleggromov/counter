@@ -1,10 +1,10 @@
 import React from 'react'
-import styles from './spent-list-item.css'
+import css from './spent-list-item.css'
 import Loading from '../Loading/Loading.jsx'
 
 const renderDeleteButton = (onDelete) => {
   return (
-    <div className={styles.delete}>
+    <div className={css.delete}>
       <span onClick={onDelete}>Delete</span>
     </div>
   )
@@ -12,19 +12,19 @@ const renderDeleteButton = (onDelete) => {
 
 const renderLoading = () => {
   return (
-    <div className={styles.loading}>
+    <div className={css.loading}>
       <Loading />
     </div>
   )
 }
 
 const getClasses = (isLoading, isReadyToDelete) => {
-  let classes = styles.row
+  let classes = css.row
 
   if (isLoading) {
-    classes = `${classes} ${styles.isLoading}`
+    classes = `${classes} ${css.isLoading}`
   } else if (isReadyToDelete) {
-    classes = `${classes} ${styles.readyToDelete}`
+    classes = `${classes} ${css.readyToDelete}`
   }
 
   return classes
@@ -46,13 +46,13 @@ const SpentListItem = ({ currency, value, name, isReadyToDelete, onReadyToDelete
 
   return (
     <div className={classes} onClick={onClick}>
-      <div className={styles.currency}>
+      <div className={css.currency}>
         {currency}
       </div>
-      <div className={styles.value}>
+      <div className={css.value}>
         {value.toFixed(2)}
       </div>
-      <div className={styles.name}>
+      <div className={css.name}>
         {name}
       </div>
 

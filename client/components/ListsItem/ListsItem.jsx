@@ -65,18 +65,8 @@ const renderCount = (count, isLoading) => {
 const ListsItem = ({ children, link, date, count, isLoading, isReadyToDelete, onDelete }) => {
   const classes = getClasses(isLoading, isReadyToDelete)
 
-  let control
-  let onClick
-
-  if (isLoading) {
-    control = renderLoading()
-  } else {
-    control = renderDeleteButton(onDelete)
-  }
-
-  if (isLoading || isReadyToDelete) {
-    onClick = (e) => e.preventDefault()
-  }
+  const control = isLoading ? renderLoading() : renderDeleteButton(onDelete)
+  const onClick = isLoading || isReadyToDelete ? (e) => e.preventDefault() : null
 
   return (
     <Link className={classes} to={link} onClick={onClick}>
