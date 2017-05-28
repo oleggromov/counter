@@ -4,7 +4,6 @@
 - FB auth cases
 
 ## ToDo
-- Adjust screen paddings to a real phone screen size
 - animations
   - delete list button swipe animation
   - figure out why clicking into list element forces animation to hop to the beginning
@@ -69,6 +68,7 @@
 - brush up css/markup for different browsers
 - start counting the age of items in the background without page reload
 - add `postcss-autoreset`
+- find out why the user ids are increased as crazy
 
 # Figure out / ToDo
 
