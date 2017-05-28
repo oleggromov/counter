@@ -95,10 +95,15 @@ module.exports = (app) => {
         res.status(response.status)
         res.json(response.toData())
         res.end()
-        req.session.destroy()
       }
 
-      deleteUser(req.user.id).then(sendResponse, sendResponse)
+      deleteUser(req.user.id)
+        .then(response => {
+          sendResponse(response)
+          if (response.status === APIResponse.CODES.OK) {
+            req.session.destroy()
+          }
+        })
     } else {
       // Get rid of code duplication
       res.status(APIResponse.CODES.UNAUTHORIZED)

@@ -35,6 +35,8 @@ export default class App extends Component {
       errors: [],
       currentError: null
     }
+
+    this.dispatchError = this.dispatchError.bind(this)
   }
 
   componentWillMount () {
@@ -53,10 +55,7 @@ export default class App extends Component {
         window.alert(data.data.message)
         window.location.href = afterDeletedUrl
       })
-      .catch((err) => {
-        window.alert('Uncaught error! See the dev console')
-        console.error(err)
-      })
+      .catch(this.dispatchError)
   }
 
   dispatchError (originalError) {
@@ -103,7 +102,7 @@ export default class App extends Component {
     }
 
     const screenProps = {
-      onError: this.dispatchError.bind(this)
+      onError: this.dispatchError
     }
 
     const login = getComponentRender(ScreenLogin, screenProps)
