@@ -32,8 +32,9 @@ export default class App extends Component {
 
     this.state = {
       loginData: null,
-      errors: [],
-      currentError: null
+      messages: [],
+      currentMessage: null,
+      messageIsVisible: false
     }
 
     this.dispatchError = this.dispatchError.bind(this)
@@ -41,57 +42,65 @@ export default class App extends Component {
 
   componentWillMount () {
     api.getAuthInfo()
-      .then(({data}) => {
-        this.setState({ loginData: data })
-      })
-      .catch(() => {
-        this.setState({ loginData: null })
-      })
+      .then(({data}) => this.setState({ loginData: data }))
+      .catch(() => this.setState({ loginData: null }))
   }
 
   deleteUser () {
     api.deleteData()
       .then((data) => {
-        window.alert(data.data.message)
-        window.location.href = afterDeletedUrl
+        this.addMessage({
+          title: 'Success!',
+          text: data.data.message,
+          isInfo: true,
+          onAfterClose: () => {
+            window.location.href = afterDeletedUrl
+          }
+        })
       })
       .catch(this.dispatchError)
   }
 
   dispatchError (originalError) {
     const { message, text } = originalError.error
-    const err = {
+    this.addMessage({
       title: message,
       text
-    }
+    })
+  }
 
+  addMessage (msg) {
     this.setState(cloneAndMutate(state => {
-      if (!state.currentError) {
-        state.currentError = err
+      if (!state.messageIsVisible) {
+        state.currentMessage = msg
+        state.messageIsVisible = true
       } else {
-        state.errors.push(err)
+        state.messages.push(msg)
       }
     }))
   }
 
-  showNextError () {
-    if (this.state.errors.length) {
+  showNextMessage () {
+    if (this.state.messages.length) {
       this.setState(cloneAndMutate(state => {
-        state.currentError = state.errors.shift()
+        state.currentMessage = state.messages.shift()
       }))
     } else {
-      this.setState({ currentError: null })
+      this.setState({ messageIsVisible: false })
     }
   }
 
   renderMessage () {
-    const error = this.state.currentError || { title: null, text: null }
+    const message = this.state.currentMessage || {}
 
     return (
       <Message
-        title={error.title}
-        text={error.text}
-        onClose={this.showNextError.bind(this)} />
+        title={message.title}
+        text={message.text}
+        isVisible={this.state.messageIsVisible}
+        isInfo={message.isInfo}
+        onClose={this.showNextMessage.bind(this)}
+        onAfterClose={message.onAfterClose} />
     )
   }
 
@@ -112,12 +121,10 @@ export default class App extends Component {
       onDeleteUser: this.deleteUser.bind(this)
     }))
 
-    const hasError = Boolean(this.state.currentError)
-
     return (
       <Router>
         <div className={classes}>
-          <Layout loginData={this.state.loginData} blur={hasError}>
+          <Layout loginData={this.state.loginData} blur={this.state.messageIsVisible}>
             <Route path='/auth/login' render={login} />
             <Route exact path='/' render={main} />
             <Route path='/lists/:id' render={list} />

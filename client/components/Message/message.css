@@ -8,8 +8,6 @@
 	top: 0;
 	width: 100vw;
 	height: 100vh;
-	opacity: 0;
-	transition: opacity transitionLength ease, left 0.01s ease transitionLength;
 }
 
 .show {
@@ -23,7 +21,22 @@
 	height: 100%;
 	left: 0;
 	top: 0;
+	opacity: 0;
+	transition: opacity transitionLength ease;
+}
+
+.show .bg {
+	opacity: 1;
+}
+
+.bgError {
+	composes: bg;
 	background: rgba(192,0,0,.7);
+}
+
+.bgInfo {
+	composes: bg;
+	background: rgba(0,0,0,.7);
 }
 
 .message {
