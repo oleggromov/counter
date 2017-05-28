@@ -1,7 +1,6 @@
 # Current version (0.1)
 
 ## Check it
-- client side error handling
 - FB auth cases
 
 ## ToDo
@@ -10,6 +9,7 @@
   - delete list button swipe animation
   - figure out why clicking into list element forces animation to hop to the beginning
 - [find out a good solution](https://github.com/ReactTraining/react-router/issues/4407#issuecomment-304395759) to prevent navigation before data sync is finished.
+- brush up API response class usage, especially in the auth parth
 
 ## DB
 - connection pool
