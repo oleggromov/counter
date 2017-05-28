@@ -10,6 +10,7 @@
   - figure out why clicking into list element forces animation to hop to the beginning
 - [find out a good solution](https://github.com/ReactTraining/react-router/issues/4407#issuecomment-304395759) to prevent navigation before data sync is finished.
 - brush up API response class usage, especially in the auth parth
+- refactor the whole auth module
 
 ## DB
 - connection pool
@@ -51,6 +52,7 @@
   - beautiful client-side errors instead of alerts
   - animation between states
   - figure out how to expand the long text element
+  - find out how to make error message transitions for blurring/opacity and whatsoever more gradual
 - off-line working web app, wouldn't it be great?
 - Denchik: make interface elements bigger
 
