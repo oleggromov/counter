@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const CssoWebpackPlugin = require('csso-webpack-plugin').default
 
 const selectorFormat = '[name]__[local]___[hash:base64:5]'
 const extPlugin = new ExtractTextPlugin('styles.css')
@@ -10,6 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 const plugins = isProduction
   ? [
     extPlugin,
+    new CssoWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')

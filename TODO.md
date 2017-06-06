@@ -59,6 +59,7 @@
 - animations
   - figure out why clicking into list element forces animation to hop to the beginning
 - [safari iOS delete button swipe animation bug](https://github.com/daneden/animate.css/issues/519#issuecomment-304545710)
+- set the server-side production env variable only once instead of checking `process.env.NODE_ENV` variable
 
 ## Figure out
 
