@@ -3,20 +3,16 @@ const passport = require('passport')
 const Strategy = require('passport-facebook').Strategy
 const createAndGetUser = require('./db/create-and-get-user')
 const log = require('./modules/log')
-const config = require('./config')
+const config = require('./config')(process.env.NODE_ENV === 'production')
 const APIResponse = require('./api/api-response')
 const deleteUser = require('./db/actions').deleteUser
-
-// Change to production values
-const fbAppSecret = '5a4dfa6321739f7c89345a25d8220e6b'
-const cookieSecret = 'bfa6c5df923efce3c06b38e9c85616f9'
 
 const URLs = require('../common/api-constants').urls
 
 module.exports = (app) => {
   passport.use(new Strategy({
-    clientID: '470519336672906',
-    clientSecret: fbAppSecret,
+    clientID: config.clientID,
+    clientSecret: config.fbAppSecret,
     callbackURL: `${config.protocol}://${config.host}:${config.port}${URLs.AUTH_FB_CB}`,
     profileFields: ['id', 'displayName', 'photos']
   }, (accessToken, refreshToken, profile, done) => {
@@ -39,7 +35,7 @@ module.exports = (app) => {
 
   app.use(session({
     name: 'sid',
-    secret: cookieSecret,
+    secret: config.cookieSecret,
     resave: true,
     saveUninitialized: true
   }))
