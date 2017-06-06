@@ -10,7 +10,8 @@ const config = {
     staticPath: './public/static',
 
     db: {
-      host: 'localhost'
+      host: 'localhost',
+      connectionLimit: 10
     }
   },
 
@@ -22,7 +23,8 @@ const config = {
     staticPath: null,
 
     db: {
-      host: null
+      host: null,
+      connectionLimit: null
     }
   }
 }

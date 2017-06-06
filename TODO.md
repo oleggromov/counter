@@ -8,19 +8,16 @@
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 
-## DB
-- connection pool
-- indexes, are they needed?
-
 ## Production version
 - minification / uglification
-- different ports / hosts
 - replace moment.js and brush up date types throughout the app
 - static files caching
 - logging server-side errors
 
 ## Deploy / publication
 
+- production config
+  - different ports / hosts
 - find out how/where to deploy
 - make a production App on Facebook
 - how to log what happens
@@ -70,3 +67,4 @@
 
 - figure out how to switch to Immutable.js for immutable states
 - timezones, do they work as expected?
+- DB indexes, are they needed?

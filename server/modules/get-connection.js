@@ -8,7 +8,7 @@ const getConnection = () => {
     debug: enableDebug
   })
 
-  return mysql.createConnection(config)
+  return mysql.createPool(config)
 }
 
 module.exports = getConnection
