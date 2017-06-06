@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import SpentListDay from '../SpentListDay/SpentListDay.jsx'
 import ContainerSpentListItem from '../ContainerSpentListItem/ContainerSpentListItem.jsx'
 import groupItemsByDays from './group-items-by-days.js'
@@ -31,7 +30,7 @@ const SpentList = (props) => {
 
   const renderDay = dayItems => {
     const currentDay = dayItems[0].date
-    const key = moment(currentDay).valueOf()
+    const key = new Date(currentDay).valueOf()
 
     return (
       <SpentListDay

@@ -6,7 +6,6 @@
 - refactor the whole auth module
 
 ## Production version
-- replace moment.js and brush up date types throughout the app
 - static files caching
 - logging server-side errors
 

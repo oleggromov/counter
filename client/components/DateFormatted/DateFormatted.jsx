@@ -1,23 +1,17 @@
 import React from 'react'
-import moment from 'moment'
-
-const full = 'MMMM D, YYYY'
-const contracted = 'MMM D, YYYY'
-const tiny = 'MMMM D'
+import { isCurrentYear, format, FORMATS } from '../../modules/date-helpers'
 
 /**
  * Date component
- * @param {Date|String|Moment} props.date
+ * @param {Date|String} props.date
  */
-export default function Date (props) {
-  const date = moment(props.date)
-  const yearDiffers = moment().year() !== date.year()
-  const dateFormat = yearDiffers
-    ? props.contracted
-      ? contracted
-      : full
-    : tiny
-  const formatted = date.format(dateFormat)
+export default function DateFormatted (props) {
+  const dateFormat = isCurrentYear(props.date)
+    ? FORMATS.TINY
+    : props.contracted
+      ? FORMATS.CONTRACTED
+      : FORMATS.FULL
+  const formatted = format(props.date, dateFormat)
 
   return (
     <span>
