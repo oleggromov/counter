@@ -1,3 +1,5 @@
+/* global __PRODUCTION__ */
+
 import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
 
 const Headers = window.Headers
@@ -76,7 +78,7 @@ const requests = {
   }
 }
 
-const profilingEnabled = true
+const profilingEnabled = !(__PRODUCTION__)
 const profile = name => {
   profilingEnabled && console.time(`api:${name}`)
 }

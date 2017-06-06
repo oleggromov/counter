@@ -1,10 +1,7 @@
 # Current version (0.1)
 
-## Check it
-- FB auth cases
-
 ## ToDo
-
+- check FB auth cases
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 
