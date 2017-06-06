@@ -23,7 +23,6 @@
 
 - find out how/where to deploy
 - make a production App on Facebook
-  - figure out where to store all the App private data as ids/hash strings
 - how to log what happens
 - database backup
 - **presentation**
