@@ -14,7 +14,9 @@
     "dev-ip": "webpack-dev-server --host $(ipconfig getifaddr en0)",
     "lint": "standard --verbose | snazzy",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db-mocks": "mysql -u counter <  ./server/sql/mocks.sql"
+    "db-mocks": "mysql -u counter <  ./server/sql/mocks.sql",
+    "secrets-encrypt": "openssl aes-256-cbc -a -salt -in ./server/config/secrets.js -out ./server/config/secrets.b64.enc",
+    "secrets-decrypt": "openssl aes-256-cbc -d -a -in ./server/config/secrets.b64.enc -out ./server/config/secrets.js"
   },
   "standard": {
     "parser": "babel-eslint",
