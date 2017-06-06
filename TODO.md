@@ -5,17 +5,13 @@
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 
-## Production version
-- static files caching
-- logging server-side errors
-
 ## Deploy / publication
 
 - production config
   - different ports / hosts
 - find out how/where to deploy
 - make a production App on Facebook
-- how to log what happens
+- logging server-side errors
 - database backup
 - **presentation**
   - write a nice readme
@@ -24,6 +20,9 @@
   - write the second part of "how I made it"
   - brush up the first and publish both of them on the website
     - publish on social networks
+- static files caching
+  - web server settings?
+  - bundle versioning
 
 # Next version (1.0?)
 
