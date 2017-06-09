@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run express",
     "remove-static": "rm -rf server/public/*; cp client/index.html server/public",
     "build": "npm run remove-static; webpack",
     "build:prod": "npm run remove-static; NODE_ENV=production webpack",
