@@ -21,8 +21,8 @@
     "lint": "standard --verbose | snazzy",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db-mocks": "mysql -u counter <  ./server/sql/mocks.sql",
-    "secrets-encrypt": "openssl aes-256-cbc -a -salt -in ./server/config/secrets.js -out ./server/config/secrets.js.enc",
-    "secrets-decrypt": "openssl aes-256-cbc -d -a -in ./server/config/secrets.js.enc -out ./server/config/secrets.js"
+    "secrets-encrypt": "./scripts/encdec.sh encrypt",
+    "secrets-decrypt": "./scripts/encdec.sh decrypt"
   },
   "standard": {
     "parser": "babel-eslint",
