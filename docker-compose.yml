@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    expose:
+      - '3306'
+    env_file:
+      - secrets.env
+
+  app:
+    build:
+      context: .
+      dockerfile: app-dev.Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - secrets.env
+    depends_on:
+      - mysql
