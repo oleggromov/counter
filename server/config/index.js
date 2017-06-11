@@ -1,5 +1,5 @@
 const merge = require('lodash/merge')
-const secrets = require('./secrets')
+const secrets = require('../../secrets/secrets.js')
 
 const config = {
   DEV: {
