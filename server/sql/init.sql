@@ -3,7 +3,8 @@
 # GRANT ALL PRIVILEGES ON `counter_0_1` . * TO 'counter'@'localhost';
 # FLUSH PRIVILEGES;
 
-CREATE DATABASE IF NOT EXISTS `counter_0_1`
+CREATE DATABASE IF NOT EXISTS `counter_0_1`;
+ALTER DATABASE `counter_0_1`
 	DEFAULT CHARSET `utf8`
 	DEFAULT COLLATE `utf8_general_ci`;
 
@@ -18,13 +19,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`facebookId` VARCHAR(128) NOT NULL UNIQUE,
 	PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `lists` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `permissions` (
 	`userId` INT NOT NULL,
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 	PRIMARY KEY (`userId`, `listId`),
 	FOREIGN KEY (`userId`) REFERENCES `users`(`id`),
 	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `items` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -42,5 +43,5 @@ CREATE TABLE IF NOT EXISTS `items` (
 	`value` DECIMAL(10,2) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`listId`) REFERENCES `lists`(`id`)
-);
+) ENGINE=InnoDB;
 
