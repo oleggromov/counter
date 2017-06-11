@@ -1,4 +1,5 @@
 node_modules/
 server/public/
 server/config/secrets.js
+secrets.env
 .DS_Store

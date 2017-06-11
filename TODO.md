@@ -1,12 +1,15 @@
 # Current version (0.1)
 
 ## ToDo
+
+- handle absent db connection error (not redirect to a main screen)
 - check FB auth cases
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 
 ## Deploy / publication
 
+- encrypt all secrets with one command
 - production config
   - different ports / hosts
 - find out how/where to deploy
