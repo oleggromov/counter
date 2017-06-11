@@ -2,6 +2,7 @@
 
 ## ToDo
 
+- figure out why item removal logic doesn't work
 - handle absent db connection error (not redirect to a main screen)
 - check FB auth cases
 - brush up API response class usage, especially in the auth part
