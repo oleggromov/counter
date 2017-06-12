@@ -1,6 +1,6 @@
 /* global __PRODUCTION__ */
 
-import { getMysqlDateString, getDiffInSeconds } from './date-helpers'
+import { getDiffInSeconds } from './date-helpers'
 
 const Headers = window.Headers
 const Request = window.Request
@@ -159,7 +159,7 @@ export default {
   [requestTypes.GET_LIST]: (listId) => makeApiRequest(requestTypes.GET_LIST, null, {listId}, markDeletableList),
   [requestTypes.CREATE_ITEM]: (listId, itemData) => {
     itemData = Object.assign({}, itemData, {
-      date: getMysqlDateString(new Date())
+      date: Date.now()
     })
     return makeApiRequest(requestTypes.CREATE_ITEM, itemData, {listId}, markDeletableItem)
   },

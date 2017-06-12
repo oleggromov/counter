@@ -1,5 +1,3 @@
-const getMysqlDateString = require('../../common/get-mysql-date-string')
-
 const getDiffInSeconds = (before, after) => {
   return (new Date(after) - new Date(before)) / 1000
 }
@@ -43,7 +41,6 @@ const format = (originDate, format) => {
 }
 
 export {
-  getMysqlDateString,
   getDiffInSeconds,
   isCurrentYear,
   format,

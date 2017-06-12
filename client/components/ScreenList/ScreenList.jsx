@@ -54,9 +54,11 @@ export default class ScreenList extends Component {
 
   addIntermediateItem (item) {
     item = cloneDeep(item)
+    const now = Date.now()
 
     item.isLoading = true
-    item.id = Date.now()
+    item.id = now
+    item.date = now
 
     this.setState(cloneAndMutate(state => {
       state.currentList.items.unshift(item)
