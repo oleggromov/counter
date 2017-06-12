@@ -13,6 +13,9 @@ services:
     build:
       context: .
       dockerfile: app-dev.Dockerfile
+    # this is used only for dev needs
+    volumes:
+      - ./:/usr/src/app
     ports:
       - 3000:3000
     env_file:
