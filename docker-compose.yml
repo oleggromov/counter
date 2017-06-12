@@ -12,10 +12,9 @@ services:
   app:
     build:
       context: .
-      dockerfile: app-dev.Dockerfile
-    # this is used only for dev needs
-    volumes:
-      - ./:/usr/src/app
+      dockerfile: app.Dockerfile
+      args:
+        NODE_ENV: production
     ports:
       - 3000:3000
     env_file:

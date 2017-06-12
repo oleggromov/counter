@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    build:
+      args:
+        NODE_ENV: development
+    command: npm run express
+    volumes:
+      - ./:/usr/src/app

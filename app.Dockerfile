@@ -12,10 +12,11 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app
-RUN npm install && npm cache clean --force
+# figure out how to deal with it
+RUN npm --production=false install
 RUN npm install -g nodemon
 RUN npm run build
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD npm run express-noupdate
