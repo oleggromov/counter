@@ -2,7 +2,6 @@
 
 ## ToDo
 
-- figure out why item removal logic doesn't work
 - handle absent db connection error (not redirect to a main screen)
 - check FB auth cases
 - brush up API response class usage, especially in the auth part
@@ -65,5 +64,4 @@
 ## Figure out
 
 - figure out how to switch to Immutable.js for immutable states
-- timezones, do they work as expected?
 - DB indexes, are they needed?
