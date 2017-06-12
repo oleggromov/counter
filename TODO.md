@@ -6,10 +6,10 @@
 - check FB auth cases
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
+- replace MemoryStore session storage with something production ready
 
 ## Deploy / publication
 
-- encrypt all secrets with one command
 - production config
   - different ports / hosts
 - find out how/where to deploy
@@ -65,3 +65,4 @@
 
 - figure out how to switch to Immutable.js for immutable states
 - DB indexes, are they needed?
+- how to correctly use `dependencies` and `devDependencies` in `package.json` (https://github.com/npm/npm/issues/6803#issuecomment-75621914)
