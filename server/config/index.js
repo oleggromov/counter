@@ -3,6 +3,7 @@ const secrets = require('../../secrets/secrets.js')
 
 const commonConfig = {
   protocol: 'http',
+  port: 3000,
 
   staticPath: './public/static',
 
@@ -17,13 +18,11 @@ const commonConfig = {
 
 const config = {
   DEV: {
-    host: 'localhost',
-    port: 3000
+    host: 'localhost'
   },
 
   PRODUCTION: {
-    host: 'counter-test.oleggromov.com',
-    port: 80
+    host: 'counter-test.oleggromov.com'
   }
 }
 
