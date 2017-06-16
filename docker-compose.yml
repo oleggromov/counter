@@ -9,12 +9,11 @@ services:
 
   app:
     image: repo.treescale.com/oleggromov/counter_app:0.0.1-first
-    build:
-      args:
-        NODE_ENV: production
     ports:
       - 80:3000
     env_file:
       - secrets/secrets.env
+    environment:
+      NODE_ENV: production
     depends_on:
       - mysql
