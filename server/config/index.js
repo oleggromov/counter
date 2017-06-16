@@ -1,10 +1,8 @@
 const merge = require('lodash/merge')
 const secrets = require('../../secrets/secrets.js')
 
-const config = {
+const commonConfig = {
   protocol: 'http',
-  host: 'localhost',
-  port: 3000,
 
   staticPath: './public/static',
 
@@ -17,8 +15,20 @@ const config = {
   }
 }
 
+const config = {
+  DEV: {
+    host: 'localhost',
+    port: 3000
+  },
+
+  PRODUCTION: {
+    host: 'counter-test.oleggromov.com',
+    port: 80
+  }
+}
+
 module.exports = isProd => {
   const env = isProd ? 'PRODUCTION' : 'DEV'
 
-  return merge(config, secrets[env])
+  return merge(commonConfig, config[env], secrets[env])
 }
