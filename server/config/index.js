@@ -9,6 +9,10 @@ const config = {
   staticPath: './public/static',
 
   db: {
+    host: process.env.DB_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     connectionLimit: 10
   }
 }

@@ -11,7 +11,7 @@ const URLs = require('../common/api-constants').urls
 
 module.exports = (app) => {
   passport.use(new Strategy({
-    clientID: config.clientID,
+    clientID: config.appId,
     clientSecret: config.fbAppSecret,
     callbackURL: `${config.protocol}://${config.host}:${config.port}${URLs.AUTH_FB_CB}`,
     profileFields: ['id', 'displayName', 'photos']
