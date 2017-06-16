@@ -18,11 +18,13 @@ const commonConfig = {
 
 const config = {
   DEV: {
-    host: 'localhost'
+    host: 'localhost',
+    publicPort: 3000
   },
 
   PRODUCTION: {
-    host: 'counter-test.oleggromov.com'
+    host: 'counter-test.oleggromov.com',
+    publicPort: 80
   }
 }
 

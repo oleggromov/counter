@@ -13,7 +13,7 @@ module.exports = (app) => {
   passport.use(new Strategy({
     clientID: config.appId,
     clientSecret: config.fbAppSecret,
-    callbackURL: `${config.protocol}://${config.host}:${config.port}${URLs.AUTH_FB_CB}`,
+    callbackURL: `${config.protocol}://${config.host}:${config.publicPort}${URLs.AUTH_FB_CB}`,
     profileFields: ['id', 'displayName', 'photos']
   }, (accessToken, refreshToken, profile, done) => {
     // TODO understand what happens here
