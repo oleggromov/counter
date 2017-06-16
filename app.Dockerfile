@@ -1,5 +1,5 @@
 FROM node:8.1.0
-MAINTAINER Oleg Gromov <hi@oleggromov.com>
+LABEL maintainer Oleg Gromov <hi@oleggromov.com>
 
 # takes env from docker-compose.yml
 ARG NODE_ENV
