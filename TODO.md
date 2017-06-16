@@ -7,6 +7,7 @@
 - brush up API response class usage, especially in the auth part
 - refactor the whole auth module
 - replace MemoryStore session storage with something production ready
+- separate dev/production secrets file for security reasons
 
 ## Deploy / publication
 
