@@ -1,22 +1,19 @@
 version: '3'
 services:
   mysql:
-    build:
-      context: .
-      dockerfile: mysql.Dockerfile
+    image: repo.treescale.com/oleggromov/counter_mysql:0.0.1-first
     expose:
       - '3306'
     env_file:
       - secrets/secrets.env
 
   app:
+    image: repo.treescale.com/oleggromov/counter_app:0.0.1-first
     build:
-      context: .
-      dockerfile: app.Dockerfile
       args:
         NODE_ENV: production
     ports:
-      - 3000:3000
+      - 80:3000
     env_file:
       - secrets/secrets.env
     depends_on:
