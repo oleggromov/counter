@@ -8,10 +8,7 @@
     "url": "https://github.com/oleggromov/counter"
   },
   "scripts": {
-    "docker-build": "docker-compose build",
-    "docker-dev-build": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml build",
-    "docker-up": "docker-compose up",
-    "docker-dev-up": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
+    "docker-build": "./scripts/docker-build.sh",
     "remove-static": "rm -rf server/public/*; cp client/index.html server/public",
     "build": "npm run remove-static; webpack",
     "build-watch": "npm run remove-static; webpack --hot --watch",
