@@ -23,7 +23,7 @@ const config = {
   },
 
   PRODUCTION: {
-    host: 'counter-test.oleggromov.com',
+    host: 'counter-demo.oleggromov.com',
     publicPort: 80
   }
 }

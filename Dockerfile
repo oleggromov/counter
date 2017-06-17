@@ -1,7 +1,7 @@
 FROM node:8.1.0
 LABEL maintainer Oleg Gromov <hi@oleggromov.com>
 
-# takes env from docker-compose.yml
+# takes env either from command line or docker-compose.yml
 ARG NODE_ENV
 # passes it to a build stage
 ENV NODE_ENV $NODE_ENV
