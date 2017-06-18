@@ -1,6 +1,4 @@
 node_modules/
 server/public/
 .DS_Store
-secrets/secrets.env
-secrets/secrets.js
 secrets/docker-repository.sh
