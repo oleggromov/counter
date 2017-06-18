@@ -1,5 +1,5 @@
 // Change this in production environment
-const sendErrors = !(process.env.NODE_ENV === 'production')
+const sendErrors = process.env.SEND_API_ERRORS
 
 function APIResponse ({ status, error, data }) {
   this.isError = Boolean(error)

@@ -3,7 +3,7 @@ const passport = require('passport')
 const Strategy = require('passport-facebook').Strategy
 const createAndGetUser = require('./db/create-and-get-user')
 const log = require('./modules/log')
-const config = require('./config')(process.env.NODE_ENV === 'production')
+const config = require('./config')
 const APIResponse = require('./api/api-response')
 const deleteUser = require('./db/actions').deleteUser
 

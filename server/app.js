@@ -1,7 +1,7 @@
 const express = require('express')
 const auth = require('./auth')
 const bodyParser = require('body-parser')
-const config = require('./config')(process.env.NODE_ENV === 'production')
+const config = require('./config')
 const resolveToRoot = require('./modules/resolve-to-root')
 const apiRouter = require('./api/router')
 const { apiRoot, urls } = require('../common/api-constants')

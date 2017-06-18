@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-const dbConfig = require('../config')(process.env.NODE_ENV === 'production').db
+const dbConfig = require('../config').db
 
 const enableDebug = false
 
